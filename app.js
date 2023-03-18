@@ -36,94 +36,97 @@ app.get('/excel', async function(req, res){
 
     // await _wb.xlsx.writeFile('IMPORT_TNVED_6302_16_03.xlsx')
 
-    function createImport(new_products) {
-        const fileName = './public/IMPORT.xlsx'
-
+    async function createImport(new_products) {
+        const fileName = './public/IMPORT_TNVED_6302 (3).xlsx'
+        
         const wb = new exl.Workbook()
-        const ws = wb.addWorksheet('IMPORT')        
+
+        await wb.xlsx.readFile(fileName)
+
+        const ws = wb.getWorksheet('IMPORT_TNVED_6302')
 
         let cellNumber = 5
 
-        const r1 = ws.getRow(1)
-        r1.values = ['Код ТНВЭД', 'Полное наименование товара', 'Товарный знак', 'Модель / артикул производителя', '', 'Вид товара', 'Цвет', 'Возраст потребителя', 'Тип текстиля', 'Состав', 'Размер изделия', 'Код ТНВЭД', 'Номер Регламента/стандарта', 'Статус карточки товара в Каталоге', 'Результат обработки данных в Каталоге']
-        r1.eachCell((cell, cn) => {
-            cell.alignment = {vertical: 'bottom', horizontal: 'center'}
-        })
-        r1.font = {name: 'Arial', size: 10, bold: true}
+        // const r1 = ws.getRow(1)
+        // r1.values = ['Код ТНВЭД', 'Полное наименование товара', 'Товарный знак', 'Модель / артикул производителя', '', 'Вид товара', 'Цвет', 'Возраст потребителя', 'Тип текстиля', 'Состав', 'Размер изделия', 'Код ТНВЭД', 'Номер Регламента/стандарта', 'Статус карточки товара в Каталоге', 'Результат обработки данных в Каталоге']
+        // r1.eachCell((cell, cn) => {
+        //     cell.alignment = {vertical: 'bottom', horizontal: 'center'}
+        // })
+        // r1.font = {name: 'Arial', size: 10, bold: true}
 
-        r1.eachCell((cell, cn) => {
-            cell.fill = {
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor:{argb: 'FFFB00'}
-            }
-        })
+        // r1.eachCell((cell, cn) => {
+        //     cell.fill = {
+        //         type: 'pattern',
+        //         pattern: 'solid',
+        //         fgColor:{argb: 'FFFB00'}
+        //     }
+        // })
 
-        r1.getCell(15).fill = {
-            type:'pattern',
-            pattern:'solid',
-            fgColor:{argb:'E3E3E3'}
-        }
+        // r1.getCell(15).fill = {
+        //     type:'pattern',
+        //     pattern:'solid',
+        //     fgColor:{argb:'E3E3E3'}
+        // }
 
-        r1.getCell(15).font = {
-            name: 'Arial',
-            bold: false,
-            size: 10
-        }
+        // r1.getCell(15).font = {
+        //     name: 'Arial',
+        //     bold: false,
+        //     size: 10
+        // }
 
-        const rows = ws.getRows(2, 348)
+        // const rows = ws.getRows(2, 348)
 
-        rows.forEach(el => {
-            el.font = {name: 'Arial', size: 10}
-        })
+        // rows.forEach(el => {
+        //     el.font = {name: 'Arial', size: 10}
+        // })
 
-        ws.mergeCells('D1:E1')
+        // ws.mergeCells('D1:E1')
 
-        const r2 = ws.getRow(2)
-        r2.values = ['Tnved', '2478', '2504', '13914', '13914', '12', '36', '557', '13967', '2483', '15435', '13933', '13836', 'status','result']
-        ws.mergeCells('D2:E2')
-        r2.eachCell((cell, cn) => {
-            cell.alignment = {vertical: 'bottom', horizontal: 'center'}
-        })
-        r2.eachCell((cell, cn) => {
-            cell.fill = {
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor:{argb:'E3E3E3'}
-            }
-        })
+        // const r2 = ws.getRow(2)
+        // r2.values = ['Tnved', '2478', '2504', '13914', '13914', '12', '36', '557', '13967', '2483', '15435', '13933', '13836', 'status','result']
+        // ws.mergeCells('D2:E2')
+        // r2.eachCell((cell, cn) => {
+        //     cell.alignment = {vertical: 'bottom', horizontal: 'center'}
+        // })
+        // r2.eachCell((cell, cn) => {
+        //     cell.fill = {
+        //         type: 'pattern',
+        //         pattern: 'solid',
+        //         fgColor:{argb:'E3E3E3'}
+        //     }
+        // })
 
-        const r3 = ws.getRow(3)
-        r3.values = ['value', 'value', 'value', 'type', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 'value']
-        r3.eachCell((cell, cn) => {
-            cell.alignment = {vertical: 'bottom', horizontal: 'center'}
-        })
-        r3.eachCell((cell, cn) => {
-            cell.fill = {
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor:{argb:'E3E3E3'}
-            }
-        })
+        // const r3 = ws.getRow(3)
+        // r3.values = ['value', 'value', 'value', 'type', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 'value']
+        // r3.eachCell((cell, cn) => {
+        //     cell.alignment = {vertical: 'bottom', horizontal: 'center'}
+        // })
+        // r3.eachCell((cell, cn) => {
+        //     cell.fill = {
+        //         type: 'pattern',
+        //         pattern: 'solid',
+        //         fgColor:{argb:'E3E3E3'}
+        //     }
+        // })
 
-        const r4 = ws.getRow(4)
-        r4.values = ['', 'Текстовое значение', 'Значение из справочника, Текстовое значение', 'Тип (из справочника)', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое поле (Черновик или На модерации)', 'Заполняется автоматически при загрузке в систему']
-        r4.eachCell((cell, cn) => {
-            cell.alignment = {vertical: 'bottom', horizontal: 'center'}
-        })
-        r4.eachCell((cell, cn) => {
-            cell.fill = {
-                type: 'pattern',
-                pattern: 'solid',
-                fgColor:{argb:'E3E3E3'}
-            }
-        })
+        // const r4 = ws.getRow(4)
+        // r4.values = ['', 'Текстовое значение', 'Значение из справочника, Текстовое значение', 'Тип (из справочника)', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое поле (Черновик или На модерации)', 'Заполняется автоматически при загрузке в систему']
+        // r4.eachCell((cell, cn) => {
+        //     cell.alignment = {vertical: 'bottom', horizontal: 'center'}
+        // })
+        // r4.eachCell((cell, cn) => {
+        //     cell.fill = {
+        //         type: 'pattern',
+        //         pattern: 'solid',
+        //         fgColor:{argb:'E3E3E3'}
+        //     }
+        // })
 
-        r4.getCell(15).fill = {
-            type: 'pattern',
-            pattern: 'solid',
-            fgColor:{argb:'FFC096'}
-        }
+        // r4.getCell(15).fill = {
+        //     type: 'pattern',
+        //     pattern: 'solid',
+        //     fgColor:{argb:'FFC096'}
+        // }
                
         for(i = 0; i < new_products.length; i++) {
             if(new_products[i].indexOf('Постельное') < 0) {
@@ -195,14 +198,33 @@ app.get('/excel', async function(req, res){
             }
         }
 
-        wb.xlsx
-            .writeFile(fileName)
-            .then(() => {
-                console.log('File refresh: success')
-            })
-            .catch(err => {
-                console.log(err.message)
-            })
+        ws.unMergeCells('D2')
+
+        ws.getCell('E2').value = '13914'
+
+        ws.getCell('E2').fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor:{argb:'E3E3E3'}
+        }
+
+        ws.getCell('E2').font = {
+            size: 10,
+            name: 'Arial'
+        }
+
+        ws.getCell('E2').alignment = {
+            horizontal: 'center',
+            vertical: 'bottom'
+        }
+
+        // ws.mergeCells('D2:E2')
+
+        const date_ob = new Date()
+
+        let month = date_ob.getMonth() + 1
+
+        month < 10 ? await wb.xlsx.writeFile(`./public/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}.xlsx`) : await wb.xlsx.writeFile(`./public/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}.xlsx`)
 
     }
 
@@ -277,11 +299,11 @@ app.get('/excel', async function(req, res){
 
     getOrdersList(1, 1)
 
-    let html = ''
-    // let _html = ''
     const wb = new exl.Workbook()
     
     const fileName = './public/Краткий отчет.xlsx'
+
+    let html = ''
 
     wb.xlsx.readFile(fileName).then(() => {
         
