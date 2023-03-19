@@ -1,0 +1,203 @@
+try {
+  (function() {
+    const env = window.__config.environment;
+    if (env !== 'PRODUCTION') {
+      return;
+    }
+
+    /**
+      Ошибка с кастомным именем - SentryLoaderError
+      Это ошибки (от xhr и fetch) произошедшие до загрузки основного Sentry SDK
+    */
+    const SentryLoaderError = (function() {
+      function SentryLoaderError(message, metadata = undefined) {
+        let _this;
+        _this = Error.prototype.constructor.call(this, message);
+        _this.name = 'SentryLoaderError';
+
+        if (metadata) {
+          _this.url = metadata.url;
+          _this.status = metadata.status;
+        }
+
+        return _this;
+      }
+
+      Object.setPrototypeOf(SentryLoaderError.prototype, Error.prototype);
+      return SentryLoaderError;
+    })();
+
+    const oldOnunhandledrejection = window.onunhandledrejection;
+    const oldOnerror = window.onerror;
+
+    window.__sentryLoader = {
+      queue: [],
+      errorQueue: [],
+      rejectionQueue: [],
+      originalMethods: {
+        xhrOpen: XMLHttpRequest.prototype.open,
+        fetch: window.fetch,
+      },
+      restore() {
+        window.XMLHttpRequest.prototype.open = window.__sentryLoader.originalMethods.xhrOpen;
+        window.fetch = window.__sentryLoader.originalMethods.fetch;
+        window.onunhandledrejection = oldOnunhandledrejection;
+        window.onerror = oldOnerror;
+      }
+    };
+
+    const sentryLoader = window.__sentryLoader;
+
+    function queuePush() {
+      const args = Array.prototype.map.call(arguments, arg => arg);
+
+      sentryLoader.queue.push((sentry) => {
+        sentry.captureException.apply(null, args);
+      })
+    }
+
+    /** 1. onerror handler */
+    window.onerror = function() {
+      const args = Array.prototype.map.call(arguments, arg => arg);
+      sentryLoader.errorQueue.push(args);
+    };
+
+    /** 2. onunhandledrejection handler */
+    window.onunhandledrejection = function (event) {
+      sentryLoader.rejectionQueue.push(event);
+    };
+
+    /** 3. XhrHttpRequest patch */
+    (function xhrPatch() {
+      const REQUEST_SETUP_KEY = 'AK~~S';
+      const REQUEST_URL_KEY = 'AK~~U';
+      const REQUEST_METHOD_KEY = 'AK~~M';
+
+      if (!('addEventListener' in window.XMLHttpRequest.prototype)) { return; }
+      const originalXhrOpen = sentryLoader.originalMethods.xhrOpen;
+
+      // Override native open()
+      window.XMLHttpRequest.prototype.open = function open(method, url) {
+        // store url and HTTP method for later
+        this[REQUEST_URL_KEY] = url;
+        this[REQUEST_METHOD_KEY] = method;
+
+        // if we have already setup listeners, it means open() was called twice, we need to remove
+        // the listeners and recreate them
+        if (this[REQUEST_SETUP_KEY]) {
+          this.removeEventListener('load', handleXHRLoad);
+          this.removeEventListener('error', handleXHRError);
+        }
+
+        // attach load event listener
+        this.addEventListener('load', handleXHRLoad);
+        this.addEventListener('error', handleXHRError);
+
+        this[REQUEST_SETUP_KEY] = true;
+
+        originalXhrOpen.apply(this, arguments);
+      };
+
+      function handleXHRLoad() {
+        const url = this[REQUEST_URL_KEY];
+
+        if (url === undefined) {
+          console.error('XMLHttpRequest error: no url');
+          queuePush(new SentryLoaderError('XHR error: no url'));
+          return;
+        }
+
+        const metadata = {
+          status: this.status,
+          request: `${this[REQUEST_METHOD_KEY]} ${this[REQUEST_URL_KEY]}`,
+        };
+
+        if (this.status >= 400) {
+          console.error('XMLHttpRequest failed', metadata);
+          queuePush(new SentryLoaderError(`XHR failed: ${metadata.status}, ${metadata.request}`));
+        }
+      }
+
+      function handleXHRError() {
+        const url = this[REQUEST_URL_KEY];
+
+        // No URL
+        if (url === undefined) {
+          console.error('XHR failed: no URL');
+          queuePush(new SentryLoaderError('XHR: no URL'));
+          return;
+        }
+
+        // Failed to contact server
+        console.error('XHR: server contact failed', {
+          request: `${this[REQUEST_METHOD_KEY]} ${this[REQUEST_URL_KEY]}`,
+        });
+        queuePush(new SentryLoaderError(`XHR: server contact failed ${this[REQUEST_METHOD_KEY]} ${this[REQUEST_URL_KEY]}`));
+      }
+    })();
+
+    /** 4. fetch patch */
+    (function fetchPatch() {
+      if (!('fetch' in window)) {
+        return;
+      }
+      const oldFetch = sentryLoader.originalMethods.fetch;
+
+      const handleFetchSuccess = (response, method, url) => {
+        const metadata = {
+          status: response.status,
+          method,
+          url,
+        };
+        if (response.status >= 400 || !response.ok) {
+          console.error('Failed to fetch', metadata, response);
+          queuePush(new SentryLoaderError(`Failed to fetch: ${response.status}, ${method}, ${url}`, metadata));
+        }
+      };
+
+      const handleFetchError = (method, url) => {
+        console.error('Failed to fetch', { request: `${method} ${url}` });
+        queuePush(new SentryLoaderError(`Failed to fetch: ${method}, ${url}`));
+      };
+
+      window.fetch = function fetch(urlOrRequest, options) {
+        let method;
+        let url = null;
+
+        if (urlOrRequest && typeof urlOrRequest === 'object') {
+          url = urlOrRequest.url;
+          if (options && 'method' in options) {
+            method = options.method;
+          } else if (urlOrRequest && 'method' in urlOrRequest) {
+            method = urlOrRequest.method;
+          }
+        } else {
+          url = urlOrRequest;
+          if (options && 'method' in options) {
+            method = options.method;
+          }
+        }
+
+        if (method === undefined) {
+          method = 'GET';
+        }
+
+        const parentArgs = arguments;
+
+        return new Promise((resolve, reject) => {
+          oldFetch(...parentArgs)
+            .then((response) => {
+              handleFetchSuccess(response, method, url);
+              resolve(response);
+            })
+            .catch((error) => {
+              handleFetchError(method, url);
+              reject(error);
+            });
+        });
+      };
+    })();
+  })();
+} catch (err) {
+  console.error('sentry loader - ошибка при запуске скрипта', err);
+}
