@@ -219,21 +219,21 @@ function H(a,b,c,d){Uc(a);null!=d?Xc(d,b):d=void 0;return ad(a,c,d)}
 function jd(a,b,c,d,e){Uc(a);null!=e?Xc(e,b):e=void 0;fd(a,c,d,e)}
 function kd(a,b,c,d,e){Uc(a);var f=null==d?Tc:Nc([]);if(null!=d){for(var g=!!d.length,h=0;h<d.length;h++){var k=d[h];Xc(k,b);g=g&&!(F(k.M)&2);f[h]=k.M}b=f;g=(g?8:0)|1;f=F(b);(f&g)!==g&&(Object.isFrozen(b)&&(b=Array.prototype.slice.call(b)),Mc(b,f|g));f=b;a.ca||(a.ca={});a.ca[c]=d}else a.ca&&(a.ca[c]=void 0);return ad(a,c,f,e)}
 function ld(a,b,c,d){var e=F(a.M);if(e&2)throw Error();var f=!!(e&2);a.ca||(a.ca={});var g=a.ca[b],h=bd(a,b,3,void 0,f);if(g)!f&&Object.isFrozen(g)&&(g=Array.prototype.slice.call(g),a.ca[b]=g),f=g;else{var k=h;f=[];g=!!(e&2);var l=!!(F(k)&2);h=k;!g&&l&&(k=Array.prototype.slice.call(k));e|=l?2:0;for(var m=0;m<k.length;m++){var n=k[m];var r=c;Array.isArray(n)?(Yc(n,e),n=new r(n)):n=void 0;void 0!==n&&(l||(l=!!(2&F(n.M))),f.push(n))}a.ca[b]=f;l=!l;m=F(k);e=m|33;e=l?e|8:e&-9;m!=e&&(Object.isFrozen(k)&&
-(k=Array.prototype.slice.call(k)),Mc(k,e));h!==k&&ad(a,b,k);g&&Jc(f,18)}c=null!=d?Xc(d,c):new c;a=bd(a,b,2,void 0,!1);f.push(c);a.push(c.M);F(c.M)&2&&Kc(a,8)}
+(k=Array.prototype.slice.call(k)),Mc(k,e));h!==k&&ad(a,b,k);g&&Jc(f,18);g&&Object.freeze(f)}c=null!=d?Xc(d,c):new c;a=bd(a,b,2,void 0,!1);f.push(c);a.push(c.M);F(c.M)&2&&Kc(a,8)}
 function md(a,b){a=$c(a,b);return null==a?"":a}
 function nd(a,b){var c=gd(a,od)===b;return $c(a,c?b:-1)}
 ;var pd;function qd(a){switch(typeof a){case "number":return isFinite(a)?a:String(a);case "object":if(a)if(Array.isArray(a)){if(0!==(F(a)&128))return a=Array.prototype.slice.call(a),Vc(a),a}else if(Gc&&null!=a&&a instanceof Uint8Array){if(Hc){for(var b="";10240<a.length;)b+=String.fromCharCode.apply(null,a.subarray(0,10240)),a=a.subarray(10240);b+=String.fromCharCode.apply(null,a);a=btoa(b)}else a=Fc(a);return a}}return a}
-;function rd(a,b,c,d){if(null!=a){if(Array.isArray(a))a=sd(a,b,c,void 0!==d);else if(Rc(a)){var e={},f;for(f in a)e[f]=rd(a[f],b,c,d);a=e}else a=b(a,d);return a}}
-function sd(a,b,c,d){var e=F(a);d=d?!!(e&16):void 0;a=Array.prototype.slice.call(a);for(var f=0;f<a.length;f++)a[f]=rd(a[f],b,c,d);c(e,a);return a}
+;function rd(a,b,c,d,e){if(null!=a){if(Array.isArray(a))a=e&&0==a.length&&F(a)&1?void 0:sd(a,b,c,void 0!==d,e);else if(Rc(a)){var f={},g;for(g in a)f[g]=rd(a[g],b,c,d,e);a=f}else a=b(a,d);return a}}
+function sd(a,b,c,d,e){var f=F(a);d=d?!!(f&16):void 0;a=Array.prototype.slice.call(a);for(var g=0;g<a.length;g++)a[g]=rd(a[g],b,c,d,e);c(f,a);return a}
 function td(a){return a.Pb===Qc?a.toJSON():qd(a)}
 function ud(a,b){a&128&&Vc(b)}
-;function vd(a,b,c){c=void 0===c?Pc:c;if(null!=a){if(Gc&&a instanceof Uint8Array)return b?a:new Uint8Array(a);if(Array.isArray(a)){var d=F(a);if(d&2)return a;if(b&&!(d&32)&&(d&16||0===d))return Mc(a,d|18),a;a=sd(a,vd,d&4?Pc:c,!0);b=F(a);b&4&&b&2&&Object.freeze(a);return a}return a.Pb===Qc?wd(a):a}}
+;function vd(a,b,c){c=void 0===c?Pc:c;if(null!=a){if(Gc&&a instanceof Uint8Array)return b?a:new Uint8Array(a);if(Array.isArray(a)){var d=F(a);if(d&2)return a;if(b&&!(d&32)&&(d&16||0===d))return Mc(a,d|18),a;a=sd(a,vd,d&4?Pc:c,!0,!1);b=F(a);b&4&&b&2&&Object.freeze(a);return a}return a.Pb===Qc?wd(a):a}}
 function xd(a,b,c,d,e,f,g){(a=a.ca&&a.ca[c])?(d=0<a.length?a[0].constructor:void 0,f=F(a),f&2||(a=eb(a,wd),Pc(f,a),Object.freeze(a)),kd(b,d,c,a,e)):G(b,c,vd(d,f,g),e)}
 function wd(a){if(F(a.M)&2)return a;a=id(a,!0);Jc(a.M,18);return a}
 function id(a,b){var c=a.M,d=[];Jc(d,16);var e=a.constructor.h;e&&d.push(e);e=a.ha;if(e){d.length=c.length;var f={};d[d.length-1]=f}0!==(F(c)&128)&&Vc(d);b=b||F(a.M)&2?Pc:Oc;f=a.constructor;F(d);pd=d;d=new f(d);pd=void 0;a.nc&&(d.nc=a.nc.slice());f=!!(F(c)&16);for(var g=e?c.length-1:c.length,h=0;h<g;h++)xd(a,d,h-a.Ia,c[h],!1,f,b);if(e)for(var k in e)c=e[k],g=+k,Number.isNaN(g),xd(a,d,g,c,!0,f,b);return d}
 ;function J(a,b,c,d){null==a&&(a=pd);pd=void 0;var e=this.constructor.h;if(null==a){a=e?[e]:[];var f=48;var g=!0;d&&(f|=128);Mc(a,f)}else{if(!Array.isArray(a))throw Error();if(e&&e!==a[0])throw Error();f=Jc(a,0)|32;g=0!==(16&f);if(d){if(f|=128,0<a.length){var h=a[a.length-1];if(Rc(h)&&"g"in h){delete h.g;var k=!0,l;for(l in h){k=!1;break}k&&a.pop()}}}else if(128&f)throw Error();Mc(a,f)}this.Ia=e?0:-1;this.ca=void 0;this.M=a;a:{f=this.M.length;e=f-1;if(f&&(f=this.M[e],Rc(f))){this.ha=f;this.h=e-this.Ia;
 break a}void 0!==b&&-1<b?(this.h=Math.max(b,e+1-this.Ia),this.ha=void 0):this.h=Number.MAX_VALUE}if(!d&&this.ha&&"g"in this.ha)throw Error('Unexpected "g" flag in sparse object of message that is not a group type.');if(c){b=g&&!0;d=this.h;var m;for(g=0;g<c.length;g++)e=c[g],e<d?(e+=this.Ia,(f=a[e])?yd(f,b):a[e]=Tc):(m||(m=Zc(this)),(f=m[e])?yd(f,b):m[e]=Tc)}F(this.M)}
-J.prototype.toJSON=function(){var a=this.M,b;Sc?b=a:b=sd(a,td,ud);return b};
+J.prototype.toJSON=function(){var a=this.M,b;Sc?b=a:b=sd(a,td,ud,void 0,!1);return b};
 function zd(a){Sc=!0;try{return JSON.stringify(a.toJSON(),Ad)}finally{Sc=!1}}
 J.prototype.clone=function(){return id(this,!1)};
 function yd(a,b){if(Array.isArray(a)){var c=F(a),d=1;!b||c&2||(d|=16);(c&d)!==d&&Mc(a,c|d)}}

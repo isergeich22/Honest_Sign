@@ -14,27 +14,12 @@ app.get('/excel', async function(req, res){
     const rows = []
     const vendorCodes = []
 
-    // const _wb = new exl.Workbook()
+    
+    const filePath = './public/new_orders/new_orders.html'
 
-    // console.log(_wb)
+    const fileContent = fs.readFileSync(filePath, 'utf-8')
 
-    // await _wb.xlsx.readFile('./public/IMPORT_TNVED_6302 (3).xlsx')
-
-    // const _ws = _wb.getWorksheet('IMPORT_TNVED_6302')
-
-    // const _r2 = _ws.getRow(2)
-
-    // _r2.eachCell((cell, cn) => {
-    //     console.log(cell.value)
-    // })
-
-    // const _r5 = _ws.getRow(5)
-
-    // _r5.eachCell((cell, cn) => {
-    //     cell.value = 'Test'
-    // })
-
-    // await _wb.xlsx.writeFile('IMPORT_TNVED_6302_16_03.xlsx')
+    const content = cio.load(fileContent)
 
     async function createImport(new_products) {
         const fileName = './public/IMPORT_TNVED_6302 (3).xlsx'
@@ -46,87 +31,6 @@ app.get('/excel', async function(req, res){
         const ws = wb.getWorksheet('IMPORT_TNVED_6302')
 
         let cellNumber = 5
-
-        // const r1 = ws.getRow(1)
-        // r1.values = ['Код ТНВЭД', 'Полное наименование товара', 'Товарный знак', 'Модель / артикул производителя', '', 'Вид товара', 'Цвет', 'Возраст потребителя', 'Тип текстиля', 'Состав', 'Размер изделия', 'Код ТНВЭД', 'Номер Регламента/стандарта', 'Статус карточки товара в Каталоге', 'Результат обработки данных в Каталоге']
-        // r1.eachCell((cell, cn) => {
-        //     cell.alignment = {vertical: 'bottom', horizontal: 'center'}
-        // })
-        // r1.font = {name: 'Arial', size: 10, bold: true}
-
-        // r1.eachCell((cell, cn) => {
-        //     cell.fill = {
-        //         type: 'pattern',
-        //         pattern: 'solid',
-        //         fgColor:{argb: 'FFFB00'}
-        //     }
-        // })
-
-        // r1.getCell(15).fill = {
-        //     type:'pattern',
-        //     pattern:'solid',
-        //     fgColor:{argb:'E3E3E3'}
-        // }
-
-        // r1.getCell(15).font = {
-        //     name: 'Arial',
-        //     bold: false,
-        //     size: 10
-        // }
-
-        // const rows = ws.getRows(2, 348)
-
-        // rows.forEach(el => {
-        //     el.font = {name: 'Arial', size: 10}
-        // })
-
-        // ws.mergeCells('D1:E1')
-
-        // const r2 = ws.getRow(2)
-        // r2.values = ['Tnved', '2478', '2504', '13914', '13914', '12', '36', '557', '13967', '2483', '15435', '13933', '13836', 'status','result']
-        // ws.mergeCells('D2:E2')
-        // r2.eachCell((cell, cn) => {
-        //     cell.alignment = {vertical: 'bottom', horizontal: 'center'}
-        // })
-        // r2.eachCell((cell, cn) => {
-        //     cell.fill = {
-        //         type: 'pattern',
-        //         pattern: 'solid',
-        //         fgColor:{argb:'E3E3E3'}
-        //     }
-        // })
-
-        // const r3 = ws.getRow(3)
-        // r3.values = ['value', 'value', 'value', 'type', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 'value', 'value']
-        // r3.eachCell((cell, cn) => {
-        //     cell.alignment = {vertical: 'bottom', horizontal: 'center'}
-        // })
-        // r3.eachCell((cell, cn) => {
-        //     cell.fill = {
-        //         type: 'pattern',
-        //         pattern: 'solid',
-        //         fgColor:{argb:'E3E3E3'}
-        //     }
-        // })
-
-        // const r4 = ws.getRow(4)
-        // r4.values = ['', 'Текстовое значение', 'Значение из справочника, Текстовое значение', 'Тип (из справочника)', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое значение', 'Текстовое поле (Черновик или На модерации)', 'Заполняется автоматически при загрузке в систему']
-        // r4.eachCell((cell, cn) => {
-        //     cell.alignment = {vertical: 'bottom', horizontal: 'center'}
-        // })
-        // r4.eachCell((cell, cn) => {
-        //     cell.fill = {
-        //         type: 'pattern',
-        //         pattern: 'solid',
-        //         fgColor:{argb:'E3E3E3'}
-        //     }
-        // })
-
-        // r4.getCell(15).fill = {
-        //     type: 'pattern',
-        //     pattern: 'solid',
-        //     fgColor:{argb:'FFC096'}
-        // }
                
         for(i = 0; i < new_products.length; i++) {
             if(new_products[i].indexOf('Постельное') < 0) {
@@ -374,63 +278,16 @@ app.get('/excel', async function(req, res){
 
     }
 
-    function updateImport(new_products) {
-        const fileName = './public/IMPORT.xlsx'
-
-        let cellNumber = 5
-
-        const wb = new exl.Workbook()
-        wb.xlsx.readFile(fileName).then(() => {
-            wb.eachSheet((ws, sheetId) => {
-                for(i = 0; i < new_products.length; i++) {
-                    ws.getCell(`B${cellNumber}`).value = new_products[i]
-                    cellNumber++
-                }
-            })
-        })
-
-        let date_ob = new Date()
-
-        console.log(`${(date_ob.getDate()).toString()}_${(date_ob.getMonth()).toString}`)
-
-        wb.xlsx
-            .writeFile(`./public/IMPORT-new.xlsx`)
-            .then(() => {
-                console.log('File updated successfully')
-            })
-            .catch(err => {
-                console.log(err.message)
-            })
-
-    }
-
     function getOrdersList(i, count) {
         if(count === 1) {
-            const filePath = './public/new_orders/new_orders.html'
-
-            const fileContent = fs.readFileSync(filePath, 'utf-8')
-
-            const content = cio.load(fileContent)
-            const spans = content('span')
             const divs = content('.details-cell_propsSecond_f-KWL')
-            // console.log(spans)
-            spans.each((i, elem) => {
-                let str = (content(elem).text()).replace(',', '')
-                if(str.indexOf('00-') >= 0) vendorCodes.push(str)
-            })
-            // console.log(vendorCodes)
             divs.each((i, elem) => {
                 // console.log(content(elem).text())
                 let str = (content(elem).text()).trim()
-                if(str.indexOf('Постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
+                if(str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)                
             })
         } else {
             for(i; i <= count; i++) {
-                const filePath = `./public/new_orders/new_orders_${i}.html`
-
-                const fileContent = fs.readFileSync(filePath, 'utf-8')
-    
-                const content = cio.load(fileContent)
                 const divs = content('.details-cell_propsSecond_f-KWL')
                 divs.each((i, elem) => {
                     // console.log(content(elem).text())
@@ -471,11 +328,9 @@ app.get('/excel', async function(req, res){
             if(elem.indexOf('Постельное') < 0) html += `<p>${elem}</p>`
         })
 
-        // html = '<h1 class="success">Import successfully done</h1>'
         res.send(html)
 
         createImport(difference)
-        // updateImport(nat_cat)
 
     }).catch(err => {
         console.log(err.message)
