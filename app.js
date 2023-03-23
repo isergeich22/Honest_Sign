@@ -30,13 +30,22 @@ app.get('/excel', async function(req, res){
         const ws = wb.getWorksheet('IMPORT_TNVED_6302')
 
         let cellNumber = 5
-               
+
+        const spans = content('span')
+
+        spans.each((i, elem) => {
+            if(content(elem).text().indexOf('00-') === 0) {
+                if(new_products.includes((content(elem.parentNode.nextSibling).text()).trim())) vendorCodes.push(content(elem).text().replace(',', ''))                
+            }
+        })
+
         for(i = 0; i < new_products.length; i++) {
             if(new_products[i].indexOf('Постельное') < 0) {
                 ws.getCell(`A${cellNumber}`).value = '6302'
                 ws.getCell(`B${cellNumber}`).value = new_products[i]
                 ws.getCell(`C${cellNumber}`).value = 'Ивановский текстиль'
                 ws.getCell(`D${cellNumber}`).value = 'Артикул'
+                ws.getCell(`E${cellNumber}`).value = vendorCodes[i]
                 ws.getCell(`H${cellNumber}`).value = 'ВЗРОСЛЫЙ'
                 if(new_products[i].indexOf('Простыня') >= 0) {
                     if(new_products[i].indexOf('на резинке') >= 0) {
@@ -315,13 +324,15 @@ app.get('/excel', async function(req, res){
 
         c2.eachCell(c => {
            nat_cat.push(c.value)
-        })
+        })        
 
         for(i = 0; i < new_orders.length; i++) {
             if(nat_cat.indexOf(new_orders[i]) < 0 && difference.indexOf(new_orders[i]) < 0){
+
                 difference.push(new_orders[i])
+
             }
-        }
+        } 
 
         difference.forEach(elem => {
             if(elem.indexOf('Постельное') < 0) html += `<p>${elem}</p>`
