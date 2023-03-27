@@ -11,8 +11,14 @@ app.get('/excel', async function(req, res){
     const nat_cat = []
     const new_orders = []
     const difference = []
-    const rows = []
     const vendorCodes = []
+
+    // const colorMap = new Map([
+    //     ['БЕЛЫЙ', 'белый'],
+    //     ['ЖЕЛТЫЙ', 'шампань']
+    // ])
+
+    const colors = []
     
     const filePath = './public/new_orders/new_orders.html'
 
@@ -35,7 +41,10 @@ app.get('/excel', async function(req, res){
 
         spans.each((i, elem) => {
             if(content(elem).text().indexOf('00-') === 0) {
-                if(new_products.includes((content(elem.parentNode.nextSibling).text()).trim())) vendorCodes.push(content(elem).text().replace(',', ''))                
+                if(new_products.includes((content(elem.parentNode.nextSibling).text()).trim())) {
+                    vendorCodes.push(content(elem).text().replace(',', ''))
+                    if(content(elem.parentNode.nextSibling).text().indexOf('Белый') >= 0) colors.push('белый')
+                }
             }
         })
 
@@ -46,6 +55,7 @@ app.get('/excel', async function(req, res){
                 ws.getCell(`C${cellNumber}`).value = 'Ивановский текстиль'
                 ws.getCell(`D${cellNumber}`).value = 'Артикул'
                 ws.getCell(`E${cellNumber}`).value = vendorCodes[i]
+                // ws.getCell(`G${cellNumber}`).value = colorMap[colors[i]]
                 ws.getCell(`H${cellNumber}`).value = 'ВЗРОСЛЫЙ'
                 if(new_products[i].indexOf('Простыня') >= 0) {
                     if(new_products[i].indexOf('на резинке') >= 0) {
@@ -282,7 +292,13 @@ app.get('/excel', async function(req, res){
 
         let month = date_ob.getMonth() + 1
 
-        month < 10 ? await wb.xlsx.writeFile(`./public/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}.xlsx`) : await wb.xlsx.writeFile(`./public/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}.xlsx`)
+        let filePath = ''
+
+        month < 10 ? filePath = `./public/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}` : filePath = `./public/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}`
+
+        fs.access(`${filePath}.xlsx`) ? await wb.xlsx.writeFile(`${filePath}_(1).xlsx`) : await wb.xlsx.writeFile(`${filePath}.xlsx`)
+
+        
 
     }
 
@@ -305,8 +321,6 @@ app.get('/excel', async function(req, res){
             }
         }
     }
-
-    // let files = fs.readdir('/new_orders')
 
     getOrdersList(1, 1)
 
