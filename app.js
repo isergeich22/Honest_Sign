@@ -13,12 +13,13 @@ app.get('/excel', async function(req, res){
     const difference = []
     const vendorCodes = []
 
-    // const colorMap = new Map([
-    //     ['БЕЛЫЙ', 'белый'],
-    //     ['ЖЕЛТЫЙ', 'шампань']
-    // ])
-
-    const colors = []
+    const colors = ['БЕЖЕВЫЙ', 'БЕЛЫЙ', 'БИРЮЗОВЫЙ', 'БОРДОВЫЙ', 'БРОНЗОВЫЙ', 'ВАНИЛЬ', 'ВИШНЯ', 'ГОЛУБОЙ', 'ЖЁЛТЫЙ', 'ЗЕЛЁНЫЙ', 'ЗОЛОТОЙ', 'ИЗУМРУДНЫЙ',
+    'КАПУЧИНО', 'КИРПИЧНЫЙ', 'КОРАЛЛОВЫЙ', 'КОРИЧНЕВЫЙ', 'КРАСНЫЙ', 'ЛАЙМ', 'ЛЕОПАРД', 'МАЛИНОВЫЙ', 'МЕДНЫЙ', 'МОЛОЧНЫЙ', 'МЯТНЫЙ', 'ОЛИВКОВЫЙ', 'ОРАНЖЕВЫЙ',
+    'ПЕСОЧНЫЙ', 'ПЕРСИКОВЫЙ', 'ПУРПУРНЫЙ', 'РАЗНОЦВЕТНЫЙ', 'РОЗОВО-БЕЖЕВЫЙ', 'РОЗОВЫЙ', 'СВЕТЛО-БЕЖЕВЫЙ', 'СВЕТЛО-ЗЕЛЕНЫЙ', 'СВЕТЛО-КОРИЧНЕВЫЙ', 'СВЕТЛО-РОЗОВЫЙ',
+    'СВЕТЛО-СЕРЫЙ', 'СВЕТЛО-СИНИЙ', 'СВЕТЛО-ФИОЛЕТОВЫЙ', 'СЕРЕБРЯНЫЙ', 'СЕРО-ЖЕЛТЫЙ', 'СЕРО-ГОЛУБОЙ', 'СЕРЫЙ', 'СИНИЙ', 'СИРЕНЕВЫЙ', 'ЛИЛОВЫЙ', 'СЛИВОВЫЙ',
+    'ТЕМНО-БЕЖЕВЫЙ', 'ТЕМНО-ЗЕЛЕНЫЙ', 'ТЕМНО-КОРИЧНЕВЫЙ', 'ТЕМНО-РОЗОВЫЙ', 'ТЕМНО-СЕРЫЙ', 'ТЕМНО-СИНИЙ', 'ТЕМНО-ФИОЛЕТОВЫЙ', 'ТЕРРАКОТОВЫЙ', 'ФИОЛЕТОВЫЙ',
+    'ФУКСИЯ', 'ХАКИ', 'ЧЕРНЫЙ', 'ШОКОЛАДНЫЙ'
+    ]
     
     const filePath = './public/new_orders/new_orders.html'
 
@@ -55,7 +56,13 @@ app.get('/excel', async function(req, res){
                 ws.getCell(`C${cellNumber}`).value = 'Ивановский текстиль'
                 ws.getCell(`D${cellNumber}`).value = 'Артикул'
                 ws.getCell(`E${cellNumber}`).value = vendorCodes[i]
-                // ws.getCell(`G${cellNumber}`).value = colorMap[colors[i]]
+                for(let c = 0; c < colors.length; c++) {
+                    str = colors[c].toLowerCase()
+                    elem = new_products[i].toLowerCase()
+                    if(elem.indexOf(str) >= 0) {
+                        ws.getCell(`G${cellNumber}`).value = colors[c].toUpperCase()
+                    }
+                }
                 ws.getCell(`H${cellNumber}`).value = 'ВЗРОСЛЫЙ'
 
                 if(new_products[i].indexOf('Постельное') >= 0 || new_products[i].indexOf('Детское') >= 0) {
