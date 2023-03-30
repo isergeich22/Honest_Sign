@@ -49,7 +49,7 @@ app.get('/excel', async function(req, res){
         })
 
         for(i = 0; i < new_products.length; i++) {
-            if(new_products[i].indexOf('Постельное') < 0) {
+            let size = ''            
                 ws.getCell(`A${cellNumber}`).value = '6302'
                 ws.getCell(`B${cellNumber}`).value = new_products[i]
                 ws.getCell(`C${cellNumber}`).value = 'Ивановский текстиль'
@@ -57,6 +57,11 @@ app.get('/excel', async function(req, res){
                 ws.getCell(`E${cellNumber}`).value = vendorCodes[i]
                 // ws.getCell(`G${cellNumber}`).value = colorMap[colors[i]]
                 ws.getCell(`H${cellNumber}`).value = 'ВЗРОСЛЫЙ'
+
+                if(new_products[i].indexOf('Постельное') >= 0 || new_products[i].indexOf('Детское') >= 0) {
+                    ws.getCell(`F${cellNumber}`).value = 'КОМПЛЕКТ'
+                }
+                
                 if(new_products[i].indexOf('Простыня') >= 0) {
                     if(new_products[i].indexOf('на резинке') >= 0) {
                         ws.getCell(`F${cellNumber}`).value = 'ПРОСТЫНЯ НА РЕЗИНКЕ'
@@ -113,149 +118,146 @@ app.get('/excel', async function(req, res){
                 else {ws.getCell(`J${cellNumber}`).value = '100% Хлопок'}
 
                 //Вставка размера начало
-                //Наволочки
-                if(new_products[i].indexOf(' 40х40') >= 0 || new_products[i].indexOf(' 40 х 40') >= 0) ws.getCell(`K${cellNumber}`).value = '40х40'
-                else if(new_products[i].indexOf(' 40х60') >= 0 || new_products[i].indexOf(' 40 х 60') >= 0) ws.getCell(`K${cellNumber}`).value = '40х60'
-                else if(new_products[i].indexOf(' 50х50') >= 0 || new_products[i].indexOf(' 50 х 50') >= 0) ws.getCell(`K${cellNumber}`).value = '50х50'
-                else if(new_products[i].indexOf(' 60х60') >= 0 || new_products[i].indexOf(' 60 х 60') >= 0) ws.getCell(`K${cellNumber}`).value = '60х60'
-                else if(new_products[i].indexOf(' 50х70') >= 0 || new_products[i].indexOf(' 50 х 70') >= 0) ws.getCell(`K${cellNumber}`).value = '50х70'
-                else if(new_products[i].indexOf(' 70х70') >= 0 || new_products[i].indexOf(' 70 х 70') >= 0) ws.getCell(`K${cellNumber}`).value = '70х70'
-                //Наматрасники
-                else if(new_products[i].indexOf(' 60х120') >= 0 || new_products[i].indexOf(' 60 х 120') >= 0) ws.getCell(`K${cellNumber}`).value = '60х120'
-                else if(new_products[i].indexOf(' 60х140') >= 0 || new_products[i].indexOf(' 60 х 140') >= 0) ws.getCell(`K${cellNumber}`).value = '60х140'
-                else if(new_products[i].indexOf(' 70х120') >= 0 || new_products[i].indexOf(' 70 х 120') >= 0) ws.getCell(`K${cellNumber}`).value = '70х120'
-                else if(new_products[i].indexOf(' 70х140') >= 0 || new_products[i].indexOf(' 70 х 140') >= 0) ws.getCell(`K${cellNumber}`).value = '70х140'
-                else if(new_products[i].indexOf(' 70х200') >= 0 || new_products[i].indexOf(' 70 х 200') >= 0) ws.getCell(`K${cellNumber}`).value = '70х200'
-                else if(new_products[i].indexOf(' 80х200') >= 0 || new_products[i].indexOf(' 80 х 200') >= 0) ws.getCell(`K${cellNumber}`).value = '80х200'
-                else if(new_products[i].indexOf(' 90х200') >= 0 || new_products[i].indexOf(' 90 х 200') >= 0) ws.getCell(`K${cellNumber}`).value = '90х200'
-                else if(new_products[i].indexOf(' 120х200') >= 0 || new_products[i].indexOf(' 120 х 200') >= 0) ws.getCell(`K${cellNumber}`).value = '120х200'
-                else if(new_products[i].indexOf(' 140х200') >= 0 || new_products[i].indexOf(' 140 х 200') >= 0) ws.getCell(`K${cellNumber}`).value = '140х200'
-                else if(new_products[i].indexOf(' 150х220') >= 0 || new_products[i].indexOf(' 150 х 220') >= 0) ws.getCell(`K${cellNumber}`).value = '150х220'
-                else if(new_products[i].indexOf(' 180х220') >= 0 || new_products[i].indexOf(' 180 х 220') >= 0) ws.getCell(`K${cellNumber}`).value = '180х220'
-                else if(new_products[i].indexOf(' 160х200') >= 0 || new_products[i].indexOf(' 160 х 200') >= 0) ws.getCell(`K${cellNumber}`).value = '160х200'
-                else if(new_products[i].indexOf(' 170х200') >= 0 || new_products[i].indexOf(' 170 х 200') >= 0) ws.getCell(`K${cellNumber}`).value = '170х200'
-                else if(new_products[i].indexOf(' 180х200') >= 0 || new_products[i].indexOf(' 180 х 200') >= 0) ws.getCell(`K${cellNumber}`).value = '180х200'
-                else if(new_products[i].indexOf(' 200х200') >= 0 || new_products[i].indexOf(' 200 х 200') >= 0) ws.getCell(`K${cellNumber}`).value = '200х200'
-                else if(new_products[i].indexOf(' 200х220') >= 0 || new_products[i].indexOf(' 200 х 220') >= 0) ws.getCell(`K${cellNumber}`).value = '200х220'
-                //Пододеяльники
-                else if(new_products[i].indexOf(' 112х147') >= 0 || new_products[i].indexOf(' 112 х 147') >= 0) ws.getCell(`K${cellNumber}`).value = '112х147'
-                else if(new_products[i].indexOf(' 145х215') >= 0 || new_products[i].indexOf(' 145 х 215') >= 0) ws.getCell(`K${cellNumber}`).value = '145х215'
-                else if(new_products[i].indexOf(' 175х215') >= 0 || new_products[i].indexOf(' 175 х 215') >= 0) ws.getCell(`K${cellNumber}`).value = '175х215'
-                else if(new_products[i].indexOf(' 200х200') >= 0 || new_products[i].indexOf(' 200 х 200') >= 0) ws.getCell(`K${cellNumber}`).value = '200х200'
-                else if(new_products[i].indexOf(' 220х240') >= 0 || new_products[i].indexOf(' 220 х 240') >= 0) ws.getCell(`K${cellNumber}`).value = '220х240'
-                else if(new_products[i].indexOf(' 240х260') >= 0 || new_products[i].indexOf(' 240 х 260') >= 0) ws.getCell(`K${cellNumber}`).value = '240х260'
-                else if(new_products[i].indexOf(' 150х200') >= 0 || new_products[i].indexOf(' 150 х 200') >= 0) ws.getCell(`K${cellNumber}`).value = '150х200'
-                //Простыни
-                else if(new_products[i].indexOf(' 70х200') >= 0 || new_products[i].indexOf(' 70 х 200') >= 0) {
-                    if(new_products[i].indexOf('х10') >= 0) ws.getCell(`K${cellNumber}`).value = '70х200х10'
-                    else if(new_products[i].indexOf('х20') >= 0) ws.getCell(`K${cellNumber}`).value = '70х200х20'
-                    else if(new_products[i].indexOf('х30') >= 0) ws.getCell(`K${cellNumber}`).value = '70х200х30'
-                    else if(new_products[i].indexOf('х40') >= 0) ws.getCell(`K${cellNumber}`).value = '70х200х40'
-                    else if(new_products[i].indexOf('х 10') >= 0) ws.getCell(`K${cellNumber}`).value = '70х200х10'
-                    else if(new_products[i].indexOf('х 20') >= 0) ws.getCell(`K${cellNumber}`).value = '70х200х20'
-                    else if(new_products[i].indexOf('х 30') >= 0) ws.getCell(`K${cellNumber}`).value = '70х200х30'
-                    else if(new_products[i].indexOf('х 40') >= 0) ws.getCell(`K${cellNumber}`).value = '70х200х40'
-                    else ws.getCell(`K${cellNumber}`).value = '70х200'
+                
+                if(new_products[i].indexOf('Постельное') >= 0) {
+                    if(new_products[i].indexOf('1,5 спальное') >= 0 || new_products[i].indexOf('1,5 спальный') >= 0) {
+                        size = '1,5 спальное'
+                        if(new_products[i].indexOf('на резинке') >= 0) {
+                            size += ' на резинке'
+                            for(let k = 40; k < 305; k+=5) {
+                                for(let l = 40; l < 305; l+=5) {
+                                    if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()}`) >= 0) {
+                                        for(let j = 10; j < 50; j+=10) {
+                                            if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}х${j.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()} х ${j.toString()}`) >= 0) {
+                                                size += ` ${k.toString()}х${l.toString()}х${j.toString()}`
+                                                ws.getCell(`K${cellNumber}`).value = size
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if(new_products[i].indexOf('с наволочками 50х70') >= 0) {
+                            size += ' с наволочками 50х70'
+                            ws.getCell(`K${cellNumber}`).value = size
+                        } else {
+                            ws.getCell(`K${cellNumber}`).value = size
+                        }
+                    }
+                    if(new_products[i].indexOf('2 спальное') >= 0 || new_products[i].indexOf('2 спальный') >= 0) {
+                        size = '2 спальное'
+                        if(new_products[i].indexOf('на резинке') >= 0) {
+                            size += ' на резинке'
+                            for(let k = 40; k < 305; k+=5) {
+                                for(let l = 40; l < 305; l+=5) {
+                                    if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()}`) >= 0) {
+                                        for(let j = 10; j < 50; j+=10) {
+                                            if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}х${j.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()} х ${j.toString()}`) >= 0) {
+                                                size += ` ${k.toString()}х${l.toString()}х${j.toString()}`
+                                                ws.getCell(`K${cellNumber}`).value = size
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if(new_products[i].indexOf('с наволочками 50х70') >= 0) {
+                            size += ' с наволочками 50х70'
+                            ws.getCell(`K${cellNumber}`).value = size
+                        } else {
+                            ws.getCell(`K${cellNumber}`).value = size
+                        }
+                    }
+                    if(new_products[i].indexOf('Евро') >= 0 || new_products[i].indexOf('евро') >= 0) {
+                        size = 'Евро'
+                        if(new_products[i].indexOf('на резинке') >= 0) {
+                            size += ' на резинке'
+                            for(let k = 40; k < 305; k+=5) {
+                                for(let l = 40; l < 305; l+=5) {
+                                    if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()}`) >= 0) {
+                                        for(let j = 10; j < 50; j+=10) {
+                                            if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}х${j.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()} х ${j.toString()}`) >= 0) {
+                                                size += ` ${k.toString()}х${l.toString()}х${j.toString()}`
+                                                ws.getCell(`K${cellNumber}`).value = size
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if(new_products[i].indexOf('с наволочками 50х70') >= 0) {
+                            size += ' с наволочками 50х70'
+                            ws.getCell(`K${cellNumber}`).value = size
+                        } else {
+                            ws.getCell(`K${cellNumber}`).value = size
+                        }
+                    }
+                    if(new_products[i].indexOf('Евро Макси') >= 0 || new_products[i].indexOf('евро макси') >= 0) {
+                        size = 'Евро Макси'
+                        if(new_products[i].indexOf('на резинке') >= 0) {
+                            size += ' на резинке'
+                            for(let k = 40; k < 305; k+=5) {
+                                for(let l = 40; l < 305; l+=5) {
+                                    if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()}`) >= 0) {
+                                        for(let j = 10; j < 50; j+=10) {
+                                            if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}х${j.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()} х ${j.toString()}`) >= 0) {
+                                                size += ` ${k.toString()}х${l.toString()}х${j.toString()}`
+                                                ws.getCell(`K${cellNumber}`).value = size
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if(new_products[i].indexOf('с наволочками 50х70') >= 0) {
+                            size += ' с наволочками 50х70'
+                            ws.getCell(`K${cellNumber}`).value = size
+                        } else {
+                            ws.getCell(`K${cellNumber}`).value = size
+                        }
+                    }
+                    if(new_products[i].indexOf('семейное') >= 0 || new_products[i].indexOf('семейный') >= 0) {
+                        size = 'семейное'
+                        if(new_products[i].indexOf('на резинке') >= 0) {
+                            size += ' на резинке'
+                            for(let k = 40; k < 305; k+=5) {
+                                for(let l = 40; l < 305; l+=5) {
+                                    if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()}`) >= 0) {
+                                        for(let j = 10; j < 50; j+=10) {
+                                            if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}х${j.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()} х ${j.toString()}`) >= 0) {
+                                                size += ` ${k.toString()}х${l.toString()}х${j.toString()}`
+                                                ws.getCell(`K${cellNumber}`).value = size
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if(new_products[i].indexOf('с наволочками 50х70') >= 0) {
+                            size += ' с наволочками 50х70'
+                            ws.getCell(`K${cellNumber}`).value = size
+                        } else {
+                            ws.getCell(`K${cellNumber}`).value = size
+                        }
+                    }
+                } else {
+                    for(let k = 40; k < 305; k+=5) {
+                        for(let l = 40; l < 305; l+=5) {
+                            if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()}`) >= 0) {
+                                size = `${k.toString()}х${l.toString()}`
+                                for(let j = 10; j < 50; j+=10) {
+                                    if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}х${j.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()} х ${j.toString()}`) >= 0) {
+                                        size = `${k.toString()}х${l.toString()}х${j.toString()}`
+                                        ws.getCell(`K${cellNumber}`).value = size
+                                    } else {
+                                        ws.getCell(`K${cellNumber}`).value = size
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-                else if(new_products[i].indexOf(' 80х200') >= 0 || new_products[i].indexOf(' 80 х 200') >= 0) {
-                    if(new_products[i].indexOf('х10') >= 0) ws.getCell(`K${cellNumber}`).value = '80х200х10'
-                    else if(new_products[i].indexOf('х20') >= 0) ws.getCell(`K${cellNumber}`).value = '80х200х20'
-                    else if(new_products[i].indexOf('х30') >= 0) ws.getCell(`K${cellNumber}`).value = '80х200х30'
-                    else if(new_products[i].indexOf('х40') >= 0) ws.getCell(`K${cellNumber}`).value = '80х200х40'
-                    else if(new_products[i].indexOf('х 10') >= 0) ws.getCell(`K${cellNumber}`).value = '80х200х10'
-                    else if(new_products[i].indexOf('х 20') >= 0) ws.getCell(`K${cellNumber}`).value = '80х200х20'
-                    else if(new_products[i].indexOf('х 30') >= 0) ws.getCell(`K${cellNumber}`).value = '80х200х30'
-                    else if(new_products[i].indexOf('х 40') >= 0) ws.getCell(`K${cellNumber}`).value = '80х200х40'
-                    else ws.getCell(`K${cellNumber}`).value = '80х200'
-                }
-                else if(new_products[i].indexOf(' 90х200') >= 0 || new_products[i].indexOf(' 90 х 200') >= 0) {
-                    if(new_products[i].indexOf('х10') >= 0) ws.getCell(`K${cellNumber}`).value = '90х200х10'
-                    else if(new_products[i].indexOf('х20') >= 0) ws.getCell(`K${cellNumber}`).value = '90х200х20'
-                    else if(new_products[i].indexOf('х30') >= 0) ws.getCell(`K${cellNumber}`).value = '90х200х30'
-                    else if(new_products[i].indexOf('х40') >= 0) ws.getCell(`K${cellNumber}`).value = '90х200х40'
-                    else if(new_products[i].indexOf('х 10') >= 0) ws.getCell(`K${cellNumber}`).value = '90х200х10'
-                    else if(new_products[i].indexOf('х 20') >= 0) ws.getCell(`K${cellNumber}`).value = '90х200х20'
-                    else if(new_products[i].indexOf('х 30') >= 0) ws.getCell(`K${cellNumber}`).value = '90х200х30'
-                    else if(new_products[i].indexOf('х 40') >= 0) ws.getCell(`K${cellNumber}`).value = '90х200х40'
-                    else ws.getCell(`K${cellNumber}`).value = '90х200'
-                }
-                else if(new_products[i].indexOf(' 120х200') >= 0 || new_products[i].indexOf(' 120 х 200') >= 0) {
-                    if(new_products[i].indexOf('х10') >= 0) ws.getCell(`K${cellNumber}`).value = '120х200х10'
-                    else if(new_products[i].indexOf('х20') >= 0) ws.getCell(`K${cellNumber}`).value = '120х200х20'
-                    else if(new_products[i].indexOf('х30') >= 0) ws.getCell(`K${cellNumber}`).value = '120х200х30'
-                    else if(new_products[i].indexOf('х40') >= 0) ws.getCell(`K${cellNumber}`).value = '120х200х40'
-                    else if(new_products[i].indexOf('х 10') >= 0) ws.getCell(`K${cellNumber}`).value = '120х200х10'
-                    else if(new_products[i].indexOf('х 20') >= 0) ws.getCell(`K${cellNumber}`).value = '120х200х20'
-                    else if(new_products[i].indexOf('х 30') >= 0) ws.getCell(`K${cellNumber}`).value = '120х200х30'
-                    else if(new_products[i].indexOf('х 40') >= 0) ws.getCell(`K${cellNumber}`).value = '120х200х40'
-                    else ws.getCell(`K${cellNumber}`).value = '120х200'
-                }
-                else if(new_products[i].indexOf(' 140х200') >= 0 || new_products[i].indexOf(' 140 х 200') >= 0) {
-                    if(new_products[i].indexOf('х10') >= 0) ws.getCell(`K${cellNumber}`).value = '140х200х10'
-                    else if(new_products[i].indexOf('х20') >= 0) ws.getCell(`K${cellNumber}`).value = '140х200х20'
-                    else if(new_products[i].indexOf('х30') >= 0) ws.getCell(`K${cellNumber}`).value = '140х200х30'
-                    else if(new_products[i].indexOf('х40') >= 0) ws.getCell(`K${cellNumber}`).value = '140х200х40'
-                    else if(new_products[i].indexOf('х 10') >= 0) ws.getCell(`K${cellNumber}`).value = '140х200х10'
-                    else if(new_products[i].indexOf('х 20') >= 0) ws.getCell(`K${cellNumber}`).value = '140х200х20'
-                    else if(new_products[i].indexOf('х 30') >= 0) ws.getCell(`K${cellNumber}`).value = '140х200х30'
-                    else if(new_products[i].indexOf('х 40') >= 0) ws.getCell(`K${cellNumber}`).value = '140х200х40'
-                    else ws.getCell(`K${cellNumber}`).value = '140х200'
-                }
-                else if(new_products[i].indexOf(' 160х200') >= 0 || new_products[i].indexOf(' 160 х 200') >= 0) {
-                    if(new_products[i].indexOf('х10') >= 0) ws.getCell(`K${cellNumber}`).value = '160х200х10'
-                    else if(new_products[i].indexOf('х20') >= 0) ws.getCell(`K${cellNumber}`).value = '160х200х20'
-                    else if(new_products[i].indexOf('х30') >= 0) ws.getCell(`K${cellNumber}`).value = '160х200х30'
-                    else if(new_products[i].indexOf('х40') >= 0) ws.getCell(`K${cellNumber}`).value = '160х200х40'
-                    else if(new_products[i].indexOf('х 10') >= 0) ws.getCell(`K${cellNumber}`).value = '160х200х10'
-                    else if(new_products[i].indexOf('х 20') >= 0) ws.getCell(`K${cellNumber}`).value = '160х200х20'
-                    else if(new_products[i].indexOf('х 30') >= 0) ws.getCell(`K${cellNumber}`).value = '160х200х30'
-                    else if(new_products[i].indexOf('х 40') >= 0) ws.getCell(`K${cellNumber}`).value = '160х200х40'
-                    else ws.getCell(`K${cellNumber}`).value = '160х200'
-                }
-                else if(new_products[i].indexOf(' 170х200') >= 0 || new_products[i].indexOf(' 170 х 200') >= 0) {
-                    if(new_products[i].indexOf('х10') >= 0) ws.getCell(`K${cellNumber}`).value = '170х200х10'
-                    else if(new_products[i].indexOf('х20') >= 0) ws.getCell(`K${cellNumber}`).value = '170х200х20'
-                    else if(new_products[i].indexOf('х30') >= 0) ws.getCell(`K${cellNumber}`).value = '170х200х30'
-                    else if(new_products[i].indexOf('х40') >= 0) ws.getCell(`K${cellNumber}`).value = '170х200х40'
-                    else if(new_products[i].indexOf('х 10') >= 0) ws.getCell(`K${cellNumber}`).value = '170х200х10'
-                    else if(new_products[i].indexOf('х 20') >= 0) ws.getCell(`K${cellNumber}`).value = '170х200х20'
-                    else if(new_products[i].indexOf('х 30') >= 0) ws.getCell(`K${cellNumber}`).value = '170х200х30'
-                    else if(new_products[i].indexOf('х 40') >= 0) ws.getCell(`K${cellNumber}`).value = '170х200х40'
-                    else ws.getCell(`K${cellNumber}`).value = '170х200'
-                }
-                else if(new_products[i].indexOf(' 180х200') >= 0 || new_products[i].indexOf(' 180 х 200') >= 0) {
-                    if(new_products[i].indexOf('х10') >= 0) ws.getCell(`K${cellNumber}`).value = '180х200х10'
-                    else if(new_products[i].indexOf('х20') >= 0) ws.getCell(`K${cellNumber}`).value = '180х200х20'
-                    else if(new_products[i].indexOf('х30') >= 0) ws.getCell(`K${cellNumber}`).value = '180х200х30'
-                    else if(new_products[i].indexOf('х40') >= 0) ws.getCell(`K${cellNumber}`).value = '180х200х40'
-                    else if(new_products[i].indexOf('х 10') >= 0) ws.getCell(`K${cellNumber}`).value = '180х200х10'
-                    else if(new_products[i].indexOf('х 20') >= 0) ws.getCell(`K${cellNumber}`).value = '180х200х20'
-                    else if(new_products[i].indexOf('х 30') >= 0) ws.getCell(`K${cellNumber}`).value = '180х200х30'
-                    else if(new_products[i].indexOf('х 40') >= 0) ws.getCell(`K${cellNumber}`).value = '180х200х40'
-                    else ws.getCell(`K${cellNumber}`).value = '180х200'
-                }
-                else if(new_products[i].indexOf(' 200х200') >= 0 || new_products[i].indexOf(' 200 х 200') >= 0) {
-                    if(new_products[i].indexOf('х10') >= 0) ws.getCell(`K${cellNumber}`).value = '200х200х10'
-                    else if(new_products[i].indexOf('х20') >= 0) ws.getCell(`K${cellNumber}`).value = '200х200х20'
-                    else if(new_products[i].indexOf('х30') >= 0) ws.getCell(`K${cellNumber}`).value = '200х200х30'
-                    else if(new_products[i].indexOf('х40') >= 0) ws.getCell(`K${cellNumber}`).value = '200х200х40'
-                    else if(new_products[i].indexOf('х 10') >= 0) ws.getCell(`K${cellNumber}`).value = '200х200х10'
-                    else if(new_products[i].indexOf('х 20') >= 0) ws.getCell(`K${cellNumber}`).value = '200х200х20'
-                    else if(new_products[i].indexOf('х 30') >= 0) ws.getCell(`K${cellNumber}`).value = '200х200х30'
-                    else if(new_products[i].indexOf('х 40') >= 0) ws.getCell(`K${cellNumber}`).value = '200х200х40'
-                    else ws.getCell(`K${cellNumber}`).value = '200х200'
-                }
-                else if(new_products[i].indexOf(' 210х210') >= 0 || new_products[i].indexOf(' 210 х 210') >= 0) {
-                    if(new_products[i].indexOf('х10') >= 0) ws.getCell(`K${cellNumber}`).value = '210х210х10'
-                    else if(new_products[i].indexOf('х20') >= 0) ws.getCell(`K${cellNumber}`).value = '210х210х20'
-                    else if(new_products[i].indexOf('х30') >= 0) ws.getCell(`K${cellNumber}`).value = '210х210х30'
-                    else if(new_products[i].indexOf('х40') >= 0) ws.getCell(`K${cellNumber}`).value = '210х210х40'
-                    else if(new_products[i].indexOf('х 10') >= 0) ws.getCell(`K${cellNumber}`).value = '210х200х10'
-                    else if(new_products[i].indexOf('х 20') >= 0) ws.getCell(`K${cellNumber}`).value = '210х200х20'
-                    else if(new_products[i].indexOf('х 30') >= 0) ws.getCell(`K${cellNumber}`).value = '210х200х30'
-                    else if(new_products[i].indexOf('х 40') >= 0) ws.getCell(`K${cellNumber}`).value = '210х200х40'
-                    else ws.getCell(`K${cellNumber}`).value = '210х210'
-                }
+                
                 //Вставка размера конец
 
                 ws.getCell(`L${cellNumber}`).value = '6302100001'
@@ -263,7 +265,7 @@ app.get('/excel', async function(req, res){
                 ws.getCell(`N${cellNumber}`).value = 'На модерации'                
 
                 cellNumber++
-            }
+
         }
 
         ws.unMergeCells('D2')
@@ -296,9 +298,21 @@ app.get('/excel', async function(req, res){
 
         month < 10 ? filePath = `./public/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}` : filePath = `./public/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}`
 
-        fs.access(`${filePath}.xlsx`) ? await wb.xlsx.writeFile(`${filePath}_(1).xlsx`) : await wb.xlsx.writeFile(`${filePath}.xlsx`)
-
-        
+        fs.access(`${filePath}.xlsx`, fs.constants.R_OK, async (err) => {
+            if(err) {
+                await wb.xlsx.writeFile(`${filePath}.xlsx`)
+            } else {
+                let count = 1
+                fs.access(`${filePath}_(1).xlsx`, fs.constants.R_OK, async (err) => {
+                    if(err) {
+                        await wb.xlsx.writeFile(`${filePath}_(1).xlsx`)
+                    } else {
+                        await wb.xlsx.writeFile(`${filePath}_(2).xlsx`)
+                    }
+                })
+                
+            }
+        })
 
     }
 
@@ -308,7 +322,7 @@ app.get('/excel', async function(req, res){
             divs.each((i, elem) => {
                 // console.log(content(elem).text())
                 let str = (content(elem).text()).trim()
-                if(str.indexOf('Постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
+                if(str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
             })
         } else {
             for(i; i <= count; i++) {
@@ -316,7 +330,7 @@ app.get('/excel', async function(req, res){
                 divs.each((i, elem) => {
                     // console.log(content(elem).text())
                     let str = (content(elem).text()).trim()
-                    if(str.indexOf('Постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
+                    if(str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
                 })  
             }
         }
@@ -349,7 +363,7 @@ app.get('/excel', async function(req, res){
         } 
 
         difference.forEach(elem => {
-            if(elem.indexOf('Постельное') < 0) html += `<p>${elem}</p>`
+            html += `<p>${elem}</p>`
         })
 
         // html = '<h1 class="success">Import successfully done</h1>'
