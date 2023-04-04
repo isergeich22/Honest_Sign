@@ -4,9 +4,9 @@ const fs = require('fs')
 const cio = require('cheerio')
 const app = express()
 
-app.use('/home', express.static(__dirname + '/public'))
+app.use('/home', express.static(__dirname + '/public/index.html'))
 
-app.get('/excel', async function(req, res){
+app.get('/ozon', async function(req, res){
 
     const nat_cat = []
     const new_orders = []
@@ -153,6 +153,9 @@ app.get('/excel', async function(req, res){
                     }
                     if(new_products[i].indexOf('2 спальное') >= 0 || new_products[i].indexOf('2 спальный') >= 0) {
                         size = '2 спальное'
+                        if(new_products[i].indexOf('с Евро') >= 0) {
+                            size += ' с Евро простыней'
+                        }
                         if(new_products[i].indexOf('на резинке') >= 0) {
                             size += ' на резинке'
                             for(let k = 40; k < 305; k+=5) {
@@ -175,7 +178,7 @@ app.get('/excel', async function(req, res){
                             ws.getCell(`K${cellNumber}`).value = size
                         }
                     }
-                    if(new_products[i].indexOf('Евро') >= 0 || new_products[i].indexOf('евро') >= 0) {
+                    if(new_products[i].indexOf('Евро -') >= 0 || new_products[i].indexOf('евро -') >= 0 || new_products[i].indexOf('Евро на') >= 0 || new_products[i].indexOf('евро на') >= 0) {
                         size = 'Евро'
                         if(new_products[i].indexOf('на резинке') >= 0) {
                             size += ' на резинке'
@@ -199,7 +202,7 @@ app.get('/excel', async function(req, res){
                             ws.getCell(`K${cellNumber}`).value = size
                         }
                     }
-                    if(new_products[i].indexOf('Евро Макси') >= 0 || new_products[i].indexOf('евро макси') >= 0) {
+                    if(new_products[i].indexOf('Евро Макси') >= 0 || new_products[i].indexOf('евро макси') >= 0 || new_products[i].indexOf('Евро макси') >= 0) {
                         size = 'Евро Макси'
                         if(new_products[i].indexOf('на резинке') >= 0) {
                             size += ' на резинке'
@@ -359,7 +362,7 @@ app.get('/excel', async function(req, res){
 
         c2.eachCell(c => {
            nat_cat.push(c.value)
-        })        
+        })
 
         for(i = 0; i < new_orders.length; i++) {
             if(nat_cat.indexOf(new_orders[i]) < 0 && difference.indexOf(new_orders[i]) < 0){
@@ -382,6 +385,69 @@ app.get('/excel', async function(req, res){
     }).catch(err => {
         console.log(err.message)
     })    
+
+})
+
+app.get('/wildberries', async function(req, res){
+    
+    const difference = []
+    const wb_orders = []
+    const nat_cat = []
+    const ozon = []
+
+    const wb = new exl.Workbook()
+
+    const hsFile = './public/Краткий отчет.xlsx'
+    const ozonFile = './public/products.csv'
+    const wbFile = './public/wildberries/new.xlsx'
+
+    let html = ''
+
+    await wb.xlsx.readFile(hsFile)
+        
+    const ws = wb.getWorksheet('Краткий отчет')
+
+    const c2 = ws.getColumn(2)
+
+    c2.eachCell(c => {
+        nat_cat.push(c.value)
+    })
+
+    await wb.xlsx.readFile(wbFile)
+
+    const _ws = wb.getWorksheet('Сборочные задания')
+
+    const c12 = _ws.getColumn(12)
+
+    c12.eachCell(c => {
+        wb_orders.push(c.value)
+    })
+    
+    // nat_cat.forEach(elem => {
+    //     html += `<p>${elem}</p>`
+    // })
+
+    await wb.csv.readFile(ozonFile)
+
+    ws => {
+        ozon.push((ws.Артикул).toString().replace(`'`, ``))
+    }
+
+    console.log(ozon)
+
+    // const _ws = wb.getWorksheet('products')
+
+    // const c = _ws.getColumn(1)
+
+    // c.eachCell(cell => {
+    //     ozon.push((cell.value).toString().replace("'", ""))
+    // })
+
+    // ozon.forEach(elem => {
+    //     html += `<p>${elem}</p>`
+    // })
+
+    
 
 })
 
