@@ -3,7 +3,6 @@ const exl = require('exceljs')
 const fs = require('fs')
 const cio = require('cheerio')
 const app = express()
-const { convertCsvToXlsx } = require ('@aternus/csv-to-xlsx')
 
 app.use('/home', express.static(__dirname + '/public/index.html'))
 
@@ -307,7 +306,7 @@ app.get('/ozon', async function(req, res){
 
         let filePath = ''
 
-        month < 10 ? filePath = `./public/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}` : filePath = `./public/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}`
+        month < 10 ? filePath = `./public/ozon/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}` : filePath = `./public/ozon/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}`
 
         fs.access(`${filePath}.xlsx`, fs.constants.R_OK, async (err) => {
             if(err) {
@@ -449,16 +448,42 @@ app.get('/wildberries', async function(req, res){
         names.push(c.value.trim())
     })
 
+    // console.log(wb_orders)
+
     wb_orders.forEach(elem => {
         if(vendors.indexOf(elem) >= 0){
             let index = vendors.indexOf(elem)
+            html += `<p>${names[index]}</p>`
             ozon.push(names[index])
             // console.log(typeof index)
         }
     })
 
+    const testArray = []
+
+    const test_Array = []
+
     ozon.forEach(elem => {
-        if(nat_cat.indexOf(elem) < 0) {
+        if(testArray.indexOf(elem) < 0) {
+            testArray.push(elem)
+        }
+    })
+
+    for(let i = 0; i < testArray.length; i++) {
+        let count = 0
+        ozon.forEach(el => {
+            if(testArray[i] === el) {
+                count++
+            }
+        })
+        test_Array.push(count)
+    }
+
+    console.log(test_Array.length)
+    console.log(test_Array)
+
+    ozon.forEach(elem => {
+        if(nat_cat.indexOf(elem) < 0 && difference.indexOf(elem) < 0) {
             difference.push(elem)
         }
     })
@@ -605,7 +630,7 @@ app.get('/wildberries', async function(req, res){
                             ws.getCell(`K${cellNumber}`).value = size
                         }
                     }
-                    if(array[i].indexOf('Евро -') >= 0 || new_products[i].indexOf('евро -') >= 0 || array[i].indexOf('Евро на') >= 0 || array[i].indexOf('евро на') >= 0) {
+                    if(array[i].indexOf('Евро -') >= 0 || array[i].indexOf('евро -') >= 0 || array[i].indexOf('Евро на') >= 0 || array[i].indexOf('евро на') >= 0) {
                         size = 'Евро'
                         if(array[i].indexOf('на резинке') >= 0) {
                             size += ' на резинке'
@@ -753,11 +778,148 @@ app.get('/wildberries', async function(req, res){
 
     createImport(difference)
 
-    difference.forEach(elem => {
-        html += `<p>${elem}</p>`
+    res.send(html)
+
+})
+
+app.get('/input', async function(req, res){
+
+    let content = `<?xml version="1.0" encoding="UTF-8"?>
+                    <remark version="7">
+                        <trade_participant_inn>372900043349</trade_participant_inn>
+                        <remark_date>2021-04-05</remark_date>
+                        <remark_cause>KM_SPOILED</remark_cause>
+                            <products_list>`    
+
+    const marks = []
+
+    const wb = new exl.Workbook()
+
+    await wb.xlsx.readFile('./public/inputinsale/marks.xlsx')
+
+    const ws = wb.getWorksheet(1)
+
+    ws.getColumn(1).eachCell(el => {
+        marks.push(el.value.trim())
     })
 
-    res.send(html)
+    marks.forEach(el => {
+        if(el.length === 31) {
+            content += `<product>
+                            <new_ki><![CDATA[${el}]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product>`
+        }
+    })
+
+    // console.log(content)   
+
+    content += `    </products_list>
+            </remark>`
+
+    fs.writeFileSync('./public/inputinsale/remarking.xml', content)
+
+    res.send('Okay')
+    
+})
+
+app.get('/order', async function(req, res){
+
+    const nat_cat = []
+    const new_orders = []
+    const quantity = []
+    const gtins = []
+
+    const filePath = './public/new_orders/new_orders.html'
+
+    const fileContent = fs.readFileSync(filePath, 'utf-8')
+
+    const content = cio.load(fileContent)
+
+    function getOrdersList(i, count) {
+        if(count === 1) {
+            const divs = content('.details-cell_propsSecond_f-KWL')
+            divs.each((i, elem) => {
+                // console.log(content(elem).text())
+                let str = (content(elem).text()).trim()
+                if(str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) {
+                    
+                    new_orders.push(str)
+                    if(content(elem.previousSibling.childNodes).hasClass('mr2')) quantity.push(parseInt((content(elem.previousSibling.lastChild).text()).trim().replace('шт.', '')))
+                
+                }
+            })
+        } else {
+            for(i; i <= count; i++) {
+                const divs = content('.details-cell_propsSecond_f-KWL')
+                divs.each((i, elem) => {
+                    // console.log(content(elem).text())
+                    let str = (content(elem).text()).trim()
+                    if(str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
+                })  
+            }
+        }
+
+        // console.log(quantity.length)
+        // res.send(quantity)
+
+    }
+
+    getOrdersList(1, 1)
+
+    const fileName = './public/Краткий отчет.xlsx'
+
+    const wb = new exl.Workbook()
+
+    await wb.xlsx.readFile(fileName)
+
+    const ws = wb.getWorksheet('Краткий отчет')
+
+    const c2 = ws.getColumn(2)
+
+    const c1 = ws.getColumn(1)
+
+    c1.eachCell(c => {
+        gtins.push(`0${c.value}`)
+    })
+
+    c2.eachCell(c => {
+        nat_cat.push(c.value)
+    })
+
+    let xml = `<?xml version="1.0" encoding="utf-8"?>
+                <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <lp>
+                        <productGroup>lp</productGroup>
+                        <contactPerson>333</contactPerson>
+                        <releaseMethodType>REMARK</releaseMethodType>
+                        <createMethodType>SELF_MADE</createMethodType>
+                        <productionOrderId>111222</productionOrderId>
+                        <products>`
+
+    for(let i = 0; i < new_orders.length; i++) {
+
+        if(nat_cat.indexOf(new_orders[i])>= 0) {
+            let index = nat_cat.indexOf(new_orders[i])
+            xml += `
+                <product>
+                    <gtin>${gtins[index]}</gtin>
+                    <quantity>${quantity[i]}</quantity>
+                    <serialNumberType>OPERATOR</serialNumberType>
+                    <cisType>UNIT</cisType>
+                    <templateId>10</templateId>
+                </product>`
+        }
+
+    }
+
+    xml += `</products>
+        </lp>
+    </order>`
+
+    fs.writeFileSync('./public/orders/lp.xml', xml)
+    res.send('File created successfully')
 
 })
 

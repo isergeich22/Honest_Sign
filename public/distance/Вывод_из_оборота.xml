@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<withdrawal version="8">
+    <trade_participant_inn>372900043349</trade_participant_inn>
+    <withdrawal_type>DESTRUCTION</withdrawal_type>
+    <withdrawal_date>2023-04-09</withdrawal_date>
+    <primary_document_type>DESTRUCTION_ACT</primary_document_type>
+    <primary_document_number>123</primary_document_number>
+    <primary_document_date>2023-04-09</primary_document_date>
+    <fias_id>8cccc9d6-05cc-4c53-c45c-cc0c6c3c5c44</fias_id>
+    <products_list>
+        <product>
+            <cis>0102900087422499215<;n+8XB>"VTo</cis>
+        </product>
+    </products_list>
+</withdrawal>
