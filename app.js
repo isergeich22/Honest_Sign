@@ -306,7 +306,7 @@ app.get('/ozon', async function(req, res){
 
         let filePath = ''
 
-        month < 10 ? filePath = `./public/ozon/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}` : filePath = `./public/ozon/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}`
+        month < 10 ? filePath = `./public/ozon/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}` : filePath = `./public/ozon/IMPORT_TNVED_6302_${date_ob.getDate()}_${month}`
 
         fs.access(`${filePath}.xlsx`, fs.constants.R_OK, async (err) => {
             if(err) {
@@ -382,7 +382,7 @@ app.get('/ozon', async function(req, res){
         createImport(difference)
         // updateImport(nat_cat)
 
-    }).catch(err => {
+        }).catch(err => {
         console.log(err.message)
     })    
 
@@ -459,6 +459,8 @@ app.get('/wildberries', async function(req, res){
         }
     })
 
+    html += '<button><a href="http://localhost:3030/wildberries_marks_order">Создать заказ маркировки для товаров</a></button>'
+
     const testArray = []
 
     const test_Array = []
@@ -479,8 +481,8 @@ app.get('/wildberries', async function(req, res){
         test_Array.push(count)
     }
 
-    console.log(test_Array.length)
-    console.log(test_Array)
+    // console.log(test_Array.length)
+    // console.log(test_Array)
 
     ozon.forEach(elem => {
         if(nat_cat.indexOf(elem) < 0 && difference.indexOf(elem) < 0) {
@@ -776,7 +778,209 @@ app.get('/wildberries', async function(req, res){
 
     }
 
-    createImport(difference)
+    // createImport(difference)
+
+    res.send(html)
+
+})
+
+app.get('/wildberries_marks_order', async function(req, res) {
+
+    const wb_orders = []
+    const nat_cat = []
+    const vendors = []
+    const names = []
+    const ozon = []
+    const gtins = []
+    const orders = []
+
+    const wb = new exl.Workbook()
+
+    const hsFile = './public/Краткий отчет.xlsx'
+    const ozonFile = './public/products.xlsx'
+    const wbFile = './public/wildberries/new.xlsx'
+
+    let html = ''
+
+    await wb.xlsx.readFile(hsFile)
+        
+    const ws = wb.getWorksheet('Краткий отчет')
+
+    const c_1 = ws.getColumn(1)
+
+    c_1.eachCell(c => {
+        gtins.push(c.value)        
+    })
+
+    const c2 = ws.getColumn(2)
+
+    c2.eachCell(c => {
+        nat_cat.push(c.value)
+    })
+
+    await wb.xlsx.readFile(wbFile)
+
+    const _ws = wb.getWorksheet('Сборочные задания')
+
+    const c12 = _ws.getColumn(12)
+
+    c12.eachCell(c => {
+        wb_orders.push(c.value)
+    })
+
+    await wb.xlsx.readFile(ozonFile)
+
+    const ws_ = wb.getWorksheet('Worksheet')
+
+    const c1 = ws_.getColumn(1)
+    const c6 = ws_.getColumn(6)
+
+    c1.eachCell(c => {
+        vendors.push(c.value.replace(`'`,``))
+    })
+
+    c6.eachCell(c => {
+        names.push(c.value.trim())
+    })
+
+    // console.log(wb_orders)
+
+    wb_orders.forEach(elem => {
+        if(vendors.indexOf(elem) >= 0){
+            let index = vendors.indexOf(elem)
+            ozon.push(names[index])
+            // console.log(typeof index)
+        }
+    })
+
+    const testArray = []
+    const test_Array = []
+
+    ozon.forEach(elem => {
+        if(testArray.indexOf(elem) < 0) {
+            testArray.push(elem)            
+        }
+    })
+
+    for(let i = 0; i < testArray.length; i++) {
+        let count = 0
+        let str = ''        
+        ozon.forEach(el => {
+            if(testArray[i] === el) {
+                count++
+            }
+        })
+        
+        test_Array.push(count)
+    }
+
+    ozon.forEach(el => {
+        if(orders.indexOf(el) < 0) orders.push(el)
+    })
+
+    function createNameList() {
+
+        let orderList = []
+        let _temp = []
+
+        for (let i = 0; i < orders.length; i++) {
+
+            _temp.push(orders[i])
+            
+                if(i%10 === 9) {
+                    orderList.splice(-1, 0, ...orderList.splice(-1, 1, _temp))
+                    _temp = []
+                }
+        }        
+
+        orderList.splice(-1, 0, ...orderList.splice(-1, 1, _temp))
+
+        return orderList
+
+    }
+
+    function createQuantityList() {
+
+        let quantityList = []
+        let temp = []
+
+        for(let i = 0; i < test_Array.length; i++) {
+
+            temp.push(test_Array[i])
+
+                if(i%10 === 9) {
+                    quantityList.splice(-1, 0, ...quantityList.splice(-1, 1, temp))
+                    temp = []
+                }
+
+        }
+
+        quantityList.splice(-1, 0, ...quantityList.splice(-1, 1, temp))
+
+        return quantityList
+
+    }
+
+    function createOrder() {        
+
+        let List = createNameList()
+        let Quantity = createQuantityList()
+        let content = ``
+
+        for(let i = 0; i < List.length; i++) {
+             content += `<?xml version="1.0" encoding="utf-8"?>
+                        <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <lp>
+                                <productGroup>lp</productGroup>
+                                <contactPerson>333</contactPerson>
+                                <releaseMethodType>REMARK</releaseMethodType>
+                                <createMethodType>SELF_MADE</createMethodType>
+                                <productionOrderId>111222</productionOrderId>
+                                <products>`
+            for(let j = 0; j < List[i].length; j++) {                
+                if(nat_cat.indexOf(List[i][j]) >= 0) {
+                    content += `<product>
+                                    <gtin>0${gtins[nat_cat.indexOf(List[i][j])]}</gtin>
+                                    <quantity>${Quantity[i][j]}</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product>`
+                }
+            }
+
+            content += `    </products>
+                        </lp>
+                    </order>`
+
+            const date_ob = new Date()
+
+            let month = date_ob.getMonth() + 1
+
+            let filePath = ''
+
+            month < 10 ? filePath = `./public/orders/lp_${i}_${date_ob.getDate()}_0${month}.xml` : filePath = `./public/orders/lp_${i}_${date_ob.getDate()}_${month}.xml`
+
+            fs.writeFileSync(filePath, content)
+
+            content = ``
+
+        }
+        
+        console.log(List)
+        console.log(Quantity)
+
+        for(let i = 0; i < List.length; i++) {
+            for(let j = 0; j < List[i].length; j++) {
+
+                html += `<p>${List[i][j]} - ${Quantity[i][j]} шт.</p>`
+
+            }
+        }        
+
+    }
+
+    createOrder()
 
     res.send(html)
 
@@ -822,105 +1026,6 @@ app.get('/input', async function(req, res){
 
     res.send('Okay')
     
-})
-
-app.get('/order', async function(req, res){
-
-    const nat_cat = []
-    const new_orders = []
-    const quantity = []
-    const gtins = []
-
-    const filePath = './public/new_orders/new_orders.html'
-
-    const fileContent = fs.readFileSync(filePath, 'utf-8')
-
-    const content = cio.load(fileContent)
-
-    function getOrdersList(i, count) {
-        if(count === 1) {
-            const divs = content('.details-cell_propsSecond_f-KWL')
-            divs.each((i, elem) => {
-                // console.log(content(elem).text())
-                let str = (content(elem).text()).trim()
-                if(str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) {
-                    
-                    new_orders.push(str)
-                    if(content(elem.previousSibling.childNodes).hasClass('mr2')) quantity.push(parseInt((content(elem.previousSibling.lastChild).text()).trim().replace('шт.', '')))
-                
-                }
-            })
-        } else {
-            for(i; i <= count; i++) {
-                const divs = content('.details-cell_propsSecond_f-KWL')
-                divs.each((i, elem) => {
-                    // console.log(content(elem).text())
-                    let str = (content(elem).text()).trim()
-                    if(str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
-                })  
-            }
-        }
-
-        // console.log(quantity.length)
-        // res.send(quantity)
-
-    }
-
-    getOrdersList(1, 1)
-
-    const fileName = './public/Краткий отчет.xlsx'
-
-    const wb = new exl.Workbook()
-
-    await wb.xlsx.readFile(fileName)
-
-    const ws = wb.getWorksheet('Краткий отчет')
-
-    const c2 = ws.getColumn(2)
-
-    const c1 = ws.getColumn(1)
-
-    c1.eachCell(c => {
-        gtins.push(`0${c.value}`)
-    })
-
-    c2.eachCell(c => {
-        nat_cat.push(c.value)
-    })
-
-    let xml = `<?xml version="1.0" encoding="utf-8"?>
-                <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                    <lp>
-                        <productGroup>lp</productGroup>
-                        <contactPerson>333</contactPerson>
-                        <releaseMethodType>REMARK</releaseMethodType>
-                        <createMethodType>SELF_MADE</createMethodType>
-                        <productionOrderId>111222</productionOrderId>
-                        <products>`
-
-    for(let i = 0; i < new_orders.length; i++) {
-
-        if(nat_cat.indexOf(new_orders[i])>= 0) {
-            let index = nat_cat.indexOf(new_orders[i])
-            xml += `
-                <product>
-                    <gtin>${gtins[index]}</gtin>
-                    <quantity>${quantity[i]}</quantity>
-                    <serialNumberType>OPERATOR</serialNumberType>
-                    <cisType>UNIT</cisType>
-                    <templateId>10</templateId>
-                </product>`
-        }
-
-    }
-
-    xml += `</products>
-        </lp>
-    </order>`
-
-    fs.writeFileSync('./public/orders/lp.xml', xml)
-    res.send('File created successfully')
-
 })
 
 app.listen(3030)
