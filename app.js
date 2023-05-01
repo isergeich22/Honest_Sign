@@ -4,13 +4,32 @@ const fs = require('fs')
 const cio = require('cheerio')
 const app = express()
 
-app.use('/home', express.static(__dirname + '/public/index.html'))
+const headerComponent = `<!DOCTYPE html>
+                            <html lang="en">
+                            <head>
+                                <meta charset="UTF-8">
+                                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                <link rel="stylesheet" href="/styles.css" type="text/css">
+                                <title>Document</title>
+                            </head>
+                            <body>`
 
-app.get('/ozon', async function(req, res){
+const footerComponent = `</body>
+                        </html>`
+
+app.use(express.static(__dirname + '/public'))
+
+app.get('/ozon', async function(req, res){    
+
+    let html = ''
+
+    html += `${headerComponent}<div class="logo"><img src="/img/ozon.png" alt="ozon"></div><section class="main">`
 
     const nat_cat = []
     const new_orders = []
-    const difference = []
+    const new_items = []
+    const current_items = []
     const vendorCodes = []
 
     const colors = ['БЕЖЕВЫЙ', 'БЕЛЫЙ', 'БИРЮЗОВЫЙ', 'БОРДОВЫЙ', 'БРОНЗОВЫЙ', 'ВАНИЛЬ', 'ВИШНЯ', 'ГОЛУБОЙ', 'ЖЁЛТЫЙ', 'ЗЕЛЁНЫЙ', 'ЗОЛОТОЙ', 'ИЗУМРУДНЫЙ',
@@ -306,7 +325,7 @@ app.get('/ozon', async function(req, res){
 
         let filePath = ''
 
-        month < 10 ? filePath = `./public/ozon/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}` : filePath = `./public/ozon/IMPORT_TNVED_6302_${date_ob.getDate()}_${month}`
+        month < 10 ? filePath = `./public/ozon/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}_ozon` : filePath = `./public/ozon/IMPORT_TNVED_6302_${date_ob.getDate()}_${month}_ozon`
 
         fs.access(`${filePath}.xlsx`, fs.constants.R_OK, async (err) => {
             if(err) {
@@ -350,9 +369,7 @@ app.get('/ozon', async function(req, res){
 
     const wb = new exl.Workbook()
     
-    const fileName = './public/Краткий отчет.xlsx'
-
-    let html = ''
+    const fileName = './public/Краткий отчет.xlsx'    
 
     wb.xlsx.readFile(fileName).then(() => {
         
@@ -365,22 +382,42 @@ app.get('/ozon', async function(req, res){
         })
 
         for(i = 0; i < new_orders.length; i++) {
-            if(nat_cat.indexOf(new_orders[i]) < 0 && difference.indexOf(new_orders[i]) < 0){
+            if(nat_cat.indexOf(new_orders[i]) < 0 && new_items.indexOf(new_orders[i]) < 0){
 
-                difference.push(new_orders[i])
+                new_items.push(new_orders[i])
 
             }
-        } 
 
-        difference.forEach(elem => {
-            html += `<p>${elem}</p>`
+            if(nat_cat.indexOf(new_orders[i]) >=0 && current_items.indexOf(new_orders[i]) < 0) {
+
+                current_items.push(new_orders[i])
+
+            }
+        }
+
+        html += `<div class=new_items>
+                    <h3>Новые товары</h3><hr>`
+
+        new_items.forEach(elem => {
+            html += `<p class="new">${elem}</p>`
         })
+
+        html += `<hr></div>
+                 <div class=current_items>
+                    <h3>Актуальные товары</h3><hr>`
+
+        current_items.forEach(elem => {
+            html += `<p class="current">${elem}</p>`
+        })
+
+        html += `       <hr><button><a href="http://localhost:3030/ozon_marks_order">Создать заказ маркировки для товаров</a></button></button>
+                    </div>
+                </section>${footerComponent}`
 
         // html = '<h1 class="success">Import successfully done</h1>'
         res.send(html)
 
-        createImport(difference)
-        // updateImport(nat_cat)
+        // createImport(new_items)
 
         }).catch(err => {
         console.log(err.message)
@@ -388,14 +425,238 @@ app.get('/ozon', async function(req, res){
 
 })
 
+app.get('/ozon_marks_order', async function(req, res){
+    
+    const nat_cat = []
+    const gtins = []
+    const new_orders = []
+    const current_items = []
+    const current_quantity = []
+    const quantity = []
+
+    let html = headerComponent
+
+    html += `<div class="logo"><img src="/img/ozon.png" alt="ozon-order"></div>
+                <section class="order-main">`
+
+    const filePath = './public/new_orders/new_orders.html'
+
+    const fileContent = fs.readFileSync(filePath, 'utf-8')
+
+    const content = cio.load(fileContent)
+
+    function getOrdersList(i, count) {
+        if(count === 1) {
+            const divs = content('.details-cell_propsSecond_f-KWL')            
+            divs.each((i, elem) => {
+                // console.log(content(elem).text())
+                let str = (content(elem).text()).trim()                
+                if(str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
+            })
+        } else {
+            for(i; i <= count; i++) {
+                const divs = content('.details-cell_propsSecond_f-KWL')
+                divs.each((i, elem) => {
+                    // console.log(content(elem).text())
+                    let str = (content(elem).text()).trim()
+                    if(str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
+                })  
+            }
+        }
+    }
+
+    function getQuantity() {
+        const spans = content('.mr2')
+
+        spans.each((i, elem) => {
+            if(content(elem).text().indexOf('шт.') >= 0) {
+                // if(new_orders.indexOf(content(elem.parentNode.nextSibling).text().trim()) >= 0) {
+                //     quantity.push(parseInt((content(elem).text().replace(' шт.', ''))))
+                // }
+                if(new_orders.indexOf(content(elem.parentNode.nextSibling).text().trim()) >= 0) {
+                    quantity.push(parseInt((content(elem).text().replace(' шт.', ''))))
+                }
+            }
+        })
+        // spans.each((i, elem) => {
+        //     if(content(elem).text().indexOf('шт.') === 0) quantity.push(content(elem).text())
+        // })
+    }
+
+    getOrdersList(1,1)
+
+    // console.log(new_orders.length)
+
+    getQuantity()
+
+    // console.log(quantity.length)
+
+    
+
+    const wb = new exl.Workbook()
+    
+    const fileName = './public/Краткий отчет.xlsx'    
+
+    await wb.xlsx.readFile(fileName)
+        
+    const ws = wb.getWorksheet('Краткий отчет')
+
+    const c_1 = ws.getColumn(1)
+
+    c_1.eachCell(c => {
+        gtins.push(c.value)        
+    })
+
+    const c2 = ws.getColumn(2)
+
+    c2.eachCell(c => {
+        nat_cat.push(c.value)
+    })
+
+    // console.log(nat_cat)
+
+    new_orders.forEach(elem => {
+        if(nat_cat.indexOf(elem) >= 0 && current_items.indexOf(elem) < 0) {
+            let index = new_orders.indexOf(elem)
+            current_items.push(elem)
+            current_quantity.push(quantity[index])
+        }
+    })
+
+    html += `<div class="new_items_order">
+                <h3>Товары не в заказе</h3><hr>`
+
+    new_orders.forEach(elem => {
+        if(nat_cat.indexOf(elem) < 0) {
+            let index = new_orders.indexOf(elem)
+            html += `<p class="new">${elem} - <span>${quantity[index]} шт.</span></p>`
+        }
+    })
+
+    html += `<hr></div><div class="current_items_order">
+                <h3>Товары в заказе</h3><hr>`
+
+    for(let i = 0; i < current_items.length; i++) {
+        html += `<p class="current">${current_items[i]} - <span>${current_quantity[i]} шт.</span></p>`
+    }
+
+    html += `   <hr></div>
+            </section>
+        ${footerComponent}`
+
+    function createNameList() {
+
+        let orderList = []
+        let _temp = []
+
+        for (let i = 0; i < current_items.length; i++) {
+
+            _temp.push(current_items[i])
+            
+                if(i%10 === 9) {
+                    orderList.splice(-1, 0, ...orderList.splice(-1, 1, _temp))
+                    _temp = []
+                }
+        }        
+
+        orderList.splice(-1, 0, ...orderList.splice(-1, 1, _temp))
+
+        return orderList
+
+    }
+
+    function createQuantityList() {
+
+        let quantityList = []
+        let temp = []
+
+        for(let i = 0; i < current_quantity.length; i++) {
+
+            temp.push(current_quantity[i])
+
+                if(i%10 === 9) {
+                    quantityList.splice(-1, 0, ...quantityList.splice(-1, 1, temp))
+                    temp = []
+                }
+
+        }
+
+        quantityList.splice(-1, 0, ...quantityList.splice(-1, 1, temp))
+
+        return quantityList
+
+    }
+
+    // console.log(createNameList())
+    // console.log(createQuantityList())
+
+    function createOrder() {        
+
+        let List = createNameList()
+        let Quantity = createQuantityList()
+        let content = ``
+
+        for(let i = 0; i < List.length; i++) {
+             content += `<?xml version="1.0" encoding="utf-8"?>
+                        <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <lp>
+                                <productGroup>lp</productGroup>
+                                <contactPerson>333</contactPerson>
+                                <releaseMethodType>REMARK</releaseMethodType>
+                                <createMethodType>SELF_MADE</createMethodType>
+                                <productionOrderId>111222</productionOrderId>
+                                <products>`
+            for(let j = 0; j < List[i].length; j++) {                
+                if(nat_cat.indexOf(List[i][j]) >= 0) {
+                    content += `<product>
+                                    <gtin>0${gtins[nat_cat.indexOf(List[i][j])]}</gtin>
+                                    <quantity>${Quantity[i][j]}</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product>`
+                }
+            }
+
+            content += `    </products>
+                        </lp>
+                    </order>`
+
+            const date_ob = new Date()
+
+            let month = date_ob.getMonth() + 1
+
+            let filePath = ''
+
+            month < 10 ? filePath = `./public/orders/lp_ozon_${i}_${date_ob.getDate()}_0${month}.xml` : filePath = `./public/orders/lp_ozon_${i}_${date_ob.getDate()}_${month}.xml`
+
+            fs.writeFileSync(filePath, content)
+
+            content = ``
+
+        }   
+
+    }
+
+    createOrder()
+
+    res.send(html)
+
+})
+
 app.get('/wildberries', async function(req, res){
     
-    const difference = []
+    const new_items = []
+    const current_items = []
     const wb_orders = []
     const nat_cat = []
     const vendors = []
     const names = []
     const ozon = []
+
+    let html = ''
+
+    html += `${headerComponent}<div class="logo"><img src="/img/wb.png" alt="wildberries"></div><section class="main">`
 
     const colors = ['БЕЖЕВЫЙ', 'БЕЛЫЙ', 'БИРЮЗОВЫЙ', 'БОРДОВЫЙ', 'БРОНЗОВЫЙ', 'ВАНИЛЬ', 'ВИШНЯ', 'ГОЛУБОЙ', 'ЖЁЛТЫЙ', 'ЗЕЛЁНЫЙ', 'ЗОЛОТОЙ', 'ИЗУМРУДНЫЙ',
                         'КАПУЧИНО', 'КИРПИЧНЫЙ', 'КОРАЛЛОВЫЙ', 'КОРИЧНЕВЫЙ', 'КРАСНЫЙ', 'ЛАЙМ', 'ЛЕОПАРД', 'МАЛИНОВЫЙ', 'МЕДНЫЙ', 'МОЛОЧНЫЙ', 'МЯТНЫЙ', 'ОЛИВКОВЫЙ', 'ОРАНЖЕВЫЙ',
@@ -411,7 +672,7 @@ app.get('/wildberries', async function(req, res){
     const ozonFile = './public/products.xlsx'
     const wbFile = './public/wildberries/new.xlsx'
 
-    let html = ''
+    
 
     await wb.xlsx.readFile(hsFile)
         
@@ -448,18 +709,16 @@ app.get('/wildberries', async function(req, res){
         names.push(c.value.trim())
     })
 
-    // console.log(wb_orders)
+    // console.log(wb_orders)    
 
     wb_orders.forEach(elem => {
         if(vendors.indexOf(elem) >= 0){
             let index = vendors.indexOf(elem)
-            html += `<p>${names[index]}</p>`
+            // html += `<p>${names[index]}</p>`
             ozon.push(names[index])
             // console.log(typeof index)
         }
     })
-
-    html += '<button><a href="http://localhost:3030/wildberries_marks_order">Создать заказ маркировки для товаров</a></button>'
 
     const testArray = []
 
@@ -482,13 +741,38 @@ app.get('/wildberries', async function(req, res){
     }
 
     // console.log(test_Array.length)
-    // console.log(test_Array)
+    // console.log(test_Array)    
 
-    ozon.forEach(elem => {
-        if(nat_cat.indexOf(elem) < 0 && difference.indexOf(elem) < 0) {
-            difference.push(elem)
+    testArray.forEach(elem => {
+        if(nat_cat.indexOf(elem) < 0 && new_items.indexOf(elem) < 0) {
+            new_items.push(elem)            
+        }
+
+        if(nat_cat.indexOf(elem) >= 0 && current_items.indexOf(elem) < 0) {
+            current_items.push(elem)
         }
     })
+
+    html += `<div class="new_items">
+                <h3>Новые товары</h3><hr>`
+
+    new_items.forEach(elem => {
+        html += `<p class="new">${elem}</p>`
+    })
+
+    html += `<hr></div>
+                 <div class="current_items">
+                    <h3>Актуальные товары товары</h3><hr>`
+
+    current_items.forEach(elem => {
+        html += `<p class="current">${elem}</p>`
+    })
+
+    html += `<hr><button><a href="http://localhost:3030/wildberries_marks_order">Создать заказ маркировки для товаров</a></button>
+                </div>
+            </section>${footerComponent}`
+
+
 
     async function createImport(array) {
 
@@ -758,7 +1042,7 @@ app.get('/wildberries', async function(req, res){
 
         let filePath = ''
 
-        month < 10 ? filePath = `./public/wildberries/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}` : filePath = `./public/wildberries/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}`
+        month < 10 ? filePath = `./public/wildberries/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}_wildberries` : filePath = `./public/wildberries/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}_wildberries`
 
         fs.access(`${filePath}.xlsx`, fs.constants.R_OK, async (err) => {
             if(err) {
@@ -778,7 +1062,7 @@ app.get('/wildberries', async function(req, res){
 
     }
 
-    // createImport(difference)
+    // createImport(new_items)
 
     res.send(html)
 
@@ -959,7 +1243,7 @@ app.get('/wildberries_marks_order', async function(req, res) {
 
             let filePath = ''
 
-            month < 10 ? filePath = `./public/orders/lp_${i}_${date_ob.getDate()}_0${month}.xml` : filePath = `./public/orders/lp_${i}_${date_ob.getDate()}_${month}.xml`
+            month < 10 ? filePath = `./public/orders/lp_wb_${i}_${date_ob.getDate()}_0${month}.xml` : filePath = `./public/orders/lp_wb_${i}_${date_ob.getDate()}_${month}.xml`
 
             fs.writeFileSync(filePath, content)
 
@@ -967,8 +1251,8 @@ app.get('/wildberries_marks_order', async function(req, res) {
 
         }
         
-        console.log(List)
-        console.log(Quantity)
+        // console.log(List)
+        // console.log(Quantity)
 
         for(let i = 0; i < List.length; i++) {
             for(let j = 0; j < List[i].length; j++) {
