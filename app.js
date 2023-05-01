@@ -417,7 +417,7 @@ app.get('/ozon', async function(req, res){
         // html = '<h1 class="success">Import successfully done</h1>'
         res.send(html)
 
-        // createImport(new_items)
+        createImport(new_items)
 
         }).catch(err => {
         console.log(err.message)
@@ -1062,7 +1062,7 @@ app.get('/wildberries', async function(req, res){
 
     }
 
-    // createImport(new_items)
+    createImport(new_items)
 
     res.send(html)
 
