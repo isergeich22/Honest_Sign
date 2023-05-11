@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <withdrawal version="8">
     <trade_participant_inn>372900043349</trade_participant_inn>
-    <withdrawal_type>DESTRUCTION</withdrawal_type>
-    <withdrawal_date>2023-04-09</withdrawal_date>
-    <primary_document_type>DESTRUCTION_ACT</primary_document_type>
-    <primary_document_number>123</primary_document_number>
-    <primary_document_date>2023-04-09</primary_document_date>
-    <fias_id>8cccc9d6-05cc-4c53-c45c-cc0c6c3c5c44</fias_id>
+    <withdrawal_type>DISTANCE</withdrawal_type>
+    <withdrawal_date>2023-05-03</withdrawal_date>
+    <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
+    <primary_document_number>4752</primary_document_number>
+    <primary_document_date>2023-05-03</primary_document_date>
     <products_list>
         <product>
-            <cis>0102900087422499215<;n+8XB>"VTo</cis>
+            <cis><![CDATA[01029000807249892150)5GGaO2cUrz]]></cis>
+            <cost>321300</cost>
         </product>
     </products_list>
 </withdrawal>

@@ -7,7 +7,13 @@
                                 <createMethodType>SELF_MADE</createMethodType>
                                 <productionOrderId>111222</productionOrderId>
                                 <products><product>
-                                    <gtin>02900211846726</gtin>
+                                    <gtin>02900077253607</gtin>
+                                    <quantity>1</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product><product>
+                                    <gtin>02900075440863</gtin>
                                     <quantity>1</quantity>
                                     <serialNumberType>OPERATOR</serialNumberType>
                                     <cisType>UNIT</cisType>
@@ -19,50 +25,20 @@
                                     <cisType>UNIT</cisType>
                                     <templateId>10</templateId>
                                 </product><product>
-                                    <gtin>02900077816086</gtin>
+                                    <gtin>02900187579512</gtin>
                                     <quantity>1</quantity>
                                     <serialNumberType>OPERATOR</serialNumberType>
                                     <cisType>UNIT</cisType>
                                     <templateId>10</templateId>
                                 </product><product>
-                                    <gtin>02900120741099</gtin>
-                                    <quantity>2</quantity>
-                                    <serialNumberType>OPERATOR</serialNumberType>
-                                    <cisType>UNIT</cisType>
-                                    <templateId>10</templateId>
-                                </product><product>
-                                    <gtin>02900237884955</gtin>
+                                    <gtin>02900078174697</gtin>
                                     <quantity>1</quantity>
                                     <serialNumberType>OPERATOR</serialNumberType>
                                     <cisType>UNIT</cisType>
                                     <templateId>10</templateId>
                                 </product><product>
-                                    <gtin>02900077469749</gtin>
+                                    <gtin>02900074694434</gtin>
                                     <quantity>1</quantity>
-                                    <serialNumberType>OPERATOR</serialNumberType>
-                                    <cisType>UNIT</cisType>
-                                    <templateId>10</templateId>
-                                </product><product>
-                                    <gtin>02900118785142</gtin>
-                                    <quantity>2</quantity>
-                                    <serialNumberType>OPERATOR</serialNumberType>
-                                    <cisType>UNIT</cisType>
-                                    <templateId>10</templateId>
-                                </product><product>
-                                    <gtin>02900131845519</gtin>
-                                    <quantity>1</quantity>
-                                    <serialNumberType>OPERATOR</serialNumberType>
-                                    <cisType>UNIT</cisType>
-                                    <templateId>10</templateId>
-                                </product><product>
-                                    <gtin>02900234017868</gtin>
-                                    <quantity>1</quantity>
-                                    <serialNumberType>OPERATOR</serialNumberType>
-                                    <cisType>UNIT</cisType>
-                                    <templateId>10</templateId>
-                                </product><product>
-                                    <gtin>02900082861125</gtin>
-                                    <quantity>10</quantity>
                                     <serialNumberType>OPERATOR</serialNumberType>
                                     <cisType>UNIT</cisType>
                                     <templateId>10</templateId>

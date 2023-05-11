@@ -20,6 +20,10 @@ const footerComponent = `</body>
 
 app.use(express.static(__dirname + '/public'))
 
+app.get('/home', async function(req, res){
+    res.send(index.html)
+})
+
 app.get('/ozon', async function(req, res){    
 
     let html = ''
@@ -520,6 +524,10 @@ app.get('/ozon_marks_order', async function(req, res){
             let index = new_orders.indexOf(elem)
             current_items.push(elem)
             current_quantity.push(quantity[index])
+        } else {
+            let index = new_orders.indexOf(elem)
+            let i = current_items.indexOf(elem)
+            current_quantity[i] += parseInt(quantity[index])
         }
     })
 
@@ -553,13 +561,14 @@ app.get('/ozon_marks_order', async function(req, res){
 
             _temp.push(current_items[i])
             
-                if(i%10 === 9) {
-                    orderList.splice(-1, 0, ...orderList.splice(-1, 1, _temp))
+                if(_temp.length%10 === 0) {
+                    orderList.push(_temp)
                     _temp = []
                 }
         }        
 
-        orderList.splice(-1, 0, ...orderList.splice(-1, 1, _temp))
+        orderList.push(_temp)
+        _temp = []
 
         return orderList
 
@@ -1086,6 +1095,12 @@ app.get('/wildberries_marks_order', async function(req, res) {
 
     let html = ''
 
+    html += `${headerComponent}
+                <div class="logo">
+                    <img src="/img/wb.png" alt="wildberries-order">
+                </div>
+                    <section class="order-main">`
+
     await wb.xlsx.readFile(hsFile)
         
     const ws = wb.getWorksheet('Краткий отчет')
@@ -1171,13 +1186,14 @@ app.get('/wildberries_marks_order', async function(req, res) {
 
             _temp.push(orders[i])
             
-                if(i%10 === 9) {
-                    orderList.splice(-1, 0, ...orderList.splice(-1, 1, _temp))
+                if(_temp.length%10 === 0) {
+                    orderList.push(_temp)
                     _temp = []
                 }
         }        
 
-        orderList.splice(-1, 0, ...orderList.splice(-1, 1, _temp))
+        orderList.push(_temp)
+        _temp = []
 
         return orderList
 
@@ -1254,13 +1270,22 @@ app.get('/wildberries_marks_order', async function(req, res) {
         // console.log(List)
         // console.log(Quantity)
 
+        html += `<div class="new_items">
+                    <h3>Список заказов</h3>
+                        <hr>`
+
         for(let i = 0; i < List.length; i++) {
             for(let j = 0; j < List[i].length; j++) {
-
-                html += `<p>${List[i][j]} - ${Quantity[i][j]} шт.</p>`
-
+                if(nat_cat.indexOf(List[i][j]) < 0) {
+                    html += `<p class="new">${List[i][j]} - <span>${Quantity[i][j]} шт.</span></p>`
+                } else {
+                    html += `<p class="current">${List[i][j]} - <span>${Quantity[i][j]} шт.</span></p>`
+                }
             }
-        }        
+        }
+
+        html += `<hr></div>
+                    <section>${footerComponent}`
 
     }
 
@@ -1310,6 +1335,95 @@ app.get('/input', async function(req, res){
 
     res.send('Okay')
     
+})
+
+app.get('/sale', async function(req, res){
+
+    async function getMarkedProducts() {
+
+        const wb = new exl.Workbook()
+
+        const fileName = './public/distance/postings.xlsx'
+
+        const products = []
+        const orders = []
+
+        await wb.xlsx.readFile(fileName)
+
+        const ws = wb.getWorksheet('Worksheet')
+
+        const c2 = ws.getColumn(2)
+
+        const c9 = ws.getColumn(9)
+
+        c2.eachCell(c => {
+            orders.push(c.value)        
+        })
+
+        c9.eachCell(c => {
+            products.push(c.value)
+        })
+
+        // console.log(orders)
+
+        // console.log(products)
+
+        const marked_products = []
+        // const marked_orders = []
+
+        products.forEach(elem => {
+            if(elem.indexOf('Постельное') >= 0 || elem.indexOf('постельное') >= 0 || elem.indexOf('Простыня') >= 0 || elem.indexOf('Пододеяльник') >= 0 || elem.indexOf('Наволочка') >= 0 || elem.indexOf('Наматрасник') >= 0) marked_products.push(elem)
+        })
+
+        console.log(marked_products)
+
+    }
+
+    // getMarkedProducts()
+
+    async function getMarks() {
+
+        const wb = new exl.Workbook()
+
+        const fileName = './public/distance/marks.xlsx'
+
+        await wb.xlsx.readFile(fileName)
+
+        const ws = wb.getWorksheet('Worksheet')
+
+        const c1 = ws.getColumn(1)
+
+        const c10 = ws.getColumn(10)
+
+        const products = []
+        const marks = []
+
+        c10.eachCell(c => {
+            products.push(c.value)
+        })
+
+        c1.eachCell(c => {
+            marks.push(c.value)
+        })
+
+        console.log(marks)
+        console.log(marks.length)
+
+    }
+
+    getMarks()
+
+    // marked_products.forEach(elem => {
+    //     let index = products.indexOf(elem)
+    //     marked_orders.push(orders[index])
+    // })
+
+    // console.log(marked_products)
+
+    // console.log(marked_orders)
+
+    res.send('Okay')
+
 })
 
 app.listen(3030)
