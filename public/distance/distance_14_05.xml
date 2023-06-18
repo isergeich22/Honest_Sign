@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+                        <withdrawal version="8">
+                            <trade_participant_inn>372900043349</trade_participant_inn>
+                            <withdrawal_type>DISTANCE</withdrawal_type>
+                            <withdrawal_date>2023-05-10</withdrawal_date>
+                            <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
+                            
+                            <products_list><product>
+                                    <cis><![CDATA[01029002427940032159IYDVbUhGQbX]]></cis>
+                                    <cost>275000</cost>
+                                    <primary_document_number>4926</primary_document_number>
+                                    <primary_document_date>2023-05-10</primary_document_date>
+                                </product><product>
+                                    <cis><![CDATA[0102900076801847215I?"IX&5F)mh&]]></cis>
+                                    <cost>209900</cost>
+                                    <primary_document_number>4933</primary_document_number>
+                                    <primary_document_date>2023-05-10</primary_document_date>
+                                </product><product>
+                                    <cis><![CDATA[0102900084466069215:a4dt,(Gojd1]]></cis>
+                                    <cost>466800</cost>
+                                    <primary_document_number>4922</primary_document_number>
+                                    <primary_document_date>2023-05-10</primary_document_date>
+                                </product><product>
+                                    <cis><![CDATA[0102900234477884215cXSNaYP=u/W-]]></cis>
+                                    <cost>114100</cost>
+                                    <primary_document_number>4918</primary_document_number>
+                                    <primary_document_date>2023-05-10</primary_document_date>
+                                </product></products_list>
+                </withdrawal>

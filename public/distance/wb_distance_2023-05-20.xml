@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+                    <withdrawal version="8">
+                        <trade_participant_inn>372900043349</trade_participant_inn>
+                        <withdrawal_type>DISTANCE</withdrawal_type>
+                        <withdrawal_date>2023-05-20</withdrawal_date>
+                        <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
+                        <products_list><product>
+                            <cis><![CDATA[0102900242794096215QypMiZ2I!ddR]]></cis>
+                            <cost>119400</cost>
+                            <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
+                            <primary_document_number>4889</primary_document_number>
+                            <primary_document_date>2023-05-10</primary_document_date>
+                        </product></products_list>
+                </withdrawal>
