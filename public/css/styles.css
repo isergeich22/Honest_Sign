@@ -180,6 +180,103 @@
     padding: 10px 15px;
 }
 
+.filter-control {
+    width: 100%;
+    display: flex;    
+    padding: 0px 24px;
+    gap: 1%;
+}
+
+    .search-field {
+        display: flex;
+        width: 20%;
+        height: 55px;
+        border-radius: 8px;
+        border: 1px solid #dce6f0;
+        align-items: center;
+    }
+
+        .search-input {
+            padding: 16px;
+            width: 90%;
+            border: none;
+            font-size: .9rem;
+            font-family: 'Inter', sans-serif;
+            color: #A6ABBC;
+        }
+
+        .search-input::placeholder {
+            color: #A6ABBC;
+        }
+
+        .search-input:focus {
+            outline: none;
+        }
+
+        .search-field #search {
+            display: flex;
+            width: 10%;
+            border: none;
+            background: none;            
+        }
+
+            #search svg {
+                cursor: pointer;
+            }
+
+    .multiple-list {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        cursor: pointer;
+        font-size: .9rem;
+        display: flex;
+        width: 15%;
+        font-family: 'Inter', sans-serif;
+        height: 55px;
+        border-radius: 8px;
+        border: 1px solid #dce6f0;
+        align-items: center;
+        color: #A6ABBC;        
+    }
+
+        .multiple-status {
+            padding: 16px;
+            width: 85%;
+        }
+
+        .multiple-list svg {
+            color: #757575;
+        }
+
+        .status-list {
+            display: none;
+            z-index: 2;
+            position: absolute;
+            top: 167px;
+            left: 426px;
+            width: 13%;
+            background-color: #fff;
+            height: 150px;
+        }
+
+            .list {
+                list-style: none;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+                .list-item {
+                    display: flex;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 14px;
+                    color: #181f38;
+                    height: 46px;
+                    padding: 12px 16px;
+                    width: 100%;
+                }
+
 .table {
     width: 100%;
 }
@@ -248,7 +345,7 @@
                     width: 17%;
                 }
 
-                    #date, #name {
+                    #date, #name, #quantity {
                         color: #5E6476;
                         font-weight: 300;
                     }

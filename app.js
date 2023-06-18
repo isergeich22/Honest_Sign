@@ -80,6 +80,30 @@ app.get('/home', async function(req, res){
 
     html += `</section>`
 
+    html += `<section class="filter-control">
+                <div class="search-field">
+                    <input class="search-input" type="text" placeholder="Код или GTIN товара">
+                    <button id="search" type="submit">
+                        <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" cursor="default" style="color: rgb(122, 129, 155);"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.75 1.739a.75.75 0 00-1.5 0V9.25H1.739a.75.75 0 100 1.5H9.25V18.261H10h-.75a.75.75 0 101.5 0H10h.75V10.75H18.261V10v.75a.75.75 0 000-1.5V10v-.75H10.75V1.739z" fill="currentColor">
+                        </path></svg>
+                    </button>
+                </div>
+                <div class="multiple-list">
+                    <div class="multiple-status">
+                        Статус
+                    </div>
+                    <div class="status-list">
+                        <ul class="list">
+                            <li class="list-item">Нанесен</li>
+                            <li class="list-item">В обороте</li>
+                            <li class="list-item">Выбыл</li>
+                        </ul>
+                    </div>
+                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" class="MuiSelect-icon MuiSelect-iconStandard css-1rb0eps"><path d="M12 6H4l4 4 4-4z" fill="currentColor">
+                    </path></svg>
+                </div>
+             </section>`
+
     async function getNationalCatalog() {
         
         const names = []
@@ -110,6 +134,7 @@ app.get('/home', async function(req, res){
         const actual_gtins = []
         const actual_marks = []
         const actual_dates = []
+        const actual_status = []
 
         const wb = new exl.Workbook()
 
@@ -117,7 +142,7 @@ app.get('/home', async function(req, res){
 
         const ws = wb.getWorksheet('Worksheet')
 
-        const [c1, c2, c23] = [ws.getColumn(1), ws.getColumn(2), ws.getColumn(23)]
+        const [c1, c2, c16, c23] = [ws.getColumn(1), ws.getColumn(2), ws.getColumn(16), ws.getColumn(23)]
 
         c1.eachCell(c => {
             if(c.value.indexOf('01') >= 0) {
@@ -138,6 +163,12 @@ app.get('/home', async function(req, res){
             }
         })
 
+        c16.eachCell(c => {
+            if(c.value != null && c.value != 'status') {
+                actual_status.push(c.value)
+            }
+        })
+
         c23.eachCell(c => {
             if(c.value !== null) {
                 if(c.value.indexOf('-') >= 0) {
@@ -147,14 +178,14 @@ app.get('/home', async function(req, res){
             }
         })
 
-        return [actual_gtins, actual_marks, actual_dates]
+        return [actual_gtins, actual_marks, actual_dates, actual_status]
 
     }
 
     async function renderMarksTable() {
         
         const [names, gtins] = await getNationalCatalog()
-        const [actual_gtins, actual_marks, actual_dates] = await getMonthlyMarks()
+        const [actual_gtins, actual_marks, actual_dates, actual_status] = await getMonthlyMarks()
 
         html += `<section class="table">
                     <div class="marks-table">
@@ -168,16 +199,23 @@ app.get('/home', async function(req, res){
                         <div class="header-wrapper"></div>`
 
         for(let i = 0; i < actual_marks.length; i++) {
+            let status = ''
+            if(actual_status[i] == 'INTRODUCED') {
+                status = 'В обороте'
+            } else if(actual_status[i] == 'APPLIED') {
+                status = 'Нанесен'
+            } else if(actual_status[i] == 'RETIRED') {
+                status = 'Выбыл'
+            }
+
             html+= `<div class="table-row">
                         <span type="text" id="mark">${actual_marks[i]}</span>
                         <span id="gtin">${actual_gtins[i]}</span>
-                        <span id="name">${names[gtins.indexOf(actual_gtins[i])]}</span>
+                        <span id="name">${names[gtins.indexOf(actual_gtins[i])] == undefined ? '-' : names[gtins.indexOf(actual_gtins[i])]}</span>
                         <span id="date">${actual_dates[i]}</span>
-                        <span id="status">В обороте</span>
+                        <span id="status">${status}</span>
                     </div>`
-        }
-
-        
+        }        
 
     }
 
@@ -638,7 +676,7 @@ app.get('/ozon', async function(req, res){
 
         html += `       </section>
                         <section class="action-form">
-                            <button id="current-order"><a href="http://localhost:3030/ozon_marks_order">Создать заказ маркировки для актуальных товаров</a></button>
+                            <button id="current-order"><a href="http://localhost:3030/ozon_marks_order" target="_blank">Создать заказ маркировки для актуальных товаров</a></button>
                             <button id="new-order"><a href="http://localhost:3030/ozon_new_marks_order" target="_blank">Создать заказ маркировки для новых товаров</a></button>
                         </section>
                         <div class="body-wrapper"></div>                        
@@ -795,26 +833,36 @@ app.get('/ozon_marks_order', async function(req, res){
         }
     })
 
-    html += `<div class="new_items_order">
-                <h3>Товары не в заказе</h3><hr>`
+    html += `<section class="table">
+                    <div class="marks-table">
+                        <div class="marks-table-header">
+                            <div class="header-cell">Наименование</div>
+                            <div class="header-cell">Статус</div>                            
+                        </div>
+                    <div class="header-wrapper"></div>`
 
     new_orders.forEach(elem => {
         if(nat_cat.indexOf(elem) < 0) {
             let index = new_orders.indexOf(elem)
-            html += `<p class="new">${elem} - <span>${quantity[index]} шт.</span></p>`
+            html += `<div class="table-row">
+                        <span id="name">${elem}</span>
+                        <span id="status-new">Новый товар</span>
+                        <span id="quantity">${quantity[index]}</span>
+                     </div>`
         }
     })
 
-    html += `<hr><button><a href="http://localhost:3030/ozon_new_marks_order" target="_blank">Создать заказы для товаров на модерации</a></button></div><div class="current_items_order">
-                <h3>Товары в заказе</h3><hr>`
-
     for(let i = 0; i < current_items.length; i++) {
-        html += `<p class="current">${current_items[i]} - <span>${current_quantity[i]} шт.</span></p>`
+        html += `<div class="table-row">
+                    <span id="name">${current_items[i]}</span>
+                    <span id="status-current">Актуальный товар</span>
+                    <span id="quantity">${current_quantity[i]}</span>
+                 </div>`
     }
 
-    html += `   <hr></div>
-            </section>
-        ${footerComponent}`
+    html += `</section>
+             <div class="body-wrapper"></div>                        
+             ${footerComponent}`
 
     function createNameList() {
 
@@ -1066,20 +1114,30 @@ app.get('/ozon_new_marks_order', async function(req, res){
         nat_cat.push(c.value)
     })
 
-    html += `<div class="new_items_order">
-                <h3>Товары не в каталоге</h3><hr>`
+    html += `<section class="table">
+                    <div class="marks-table">
+                        <div class="marks-table-header">
+                            <div class="header-cell">Наименование</div>
+                            <div class="header-cell">Статус</div>                            
+                        </div>
+                    <div class="header-wrapper"></div>`
 
     new_orders.forEach(elem => {
         if(nat_cat.indexOf(elem) < 0) {
             let index = new_orders.indexOf(elem)
-            html += `<p class="new">${elem} - <span>${quantity[index]} шт.</span></p>`
+            html += `<div class="table-row">
+                        <span id="name">${elem}</span>
+                        <span id="status-new">Новый товар</span>
+                        <span id="quantity">${quantity[index]}</span>
+                     </div>`
             new_items.push(elem)
             new_quantity.push(quantity[index])
         }
     })
 
-    html += `<hr></div>
-                    </section>${footerComponent}`
+    html += `</section>
+            <div class="body-wrapper"></div>
+        ${footerComponent}`
 
     function createNameList() {
 
@@ -1875,23 +1933,36 @@ app.get('/wildberries_marks_order', async function(req, res) {
         // console.log(List)
         // console.log(Quantity)
 
-        html += `<div class="new_items">
-                    <h3>Список заказов</h3>
-                        <hr>`
+        html += `<section class="table">
+                <div class="marks-table">
+                    <div class="marks-table-header">
+                        <div class="header-cell">Наименование</div>
+                        <div class="header-cell">Статус</div>
+                        <div class="header-cell">Кол-во</div>
+                    </div>
+                <div class="header-wrapper"></div>`
 
         for(let i = 0; i < List.length; i++) {
             for(let j = 0; j < List[i].length; j++) {
                 if(nat_cat.indexOf(List[i][j]) < 0) {
-                    html += `<p class="new">${List[i][j]} - <span>${Quantity[i][j]} шт.</span></p>`
+                    html += `<div class="table-row">
+                                <span id="name">${List[i][j]}</span>
+                                <span id="status-new">Новый товар</span>
+                                <span id="quantity">${Quantity[i][j]}</span>
+                             </div>`
                 } else {
-                    html += `<p class="current">${List[i][j]} - <span>${Quantity[i][j]} шт.</span></p>`
+                    html += `<div class="table-row">
+                                <span id="name">${List[i][j]}</span>
+                                <span id="status-current">Актуальный товар</span>
+                                <span id="quantity">${Quantity[i][j]}</span>
+                             </div>`
                 }
             }
         }
 
-        html += `<hr>
-                    </div>                    
-                        <section>${footerComponent}`
+        html += `<section>
+                <div class="body-wrapper"></div>
+            ${footerComponent}`
 
         
 
@@ -2119,9 +2190,14 @@ app.get('/wildberries_new_marks_order', async function(req, res){
         let Quantity = createQuantityList()
         let content = ``
 
-        html += `<div class="new_items">
-                    <h3>Список заказов</h3>
-                        <hr>`
+        html += `<section class="table">
+                <div class="marks-table">
+                    <div class="marks-table-header">
+                        <div class="header-cell">Наименование</div>
+                        <div class="header-cell">Статус</div>
+                        <div class="header-cell">Кол-во</div>
+                    </div>
+                <div class="header-wrapper"></div>`
 
         for(let i = 0; i < List.length; i++) {
             content += `<?xml version="1.0" encoding="utf-8"?>
@@ -2135,7 +2211,11 @@ app.get('/wildberries_new_marks_order', async function(req, res){
                                 <products>`
             for(let j = 0; j < List[i].length; j++) {
                 if(nat_cat.indexOf(List[i][j]) < 0) {
-                    html += `<p class="new">${List[i][j]} - <span>${Quantity[i][j]} шт.</span></p>`
+                    html += `<div class="table-row">
+                                <span id="name">${List[i][j]}</span>
+                                <span id="status-new">Новый товар</span>
+                                <span id="quantity">${Quantity[i][j]}</span>
+                             </div>`
                     content += `<product>
                                     <gtin>${moderation_gtins[moderation_products.indexOf(List[i][j])]}</gtin>
                                     <quantity>${Quantity[i][j]}</quantity>

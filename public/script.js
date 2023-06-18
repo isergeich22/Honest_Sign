@@ -1,3 +1,4 @@
+
 const home_button = document.querySelector('#home')
 const import_button = document.querySelector('#import')
 const cis_actions_button = document.querySelector('#cis_actions')
@@ -33,6 +34,9 @@ cis_actions_button.addEventListener('click', () => {
 
 const table_header = document.querySelector('.marks-table-header')
 const buttonTop = document.querySelector('#top')
+const multipleList = document.querySelector('.multiple-list')
+const statusList = document.querySelector('.status-list')
+const statusRows = document.querySelectorAll('#status')
 
 window.addEventListener('scroll', () => {
 
@@ -48,4 +52,26 @@ window.addEventListener('scroll', () => {
         document.documentElement.scrollTop = 0
     })
 
+})
+
+multipleList.addEventListener('click', () => {
+
+    const css = window.getComputedStyle(statusList)
+    if(statusList.style.display == 'none' ||  css.display == 'none') {
+        statusList.style.display = 'block'
+    } else {
+        statusList.style.display = 'none'
+    }
+    
+
+})
+
+statusRows.forEach(el => {
+    if(el.innerHTML == 'В обороте') {
+        el.style.color = '#36AD60'
+    } else if(el.innerHTML == 'Нанесен') {
+        el.style.color = 'rgb(240, 141, 27)'
+    } else if(el.innerHTML == 'Выбыл') {
+        el.style.color = 'rgb(122, 129, 155)'
+    }
 })
