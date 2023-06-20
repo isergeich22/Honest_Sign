@@ -49,3 +49,11 @@ window.addEventListener('scroll', () => {
     })
 
 })
+
+// pagination stuff
+
+async function pagination(event, page) {
+    event.preventDefault()
+    const res = await fetch(`/table/?page=${page}`)
+    document.getElementById("dynamic").innerHTML = await res.text()
+}
