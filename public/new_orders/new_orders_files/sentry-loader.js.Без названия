@@ -1,10 +1,5 @@
 try {
   (function() {
-    const env = window.__config.environment;
-    if (env !== 'PRODUCTION') {
-      return;
-    }
-
     /**
       Ошибка с кастомным именем - SentryLoaderError
       Это ошибки (от xhr и fetch) произошедшие до загрузки основного Sentry SDK

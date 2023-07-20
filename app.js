@@ -2,6 +2,8 @@ const express = require('express')
 const exl = require('exceljs')
 const fs = require('fs')
 const cio = require('cheerio')
+const fetch = require('node-fetch')
+const { connect } = require('http2')
 const app = express()
 
 const headerComponent = `<!DOCTYPE html>
@@ -16,7 +18,7 @@ const headerComponent = `<!DOCTYPE html>
 const navComponent = `<header class="header">
                         <nav>
                             <img src="/img/chestnyj_znak.png" alt="честный знак">
-                            <p class="nav-item" id="home">Главная</p>
+                            <p class="nav-item" id="home"><a href="http://localhost:3030/home">Главная</a></p>
                             <p class="nav-item" id="import">Создание импорт-файлов</p>
                             <p class="nav-item" id="cis_actions">Действия с КИЗ</p>                        
                         </nav>                    
@@ -102,6 +104,7 @@ app.get('/home', async function(req, res){
                     <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" class="MuiSelect-icon MuiSelect-iconStandard css-1rb0eps"><path d="M12 6H4l4 4 4-4z" fill="currentColor">
                     </path></svg>
                 </div>
+                <button class="show-button"><a id="show-anchor">Показать</a></button>
              </section>`
 
     async function getNationalCatalog() {
@@ -187,45 +190,715 @@ app.get('/home', async function(req, res){
         const [names, gtins] = await getNationalCatalog()
         const [actual_gtins, actual_marks, actual_dates, actual_status] = await getMonthlyMarks()
 
-        html += `<section class="table">
-                    <div class="marks-table">
-                        <div class="marks-table-header">
-                            <div class="header-cell">КИЗ</div>
-                            <div class="header-cell">GTIN</div>
-                            <div class="header-cell">Товар</div>
-                            <div class="header-cell">Дата эмиссии</div>
-                            <div class="header-cell">Статус</div>
-                        </div>
-                        <div class="header-wrapper"></div>`
+        async function createPages(array) {
 
-        for(let i = 0; i < actual_marks.length; i++) {
-            let status = ''
-            if(actual_status[i] == 'INTRODUCED') {
-                status = 'В обороте'
-            } else if(actual_status[i] == 'APPLIED') {
-                status = 'Нанесен'
-            } else if(actual_status[i] == 'RETIRED') {
-                status = 'Выбыл'
+            let marks_list = []
+            let _temp = []
+
+            for(let i = 0; i < array.length; i++) {
+
+                _temp.push({
+                    gtin: actual_gtins[i],
+                    mark: array[i],
+                    date: actual_dates[i],
+                    status: actual_status[i],
+                    order: ''
+                })
+
+                if(_temp.length%10 === 0) {
+                    marks_list.push(_temp)
+                    _temp = []
+                }
+
             }
 
-            html+= `<div class="table-row">
-                        <span type="text" id="mark">${actual_marks[i]}</span>
-                        <span id="gtin">${actual_gtins[i]}</span>
-                        <span id="name">${names[gtins.indexOf(actual_gtins[i])] == undefined ? '-' : names[gtins.indexOf(actual_gtins[i])]}</span>
-                        <span id="date">${actual_dates[i]}</span>
-                        <span id="status">${status}</span>
-                    </div>`
-        }        
+            marks_list.push(_temp)
+            _temp = []
+
+            return marks_list
+
+        }
+
+        let pageNumber = 0
+
+        if(req.query.page == null || req.query.page == undefined || req.query.page == 0) {
+
+            pageNumber = 1
+
+        } else {
+
+            pageNumber = parseInt(req.query.page)
+
+        }
+
+        // if(req.query.order == null || req.query.order == undefined || req.query.order == 0) {
+            
+        // } else {
+
+        //     let page = 0
+        //     let index = Pages[page].findIndex(el => el.mark == req.query.mark)
+            
+        //     Pages[page]
+
+        // }
+
+        let Pages = await createPages(actual_marks)
+
+        html += `<section class="table">
+                            <div class="marks-table">
+                                <div class="marks-table-header">
+                                    <div class="header-cell">КИЗ</div>
+                                    <div class="header-cell">GTIN</div>
+                                    <div class="header-cell">Товар</div>
+                                    <div class="header-cell">Дата эмиссии</div>
+                                    <div class="header-cell">Статус</div>
+                                    <!--<div class="header-cell">Номер заказа</div>-->
+                                </div>
+                                <div class="header-wrapper"></div>`
+
+        for(let j = 0; j < Pages[pageNumber - 1].length; j++) {
+
+                let status = ''
+                if(Pages[pageNumber - 1][j].status == 'INTRODUCED') {
+                    status = 'В обороте'
+                } else if(Pages[pageNumber - 1][j].status == 'APPLIED') {
+                    status = 'Нанесен'
+                } else if(Pages[pageNumber - 1][j].status == 'RETIRED') {
+                    status = 'Выбыл'
+                }
+                    
+                html+= `<div class="table-row">
+                            <span type="text" id="mark">${Pages[pageNumber - 1][j].mark}</span>
+                            <span id="gtin">${Pages[pageNumber - 1][j].gtin}</span>
+                            <span id="name">${names[gtins.indexOf(Pages[pageNumber - 1][j].gtin)] == undefined ? '-' : names[gtins.indexOf(Pages[pageNumber - 1][j].gtin)]}</span>
+                            <span id="date">${Pages[pageNumber - 1][j].date}</span>
+                            <span id="status">${status}</span>
+                            <!--<div>
+                                <input id="order" type="text" placeholder="${Pages[pageNumber - 1][j].order}">
+                                <button type="submit"><a class="order-number" href="">Отправить</a></button>
+                            </div>-->
+                        </div>`
+                
+            }
+        
+        return Math.ceil(Pages.length)
+    
+    }
+
+
+    let lastPage = await renderMarksTable()
+
+    html += `       </div>
+                <div class="pages">
+                    <a id="begin" href="http://localhost:3030/home">На первую страницу</a>
+                    <div class="pages-prev">
+                        <svg id="prev-icon" width="6" height="10" viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg" style=""><path fill-rule="evenodd" clip-rule="evenodd" d="M4.113 9.669c.432.441 1.13.441 1.563 0a1.145 1.145 0 0 0 0-1.596L2.668 4.999l3.008-3.072a1.145 1.145 0 0 0 0-1.596 1.087 1.087 0 0 0-1.563 0l-3.79 3.87A1.14 1.14 0 0 0 0 5c0 .29.108.578.324.799l3.79 3.87z">
+                        </path></svg>
+                        <a id="prev" href="">Предыдущая страница</a>
+                    </div>
+                    <div class="pages-next">
+                        <a id="next" href="">Следующая страница</a>
+                        <svg id="next-icon" width="6" height="10" viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg" style=""><path fill-rule="evenodd" clip-rule="evenodd" d="M1.887.331a1.087 1.087 0 0 0-1.563 0 1.145 1.145 0 0 0 0 1.596l3.008 3.074L.324 8.073a1.145 1.145 0 0 0 0 1.596c.432.441 1.13.441 1.563 0l3.79-3.87A1.14 1.14 0 0 0 6 5c0-.29-.108-.578-.324-.799L1.886.332z">
+                        </path></svg>
+                    </div>
+                    <a id="last" class="pages-last" href="http://localhost:3030/home?page=${lastPage}">На последнюю страницу</a>                  
+                </div>
+            </section>
+        <div class="body-wrapper"></div>
+    ${footerComponent}`
+
+    res.send(html)
+})
+
+app.get('/home/:status/', async function(req, res){
+
+    let html = `${headerComponent}
+                    <title>Главная</title>
+                </head>
+                <body>
+                    ${navComponent}
+                        <section class="sub-nav import-main">
+                            <div class="import-control">`
+                        
+    let buttons = ['ozon', 'wb']
+    
+    // let url = window.location.href
+    // let str = url.split('/').reverse()[1]
+
+    // document.title = str
+
+    async function renderImportButtons(array) {
+
+        let address = ''
+
+        for(let i = 0; i < array.length; i++) {
+            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+            html += `<button class="button-import">
+                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                     </button>`
+        }
+
+        html += `   </div>`
+
+    }
+
+    async function renderMarkingButtons() {
+        html += `<div class="marking-control">
+                    <button class="marking-button remarking-button"><a href="http://localhost:3030/input_remarking" target="_blank">Ввод в оборот (Перемаркировка)</a></button>
+                    <button class="marking-button distance-button"><a href="http://localhost:3030/sale_ozon" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                    <button class="marking-button distance-button"><a href="http://localhost:3030/sale_wb" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                 </div>`
+    }
+
+    await renderImportButtons(buttons)
+    await renderMarkingButtons()
+
+    html += `</section>`
+
+    html += `<section class="filter-control">
+                <div class="search-field">
+                    <input class="search-input" type="text" placeholder="Код или GTIN товара">
+                    <button id="search" type="submit">
+                        <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" cursor="default" style="color: rgb(122, 129, 155);"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.75 1.739a.75.75 0 00-1.5 0V9.25H1.739a.75.75 0 100 1.5H9.25V18.261H10h-.75a.75.75 0 101.5 0H10h.75V10.75H18.261V10v.75a.75.75 0 000-1.5V10v-.75H10.75V1.739z" fill="currentColor">
+                        </path></svg>
+                    </button>
+                </div>
+                <div class="multiple-list">
+                    <div class="multiple-status">
+                        Статус
+                    </div>
+                    <div class="status-list">
+                        <ul class="list">
+                            <li class="list-item">Нанесен</li>
+                            <li class="list-item">В обороте</li>
+                            <li class="list-item">Выбыл</li>
+                        </ul>
+                    </div>
+                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" class="MuiSelect-icon MuiSelect-iconStandard css-1rb0eps"><path d="M12 6H4l4 4 4-4z" fill="currentColor">
+                    </path></svg>
+                </div>
+                <button class="show-button"><a id="show-anchor">Показать</a></button>
+             </section>`
+
+    async function getNationalCatalog() {
+        
+        const names = []
+        const gtins = []
+
+        const wb = new exl.Workbook()
+
+        await wb.xlsx.readFile('./public/Краткий отчет.xlsx')
+
+        const ws = wb.getWorksheet('Краткий отчет')
+
+        const [c1, c2] = [ws.getColumn(1), ws.getColumn(2)]
+
+        c1.eachCell(c => {
+            gtins.push(`0${c.value}`)
+        })
+
+        c2.eachCell(c => {
+            names.push(c.value)
+        })
+
+        return [names, gtins]
+
+    }
+
+    async function getMonthlyMarks() {
+
+        const actual_gtins = []
+        const actual_marks = []
+        const actual_dates = []
+        const actual_status = []
+
+        const wb = new exl.Workbook()
+
+        await wb.xlsx.readFile('./public/actual_marks.xlsx')
+
+        const ws = wb.getWorksheet('Worksheet')
+
+        const [c1, c2, c16, c23] = [ws.getColumn(1), ws.getColumn(2), ws.getColumn(16), ws.getColumn(23)]
+
+        c1.eachCell(c => {
+            if(c.value.indexOf('01') >= 0) {
+                let str = c.value
+                if(str.indexOf('<') >= 0) {
+                    str = str.replace(/</g, '&lt;')                    
+                }
+                actual_marks.push(str)
+                
+            }
+        })
+
+        c2.eachCell(c => {
+            if(c.value !== null) {
+                if(c.value.indexOf('029') >= 0) {
+                    actual_gtins.push(c.value)
+                }
+            }
+        })
+
+        c16.eachCell(c => {
+            if(c.value != null && c.value != 'status') {
+                actual_status.push(c.value)
+            }
+        })
+
+        c23.eachCell(c => {
+            if(c.value !== null) {
+                if(c.value.indexOf('-') >= 0) {
+                    let str = c.value
+                    actual_dates.push(str.replace(str.substring(10), ''))
+                }
+            }
+        })
+
+        return [actual_gtins, actual_marks, actual_dates, actual_status]
+
+    }
+
+    async function renderMarksTable() {
+
+        const [names, gtins] = await getNationalCatalog()
+        const [actual_gtins, actual_marks, actual_dates, actual_status] = await getMonthlyMarks()
+
+        async function createFilterPages(array, status) {
+
+            let marks_list = []
+    
+            let _temp = []
+    
+            if(status == 'APPLIED') {
+    
+                for(let i = 0; i < array.length; i++) {
+    
+                    if(status == actual_status[i]) {
+    
+                        _temp.push({
+                            gtin: actual_gtins[i],
+                            mark: array[i],
+                            date: actual_dates[i],
+                            status: actual_status[i],
+                            order: ''
+                        })
+    
+                        if(_temp.length%10 === 0) {
+                            marks_list.push(_temp)
+                            _temp = []
+                        }
+    
+                    }
+    
+                }
+    
+                marks_list.push(_temp)
+                _temp = []
+    
+            }
+    
+            if(status == 'RETIRED') {
+    
+                for(let i = 0; i < array.length; i++) {
+    
+                    if(status == actual_status[i]) {
+    
+                        _temp.push({
+                            gtin: actual_gtins[i],
+                            mark: array[i],
+                            date: actual_dates[i],
+                            status: actual_status[i],
+                            order: ''
+                        })
+    
+                        if(_temp.length%10 === 0) {
+                            marks_list.push(_temp)
+                            _temp = []
+                        }
+    
+                    }
+    
+                }
+    
+                marks_list.push(_temp)
+                _temp = []
+            }
+    
+            if(status == 'INTRODUCED') {
+    
+                for(let i = 0; i < array.length; i++) {
+    
+                    if(status == actual_status[i]) {
+    
+                        _temp.push({
+                            gtin: actual_gtins[i],
+                            mark: array[i],
+                            date: actual_dates[i],
+                            status: actual_status[i],
+                            order: ''
+                        })
+    
+                        if(_temp.length%10 === 0) {
+                            marks_list.push(_temp)
+                            _temp = []
+                        }
+    
+                    }
+    
+                }
+    
+                marks_list.push(_temp)
+                _temp = []
+    
+            }
+    
+            return marks_list
+    
+        }
+
+        let pageNumber = 0
+
+        if(req.query.page == null || req.query.page == undefined || req.query.page == 0) {
+
+            pageNumber = 1
+
+        } else {
+
+            pageNumber = parseInt(req.query.page)
+
+        }
+
+        // if(req.query.order == null || req.query.order == undefined || req.query.order == 0) {
+            
+        // } else {
+
+        //     let page = 0
+        //     let index = Pages[page].findIndex(el => el.mark == req.query.mark)
+            
+        //     Pages[page]
+
+        // }
+
+        let Pages = await createFilterPages(actual_marks, req.params.status)
+
+        html += `<section class="table">
+                            <div class="marks-table">
+                                <div class="marks-table-header">
+                                    <div class="header-cell">КИЗ</div>
+                                    <div class="header-cell">GTIN</div>
+                                    <div class="header-cell">Товар</div>
+                                    <div class="header-cell">Дата эмиссии</div>
+                                    <div class="header-cell">Статус</div>
+                                    <!--<div class="header-cell">Номер заказа</div>-->
+                                </div>
+                                <div class="header-wrapper"></div>`
+
+        for(let j = 0; j < Pages[pageNumber - 1].length; j++) {
+
+                let status = ''
+                if(Pages[pageNumber - 1][j].status == 'INTRODUCED') {
+                    status = 'В обороте'
+                } else if(Pages[pageNumber - 1][j].status == 'APPLIED') {
+                    status = 'Нанесен'
+                } else if(Pages[pageNumber - 1][j].status == 'RETIRED') {
+                    status = 'Выбыл'
+                }
+                    
+                html+= `<div class="table-row">
+                            <span type="text" id="mark">${Pages[pageNumber - 1][j].mark}</span>
+                            <span id="gtin">${Pages[pageNumber - 1][j].gtin}</span>
+                            <span id="name">${names[gtins.indexOf(Pages[pageNumber - 1][j].gtin)] == undefined ? '-' : names[gtins.indexOf(Pages[pageNumber - 1][j].gtin)]}</span>
+                            <span id="date">${Pages[pageNumber - 1][j].date}</span>
+                            <span id="status">${status}</span>
+                            <!--<div>
+                                <input id="order" type="text" placeholder="${Pages[pageNumber - 1][j].order}">
+                                <button type="submit"><a class="order-number" href="">Отправить</a></button>
+                            </div>-->
+                        </div>`
+                
+            }
+        
+        return Math.ceil(Pages.length)
+
+    }
+
+    let lastPage = await renderMarksTable()
+
+    html += `       </div>
+                <div class="pages">
+                    <a id="begin" href="http://localhost:3030/home/${req.params.status}">На первую страницу</a>
+                    <div class="pages-prev">
+                        <svg id="prev-icon" width="6" height="10" viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg" style=""><path fill-rule="evenodd" clip-rule="evenodd" d="M4.113 9.669c.432.441 1.13.441 1.563 0a1.145 1.145 0 0 0 0-1.596L2.668 4.999l3.008-3.072a1.145 1.145 0 0 0 0-1.596 1.087 1.087 0 0 0-1.563 0l-3.79 3.87A1.14 1.14 0 0 0 0 5c0 .29.108.578.324.799l3.79 3.87z">
+                        </path></svg>
+                        <a id="prev" href="">Предыдущая страница</a>
+                    </div>
+                    <div class="pages-next">
+                        <a id="next" href="">Следующая страница</a>
+                        <svg id="next-icon" width="6" height="10" viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg" style=""><path fill-rule="evenodd" clip-rule="evenodd" d="M1.887.331a1.087 1.087 0 0 0-1.563 0 1.145 1.145 0 0 0 0 1.596l3.008 3.074L.324 8.073a1.145 1.145 0 0 0 0 1.596c.432.441 1.13.441 1.563 0l3.79-3.87A1.14 1.14 0 0 0 6 5c0-.29-.108-.578-.324-.799L1.886.332z">
+                        </path></svg>
+                    </div>
+                    <a id="last" class="pages-last" href="http://localhost:3030/home/${req.params.status}?page=${lastPage}">На последнюю страницу</a>                  
+                </div>
+            </section>
+        <div class="body-wrapper"></div>
+    ${footerComponent}`
+
+    res.send(html)
+
+})
+
+app.get('/filter', async function(req, res) {
+    let html = `${headerComponent}
+                    <title>Главная</title>
+                </head>
+                <body>
+                    ${navComponent}
+                        <section class="sub-nav import-main">
+                            <div class="import-control">`
+                        
+    let buttons = ['ozon', 'wb']
+    
+    // let url = window.location.href
+    // let str = url.split('/').reverse()[1]
+
+    // document.title = str
+
+    async function renderImportButtons(array) {
+
+        let address = ''
+
+        for(let i = 0; i < array.length; i++) {
+            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+            html += `<button class="button-import">
+                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                     </button>`
+        }
+
+        html += `   </div>`
+
+    }
+
+    async function renderMarkingButtons() {
+        html += `<div class="marking-control">
+                    <button class="marking-button remarking-button"><a href="http://localhost:3030/input_remarking" target="_blank">Ввод в оборот (Перемаркировка)</a></button>
+                    <button class="marking-button distance-button"><a href="http://localhost:3030/sale_ozon" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                    <button class="marking-button distance-button"><a href="http://localhost:3030/sale_wb" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                 </div>`
+    }
+
+    await renderImportButtons(buttons)
+    await renderMarkingButtons()
+
+    html += `</section>`
+
+    html += `<section class="filter-control">
+                <div class="search-field">
+                    <input class="search-input" type="text" placeholder="Код или GTIN товара">
+                    <button id="search" type="submit">
+                        <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" cursor="default" style="color: rgb(122, 129, 155);"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.75 1.739a.75.75 0 00-1.5 0V9.25H1.739a.75.75 0 100 1.5H9.25V18.261H10h-.75a.75.75 0 101.5 0H10h.75V10.75H18.261V10v.75a.75.75 0 000-1.5V10v-.75H10.75V1.739z" fill="currentColor">
+                        </path></svg>
+                    </button>
+                </div>
+                <div class="multiple-list">
+                    <div class="multiple-status">
+                        Статус
+                    </div>
+                    <div class="status-list">
+                        <ul class="list">
+                            <li class="list-item">Нанесен</li>
+                            <li class="list-item">В обороте</li>
+                            <li class="list-item">Выбыл</li>
+                        </ul>
+                    </div>
+                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" class="MuiSelect-icon MuiSelect-iconStandard css-1rb0eps"><path d="M12 6H4l4 4 4-4z" fill="currentColor">
+                    </path></svg>
+                </div>
+                <button class="show-button"><a id="show-anchor">Показать</a></button>
+             </section>`
+
+    async function getNationalCatalog() {
+        
+        const names = []
+        const gtins = []
+
+        const wb = new exl.Workbook()
+
+        await wb.xlsx.readFile('./public/Краткий отчет.xlsx')
+
+        const ws = wb.getWorksheet('Краткий отчет')
+
+        const [c1, c2] = [ws.getColumn(1), ws.getColumn(2)]
+
+        c1.eachCell(c => {
+            gtins.push(`0${c.value}`)
+        })
+
+        c2.eachCell(c => {
+            names.push(c.value)
+        })
+
+        return [names, gtins]
+
+    }
+
+    async function getMonthlyMarks() {
+
+        const actual_gtins = []
+        const actual_marks = []
+        const actual_dates = []
+        const actual_status = []
+
+        const wb = new exl.Workbook()
+
+        await wb.xlsx.readFile('./public/actual_marks.xlsx')
+
+        const ws = wb.getWorksheet('Worksheet')
+
+        const [c1, c2, c16, c23] = [ws.getColumn(1), ws.getColumn(2), ws.getColumn(16), ws.getColumn(23)]
+
+        c1.eachCell(c => {
+            if(c.value.indexOf('01') >= 0) {
+                let str = c.value
+                if(str.indexOf('&') >= 0) {
+                    str = str.replace(/&/g, '&amp;')
+                }
+                if(str.indexOf('<') >= 0) {
+                    str = str.replace(/</g, '&lt;')                    
+                }
+                
+                actual_marks.push(str)
+                
+            }
+        })
+
+        c2.eachCell(c => {
+            if(c.value !== null) {
+                if(c.value.indexOf('029') >= 0) {
+                    actual_gtins.push(c.value)
+                }
+            }
+        })
+
+        c16.eachCell(c => {
+            if(c.value != null && c.value != 'status') {
+                actual_status.push(c.value)
+            }
+        })
+
+        c23.eachCell(c => {
+            if(c.value !== null) {
+                if(c.value.indexOf('-') >= 0) {
+                    let str = c.value
+                    actual_dates.push(str.replace(str.substring(10), ''))
+                }
+            }
+        })
+
+        return [actual_gtins, actual_marks, actual_dates, actual_status]
+
+    }
+
+    async function renderMarksTable() {
+
+        const [names, gtins] = await getNationalCatalog()
+        const [actual_gtins, actual_marks, actual_dates, actual_status] = await getMonthlyMarks()
+
+        html += `<section class="table">
+                            <div class="marks-table">
+                                <div class="marks-table-header">
+                                    <div class="header-cell">КИЗ</div>
+                                    <div class="header-cell">GTIN</div>
+                                    <div class="header-cell">Товар</div>
+                                    <div class="header-cell">Дата эмиссии</div>
+                                    <div class="header-cell">Статус</div>
+                                    <!--<div class="header-cell">Номер заказа</div>-->
+                                </div>
+                                <div class="header-wrapper"></div>`
+
+        if(req.query.cis != '' && req.query.gtin == undefined) {
+
+            // console.log(req.query.cis)
+            // let str = req.query.cis.replace(/</g, '&lt;')
+            // console.log(str)
+            // console.log(actual_marks[8])
+
+            let index = 0
+        
+            for(let i = 0; i < actual_marks.length; i++) {
+
+                if(actual_marks[i].indexOf(req.query.cis) >= 0) {
+
+                    index = i
+
+                }
+
+            }
+        
+            let status = ''
+                    if(actual_status[index] == 'INTRODUCED') {
+                        status = 'В обороте'
+                    } else if(actual_status[index] == 'APPLIED') {
+                        status = 'Нанесен'
+                    } else if(actual_status[index] == 'RETIRED') {
+                        status = 'Выбыл'
+                    }
+                        
+                    html+= `<div class="table-row">
+                                <span type="text" id="mark">${actual_marks[index]}</span>
+                                <span id="gtin">${actual_gtins[index]}</span>
+                                <span id="name">${names[gtins.indexOf(actual_gtins[index])]}</span>
+                                <span id="date">${actual_dates[index]}</span>
+                                <span id="status">${status}</span>
+                                <!--<div>
+                                    <input id="order" type="text" placeholder="">
+                                    <button type="submit"><a class="order-number" href="">Отправить</a></button>
+                                </div>-->
+                            </div>`
+        }
+
+        if(req.query.gtin != '' && req.query.cis == undefined) {
+
+            for(let i = 0; i < actual_marks.length; i++) {
+
+                if(actual_gtins[i] == req.query.gtin) {
+
+                    let status = ''
+                    if(actual_status[i] == 'INTRODUCED') {
+                        status = 'В обороте'
+                    } else if(actual_status[i] == 'APPLIED') {
+                        status = 'Нанесен'
+                    } else if(actual_status[i] == 'RETIRED') {
+                        status = 'Выбыл'
+                    }
+                        
+                    html+= `<div class="table-row">
+                                <span type="text" id="mark">${actual_marks[i]}</span>
+                                <span id="gtin">${actual_gtins[i]}</span>
+                                <span id="name">${names[gtins.indexOf(actual_gtins[i])]}</span>
+                                <span id="date">${actual_dates[i]}</span>
+                                <span id="status">${status}</span>
+                                <!--<div>
+                                    <input id="order" type="text" placeholder="">
+                                    <button type="submit"><a class="order-number" href="">Отправить</a></button>
+                                </div>-->
+                            </div>`
+
+                }
+
+            }
+
+        }
 
     }
 
     await renderMarksTable()
 
-    html += `</div>
-        </section>
+    html += `</section>
+        <div class="body-wrapper"></div>
     ${footerComponent}`
 
     res.send(html)
+
 })
 
 app.get('/ozon', async function(req, res){
@@ -277,6 +950,7 @@ app.get('/ozon', async function(req, res){
     const new_orders = []
     const new_items = []
     const current_items = []
+    const moderation_items = []
     const vendorCodes = []
 
     const colors = ['БЕЖЕВЫЙ', 'БЕЛЫЙ', 'БИРЮЗОВЫЙ', 'БОРДОВЫЙ', 'БРОНЗОВЫЙ', 'ВАНИЛЬ', 'ВИШНЯ', 'ГОЛУБОЙ', 'ЖЁЛТЫЙ', 'ЗЕЛЁНЫЙ', 'ЗОЛОТОЙ', 'ИЗУМРУДНЫЙ',
@@ -287,11 +961,11 @@ app.get('/ozon', async function(req, res){
     'ФУКСИЯ', 'ХАКИ', 'ЧЕРНЫЙ', 'ШОКОЛАДНЫЙ'
     ]
     
-    const filePath = './public/new_orders/new_orders.html'
+    const filePath = './public/moderation_marks/moderation_marks.html'
 
-    const fileContent = fs.readFileSync(filePath, 'utf-8')
+    // const fileContent = fs.readFileSync(filePath, 'utf-8')
 
-    const content = cio.load(fileContent)
+    // const content = cio.load(fileContent)
 
     async function createImport(new_products) {
         const fileName = './public/IMPORT_TNVED_6302 (3).xlsx'
@@ -304,24 +978,13 @@ app.get('/ozon', async function(req, res){
 
         let cellNumber = 5
 
-        const spans = content('span')
-
-        spans.each((i, elem) => {
-            if(content(elem).text().indexOf('00-') === 0) {
-                if(new_products.includes((content(elem.parentNode.nextSibling).text()).trim())) {
-                    vendorCodes.push(content(elem).text().replace(',', ''))
-                    if(content(elem.parentNode.nextSibling).text().indexOf('Белый') >= 0) colors.push('белый')
-                }
-            }
-        })
-
         for(i = 0; i < new_products.length; i++) {
             let size = ''            
                 ws.getCell(`A${cellNumber}`).value = '6302'
                 ws.getCell(`B${cellNumber}`).value = new_products[i]
                 ws.getCell(`C${cellNumber}`).value = 'Ивановский текстиль'
                 ws.getCell(`D${cellNumber}`).value = 'Артикул'
-                ws.getCell(`E${cellNumber}`).value = vendorCodes[i]
+                ws.getCell(`E${cellNumber}`).value = vendorCodes[new_orders.indexOf(new_products[i])]
                 for(let c = 0; c < colors.length; c++) {
                     str = colors[c].toLowerCase()
                     elem = new_products[i].toLowerCase()
@@ -602,27 +1265,65 @@ app.get('/ozon', async function(req, res){
 
     }
 
-    function getOrdersList(i, count) {
-        if(count === 1) {
-            const divs = content('.details-cell_propsSecond_f-KWL')            
-            divs.each((i, elem) => {
-                // console.log(content(elem).text())
-                let str = (content(elem).text()).trim()
-                if(str.indexOf('Полотенце') >= 0 || str.indexOf('полотенце') >= 0 || str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
-            })
-        } else {
-            for(i; i <= count; i++) {
-                const divs = content('.details-cell_propsSecond_f-KWL')
-                divs.each((i, elem) => {
-                    // console.log(content(elem).text())
-                    let str = (content(elem).text()).trim()
-                    if(str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
-                })  
-            }
-        }
-    }
+    async function getOrdersList() {
 
-    getOrdersList(1, 1)
+        let response = await fetch('https://api-seller.ozon.ru/v3/posting/fbs/list', {
+
+            method: 'POST',
+            headers: {
+                'Host':'api-seller.ozon.ru',
+                'Client-Id':'144225',
+                'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                'dir': 'asc',
+                'filter': {
+                    'since':'2023-07-01T00:00:00.000Z',
+                    'status':'awaiting_packaging',
+                    'to':'2023-07-31T23:59:59.000Z'
+                },
+                'limit': 1000,
+                'offset':0
+            })
+
+        })
+        
+        let result = await response.json()
+
+        result.result.postings.forEach(e => {
+            e.products.forEach(el => {
+                if(new_orders.indexOf(el.name) < 0) {
+                    if(el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
+                        new_orders.push(el.name)
+                        vendorCodes.push(el.offer_id)
+                    }
+                } else {
+                    console.log(el.name)
+                }
+            })
+        })
+        
+    }
+        // if(count === 1) {
+        //     const divs = content('.details-cell_propsSecond_f-KWL')            
+        //     divs.each((i, elem) => {
+        //         // console.log(content(elem).text())
+        //         let str = (content(elem).text()).trim()
+        //         if(str.indexOf('Гобелен') >= 0 || str.indexOf('Полотенце') >= 0 || str.indexOf('полотенце') >= 0 || str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
+        //     })
+        // } else {
+        //     for(i; i <= count; i++) {
+        //         const divs = content('.details-cell_propsSecond_f-KWL')
+        //         divs.each((i, elem) => {
+        //             // console.log(content(elem).text())
+        //             let str = (content(elem).text()).trim()
+        //             if(str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
+        //         })  
+        //     }
+        // }
+
+    await getOrdersList()
 
     const wb = new exl.Workbook()
     
@@ -638,8 +1339,31 @@ app.get('/ozon', async function(req, res){
            nat_cat.push(c.value)
         })
 
+        const products = []
+        const moderation_products = []
+
+        const fileContent = fs.readFileSync(filePath, 'utf-8')
+
+        const content = cio.load(fileContent)
+
+        const spans = content('span')
+
+        const divs = content('.dDfDKJ')
+
+        spans.each((i, elem) => {
+            if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
+                products.push(content(elem).text())
+            }
+        })
+
+        for(let i = 0; i < products.length; i++) {
+            if(i%2 !== 0) {
+                moderation_products.push(products[i])
+            }
+        }
+
         for(i = 0; i < new_orders.length; i++) {
-            if(nat_cat.indexOf(new_orders[i]) < 0 && new_items.indexOf(new_orders[i]) < 0){
+            if(moderation_products.indexOf(new_orders[i]) < 0 && nat_cat.indexOf(new_orders[i]) < 0 && new_items.indexOf(new_orders[i]) < 0){
 
                 new_items.push(new_orders[i])
 
@@ -650,6 +1374,13 @@ app.get('/ozon', async function(req, res){
                 current_items.push(new_orders[i])
 
             }
+
+            if(moderation_products.indexOf(new_orders[i]) >=0 && current_items.indexOf(new_orders[i]) < 0) {
+
+                moderation_items.push(new_orders[i])
+
+            }
+
         }
 
         html += `<section class="table">
@@ -674,6 +1405,13 @@ app.get('/ozon', async function(req, res){
                      </div>`
         })
 
+        moderation_items.forEach(elem => {
+            html += `<div class="table-row">
+                        <span id="name">${elem}</span>
+                        <span id="status-moderation">Модерируемый товар</span>
+                     </div>`
+        })
+
         html += `       </section>
                         <section class="action-form">
                             <button id="current-order"><a href="http://localhost:3030/ozon_marks_order" target="_blank">Создать заказ маркировки для актуальных товаров</a></button>
@@ -685,7 +1423,7 @@ app.get('/ozon', async function(req, res){
         // html = '<h1 class="success">Import successfully done</h1>'
         res.send(html)
 
-        createImport(new_items)
+        if(new_items.length > 0) createImport(new_items)        
 
         }).catch(err => {
         console.log(err.message)
@@ -751,49 +1489,86 @@ app.get('/ozon_marks_order', async function(req, res){
 
     const content = cio.load(fileContent)
 
-    function getOrdersList(i, count) {
-        if(count === 1) {
-            const divs = content('.details-cell_propsSecond_f-KWL')            
-            divs.each((i, elem) => {
-                // console.log(content(elem).text())
-                let str = (content(elem).text()).trim()                
-                if(str.indexOf('Полотенце') >= 0 || str.indexOf('полотенце') >= 0 || str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
+    async function getOrdersList() {
+
+        let response = await fetch('https://api-seller.ozon.ru/v3/posting/fbs/list', {
+
+            method: 'POST',
+            headers: {
+                'Host':'api-seller.ozon.ru',
+                'Client-Id':'144225',
+                'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                'dir': 'asc',
+                'filter': {
+                    'since':'2023-07-01T00:00:00.000Z',
+                    'status':'awaiting_packaging',
+                    'to':'2023-07-31T23:59:59.000Z'
+                },
+                'limit': 1000,
+                'offset':0
             })
-        } else {
-            for(i; i <= count; i++) {
-                const divs = content('.details-cell_propsSecond_f-KWL')
-                divs.each((i, elem) => {
-                    // console.log(content(elem).text())
-                    let str = (content(elem).text()).trim()
-                    if(str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
-                })  
-            }
-        }
-    }
 
-    function getQuantity() {
-        const spans = content('.mr2')
-
-        spans.each((i, elem) => {
-            if(content(elem).text().indexOf('шт.') >= 0) {
-                // if(new_orders.indexOf(content(elem.parentNode.nextSibling).text().trim()) >= 0) {
-                //     quantity.push(parseInt((content(elem).text().replace(' шт.', ''))))
-                // }
-                if(new_orders.indexOf(content(elem.parentNode.nextSibling).text().trim()) >= 0) {
-                    quantity.push(parseInt((content(elem).text().replace(' шт.', ''))))
-                }
-            }
         })
-        // spans.each((i, elem) => {
-        //     if(content(elem).text().indexOf('шт.') === 0) quantity.push(content(elem).text())
-        // })
+        
+        let result = await response.json()
+
+        result.result.postings.forEach(e => {
+            e.products.forEach(el => {
+                    if(el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
+                        if(new_orders.indexOf(el.name) < 0) {
+                            new_orders.push(el.name)
+                            quantity.push(el.quantity)
+                        } else {
+                            quantity[new_orders.indexOf(el.name)] += el.quantity
+                        }
+                    }
+            })
+        })
+        
     }
 
-    getOrdersList(1,1)
+    async function getQuantity() {
+        let response = await fetch('https://api-seller.ozon.ru/v3/posting/fbs/list', {
+
+            method: 'POST',
+            headers: {
+                'Host':'api-seller.ozon.ru',
+                'Client-Id':'144225',
+                'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                'dir': 'asc',
+                'filter': {
+                    'since':'2023-07-01T00:00:00.000Z',
+                    'status':'awaiting_packaging',
+                    'to':'2023-07-17T23:59:59.000Z'
+                },
+                'limit': 1000,
+                'offset':0
+            })
+
+        })
+        
+        let result = await response.json()
+
+        result.result.postings.forEach(e => {
+            e.products.forEach(el => {                
+                if(new_orders.indexOf(el.name) >= 0) {
+                    quantity.push(el.quantity)
+                }
+            })
+        })
+    }
+
+    await getOrdersList()
 
     // console.log(new_orders.length)
 
-    getQuantity()
+    // await getQuantity()
 
     // console.log(quantity.length)
 
@@ -841,16 +1616,16 @@ app.get('/ozon_marks_order', async function(req, res){
                         </div>
                     <div class="header-wrapper"></div>`
 
-    new_orders.forEach(elem => {
-        if(nat_cat.indexOf(elem) < 0) {
-            let index = new_orders.indexOf(elem)
-            html += `<div class="table-row">
-                        <span id="name">${elem}</span>
-                        <span id="status-new">Новый товар</span>
-                        <span id="quantity">${quantity[index]}</span>
-                     </div>`
-        }
-    })
+    // new_orders.forEach(elem => {
+    //     if(nat_cat.indexOf(elem) < 0) {
+    //         let index = new_orders.indexOf(elem)
+    //         html += `<div class="table-row">
+    //                     <span id="name">${elem}</span>
+    //                     <span id="status-new">Новый товар</span>
+    //                     <span id="quantity">${quantity[index]}</span>
+    //                  </div>`
+    //     }
+    // })
 
     for(let i = 0; i < current_items.length; i++) {
         html += `<div class="table-row">
@@ -1025,53 +1800,92 @@ app.get('/ozon_new_marks_order', async function(req, res){
     const filePath = './public/moderation_marks/moderation_marks.html'
     const filePathOzon = './public/new_orders/new_orders.html'
 
-    const fileContentOzon = fs.readFileSync(filePathOzon, 'utf-8')
+    // const fileContentOzon = fs.readFileSync(filePathOzon, 'utf-8')
 
-    const contentOzon = cio.load(fileContentOzon)
+    // const contentOzon = cio.load(fileContentOzon)
 
-    function getOrdersList(i, count) {
-        if(count === 1) {
-            const divs = contentOzon('.details-cell_propsSecond_f-KWL')            
-            divs.each((i, elem) => {
-                // console.log(content(elem).text())
-                let str = (contentOzon(elem).text()).trim()                
-                if(str.indexOf('Полотенце') >= 0 || str.indexOf('полотенце') >= 0 || str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
+    async function getOrdersList() {
+
+        let response = await fetch('https://api-seller.ozon.ru/v3/posting/fbs/list', {
+
+            method: 'POST',
+            headers: {
+                'Host':'api-seller.ozon.ru',
+                'Client-Id':'144225',
+                'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                'dir': 'asc',
+                'filter': {
+                    'since':'2023-07-01T00:00:00.000Z',
+                    'status':'awaiting_packaging',
+                    'to':'2023-07-31T23:59:59.000Z'
+                },
+                'limit': 1000,
+                'offset':0
             })
-        } else {
-            for(i; i <= count; i++) {
-                const divs = contentOzon('.details-cell_propsSecond_f-KWL')
-                divs.each((i, elem) => {
-                    // console.log(content(elem).text())
-                    let str = (contentOzon(elem).text()).trim()
-                    if(str.indexOf('Постельное') >= 0 || str.indexOf('постельное') >= 0 || str.indexOf('Простыня') >= 0 || str.indexOf('Пододеяльник') >= 0 || str.indexOf('Наволочка') >= 0 || str.indexOf('Наматрасник') >= 0) new_orders.push(str)
-                })  
-            }
-        }
-    }
 
-    function getQuantity() {
-        const spans = contentOzon('.mr2')
-
-        spans.each((i, elem) => {
-            if(contentOzon(elem).text().indexOf('шт.') >= 0) {
-                // if(new_orders.indexOf(content(elem.parentNode.nextSibling).text().trim()) >= 0) {
-                //     quantity.push(parseInt((content(elem).text().replace(' шт.', ''))))
-                // }
-                if(new_orders.indexOf(contentOzon(elem.parentNode.nextSibling).text().trim()) >= 0) {
-                    quantity.push(parseInt((contentOzon(elem).text().replace(' шт.', ''))))
-                }
-            }
         })
-        // spans.each((i, elem) => {
-        //     if(content(elem).text().indexOf('шт.') === 0) quantity.push(content(elem).text())
-        // })
+        
+        let result = await response.json()
+
+        result.result.postings.forEach(e => {
+            e.products.forEach(el => {
+                    if(el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
+                        if(new_orders.indexOf(el.name) < 0) {
+                            new_orders.push(el.name)
+                            quantity.push(el.quantity)
+                        } else {
+                            quantity[new_orders.indexOf(el.name)] += el.quantity
+                        }
+                    }
+            })
+        })
+        
     }
 
-    getOrdersList(1,1)
+    // async function getQuantity() {
+
+    //     let response = await fetch('https://api-seller.ozon.ru/v3/posting/fbs/list', {
+
+    //         method: 'POST',
+    //         headers: {
+    //             'Host':'api-seller.ozon.ru',
+    //             'Client-Id':'144225',
+    //             'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+    //             'Content-Type':'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             'dir': 'asc',
+    //             'filter': {
+    //                 'since':'2023-07-01T00:00:00.000Z',
+    //                 'status':'awaiting_packaging',
+    //                 'to':'2023-07-17T23:59:59.000Z'
+    //             },
+    //             'limit': 1000,
+    //             'offset':0
+    //         })
+
+    //     })
+        
+    //     let result = await response.json()
+
+    //     result.result.postings.forEach(e => {
+    //         e.products.forEach(el => {
+    //                 if(el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
+    //                     quantity.push(el.quantity)
+    //                 }
+    //         })
+    //     })
+        
+    // }
+
+    await getOrdersList()
 
     // console.log(new_orders.length)
 
-    getQuantity()
+    // await getQuantity()
 
     const fileContent = fs.readFileSync(filePath, 'utf-8')
 
@@ -1082,7 +1896,7 @@ app.get('/ozon_new_marks_order', async function(req, res){
     const divs = content('.dDfDKJ')
 
     spans.each((i, elem) => {
-        if(((content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
+        if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
             products.push(content(elem).text())
         }
     })
@@ -1127,7 +1941,7 @@ app.get('/ozon_new_marks_order', async function(req, res){
             let index = new_orders.indexOf(elem)
             html += `<div class="table-row">
                         <span id="name">${elem}</span>
-                        <span id="status-new">Новый товар</span>
+                        <span id="status-moderation">Модерируемый товар</span>
                         <span id="quantity">${quantity[index]}</span>
                      </div>`
             new_items.push(elem)
@@ -1200,16 +2014,15 @@ app.get('/ozon_new_marks_order', async function(req, res){
                                             <productionOrderId>OZON</productionOrderId>
                                             <products>`
                 for(let j = 0; j < List[i].length; j++) {
-                    if(nat_cat.indexOf(List[i][j]) < 0) {
+                    // console.log(moderation_gtins[moderation_products.indexOf(List[i][j])])
                     content += `<product>
-                                    <gtin>${moderation_gtins[moderation_products.indexOf(List[i][j])]}</gtin>
+                                    <gtin>${moderation_gtins[moderation_products.indexOf(List[i][j].trim())]}</gtin>
                                     <quantity>${Quantity[i][j]}</quantity>
                                     <serialNumberType>OPERATOR</serialNumberType>
                                     <cisType>UNIT</cisType>
                                     <templateId>10</templateId>
                                 </product>`
                 }
-            }
                 
             content += `    </products>
                         </lp>
@@ -1388,18 +2201,18 @@ app.get('/wildberries', async function(req, res){
                     </div>
                 <div class="header-wrapper"></div>`
 
-    current_items.forEach(elem => {
-        html += `<div class="table-row">
-                    <span id="name">${elem}</span>
-                    <span id="status-current">Актуальный товар</span>
-                 </div>`
-    })
-
-    new_items.forEach(elem => {
-        html += `<div class="table-row">
-                    <span id="name">${elem}</span>
-                    <span id="status-new">Новый товар</span>
-                 </div>`
+    testArray.forEach(elem => {
+        if(new_items.indexOf(elem) >= 0) {
+            html += `<div class="table-row">
+                        <span id="name">${elem}</span>
+                        <span id="status-new">Новый товар</span>
+                     </div>`
+        } else {
+            html += `<div class="table-row">
+                        <span id="name">${elem}</span>
+                        <span id="status-current">Актуальный товар</span>
+                     </div>`
+        }
     })
 
     html += `</section>
@@ -1837,7 +2650,7 @@ app.get('/wildberries_marks_order', async function(req, res) {
     }
 
     ozon.forEach(el => {
-        if(orders.indexOf(el) < 0) orders.push(el)
+        if(orders.indexOf(el) < 0 && nat_cat.indexOf(el) >= 0) orders.push(el)
     })
 
     function createNameList() {
@@ -1847,7 +2660,7 @@ app.get('/wildberries_marks_order', async function(req, res) {
 
         for (let i = 0; i < orders.length; i++) {
 
-            _temp.push(orders[i])
+                _temp.push(orders[i])
             
                 if(_temp.length%10 === 0) {
                     orderList.push(_temp)
@@ -1855,8 +2668,10 @@ app.get('/wildberries_marks_order', async function(req, res) {
                 }
         }        
 
-        orderList.push(_temp)
-        _temp = []
+        if(_temp.length > 0) {
+            orderList.push(_temp)
+            _temp = []
+        }
 
         return orderList
 
@@ -1868,8 +2683,10 @@ app.get('/wildberries_marks_order', async function(req, res) {
         let temp = []
 
         for(let i = 0; i < test_Array.length; i++) {
-
-            temp.push(test_Array[i])
+            
+            if(nat_cat.indexOf(orders[i]) >= 0) {
+                temp.push(test_Array[testArray.indexOf(orders[i])])
+            }
 
                 if(temp.length%10 === 0) {
                     quantityList.splice(-1, 0, ...quantityList.splice(-1, 1, temp))
@@ -2046,10 +2863,12 @@ app.get('/wildberries_new_marks_order', async function(req, res){
     const divs = content('.dDfDKJ')
 
     spans.each((i, elem) => {
-        if(((content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
+        if(((content(elem).text()).indexOf('Гобелен') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
             products.push(content(elem).text())
         }
     })
+
+    // console.log(products)
 
     for(let i = 0; i < products.length; i++) {
         if(i%2 !== 0) {
@@ -2135,7 +2954,7 @@ app.get('/wildberries_new_marks_order', async function(req, res){
     }
 
     ozon.forEach(el => {
-        if(orders.indexOf(el) < 0) orders.push(el)
+        if(orders.indexOf(el) < 0 && nat_cat.indexOf(el) < 0) orders.push(el)
     })
 
     function createNameList() {
@@ -2145,10 +2964,9 @@ app.get('/wildberries_new_marks_order', async function(req, res){
 
         for (let i = 0; i < orders.length; i++) {
 
+                _temp.push(orders[i])
             
-            _temp.push(orders[i])
-            
-            if(_temp.length === 10) {
+            if(_temp.length%10 === 0) {
                 orderList.push(_temp)
                 _temp = []
             }
@@ -2169,7 +2987,9 @@ app.get('/wildberries_new_marks_order', async function(req, res){
 
         for(let i = 0; i < test_Array.length; i++) {
 
-            temp.push(test_Array[i])
+            if(nat_cat.indexOf(orders[i]) < 0) {
+                temp.push(test_Array[testArray.indexOf(orders[i])])
+            }
 
                 if(temp.length === 10) {
                     quantityList.splice(-1, 0, ...quantityList.splice(-1, 1, temp))
@@ -2189,6 +3009,10 @@ app.get('/wildberries_new_marks_order', async function(req, res){
         let List = createNameList()
         let Quantity = createQuantityList()
         let content = ``
+
+        // console.log(List)
+
+        // console.log(Quantity)
 
         html += `<section class="table">
                 <div class="marks-table">
@@ -2352,7 +3176,30 @@ app.get('/input_remarking', async function(req, res){
 
     fs.writeFileSync('./public/inputinsale/remarking.xml', content)
 
-    html += footerComponent
+    html += `<div class="result">Файл remarking.xml успешно сформирован</div>
+                <section class="table">
+                    <div class="marks-table">
+                        <div class="marks-table-header">
+                            <div class="header-cell">КИЗ</div>
+                            <div class="header-cell">Код ТНВЭД</div>
+                            <div class="header-cell">Страна</div>
+                        </div>
+                        <div class="header-wrapper"></div>`
+
+    marks.forEach(el => {
+        if(el.length === 31) {
+            html += `<div class="table-row">
+                        <span type="text" id="mark">${el.replace(/</g, '&lt;')}</span>
+                        <span id="name">6302100001</span>
+                        <span id="name">РОССИЯ</span>
+                     </div>`
+        }
+    })
+    
+
+    html += `   </div>
+            </section>
+        ${footerComponent}`
 
     res.send(html)
     
@@ -2360,7 +3207,53 @@ app.get('/input_remarking', async function(req, res){
 
 app.get('/sale_ozon', async function(req, res){
 
+    let html = `${headerComponent}
+                    <title>Перемаркировка</title>
+                </head>
+                <body>
+                    ${navComponent}
+                        <section class="sub-nav import-main">
+                            <div class="import-control">`
+                        
+    let buttons = ['ozon', 'wb']
+    
+    // let url = window.location.href
+    // let str = url.split('/').reverse()[1]
+
+    // document.title = str
+
+    async function renderImportButtons(array) {
+
+        let address = ''
+
+        for(let i = 0; i < array.length; i++) {
+            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+            html += `<button class="button-import">
+                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                     </button>`
+        }
+
+        html += `   </div>`
+
+    }
+
+    async function renderMarkingButtons() {
+        html += `<div class="marking-control">
+                    <button class="marking-button remarking-button"><a href="http://localhost:3030/input_remarking" target="_blank">Ввод в оборот (Перемаркировка)</a></button>
+                    <button class="marking-button distance-button"><a href="http://localhost:3030/sale_ozon" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                    <button class="marking-button distance-button"><a href="http://localhost:3030/sale_wb" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                 </div>`
+    }
+
+    await renderImportButtons(buttons)
+    await renderMarkingButtons()
+
+    html += `</section>`
+
     const date_ob = new Date()
+
+    let orders = []
+    let consignments = []
 
     let date_string = ''
 
@@ -2380,59 +3273,19 @@ app.get('/sale_ozon', async function(req, res){
                         <products_list>`
     
     const wb = new exl.Workbook()
-
-    async function getNationalCatalog() {
-
-        const filePath = './public/Краткий отчет.xlsx'
-
-        await wb.xlsx.readFile(filePath)
-
-        const ws = wb.getWorksheet('Краткий отчет')
-
-        const c2 = ws.getColumn(2)
-
-        const gtins = []
-        const names = []
-
-        const c1 = ws.getColumn(1)
-
-        c1.eachCell(c => {
-            gtins.push(c.value)
-        })
-
-        c2.eachCell(c => {
-            // console.log(c.value)
-            names.push(c.value)
-        })
-
-        return [names, gtins]
-
-    }
-
-    //получаем содержимое файла нац. каталога
-    //а именно - наименование уже созданные ранее
-    //помещаем их в отдельный массив
-
-    const [catalogNames, catalogGtins] = await getNationalCatalog()
-
-    // console.log(catalogNames)
 
     //получаем данные из xlsx файла с реализациями и
     //формируем массив объектов реализаций
 
     async function getConsignments() {
 
-        const consignmentNumbers = []
+        let consignments = []
 
-        const consignmentProducts = []
+        const consignmentDate = []
 
-        const noRepeatConsignmentNumbers = []
+        const consignmentNumbers = []        
 
         const consignmentTypes = []
-
-        const noRepeatConsignmentTypes = []
-
-        const consignments = []
 
         const filePath = './public/distance/релизации.xlsx'
 
@@ -2440,290 +3293,232 @@ app.get('/sale_ozon', async function(req, res){
 
         const ws = wb.getWorksheet('TDSheet')
 
-        const [c2, c4, c6] = [ws.getColumn(2), ws.getColumn(4), ws.getColumn(6)]
-
+        const [c2, c3, c8] = [ws.getColumn(2), ws.getColumn(3), ws.getColumn(8)]
+        
         c2.eachCell(c => {
+            let str = c.value
+            consignmentDate.push(str.replace(str.substring(10), ''))
+        })
+
+        c3.eachCell(c => {
             let str = c.value
             consignmentNumbers.push(str.substring(str.length - 4))
         })
 
-        c4.eachCell(c => {
-            consignmentProducts.push(c.value)
-        })
-
-        c6.eachCell(c => {
+        c8.eachCell(c => {
             consignmentTypes.push(c.value)
         })
-        
 
-        for(let i = 0; i < consignmentNumbers.length; i++) {
-
-            if(consignmentTypes[i] !== null && consignmentTypes[i].indexOf('ozon') >= 0 && noRepeatConsignmentNumbers.indexOf(consignmentNumbers[i]) < 0 && catalogNames.indexOf(consignmentProducts[i]) >= 0) {
-
-                noRepeatConsignmentNumbers.push(consignmentNumbers[i])
-
-            }
-
-        }
-
-        // console.log(consignmentTypes)
-        // console.log(noRepeatConsignmentNumbers)
+        let noRepeatConsignmentTypes = []
 
         for(let i = 0; i < consignmentTypes.length; i++) {
-
-            if(consignmentTypes[i] !== null && consignmentTypes[i].indexOf('ozon') >= 0 && catalogNames.indexOf(consignmentProducts[i]) >= 0) {
-
-                let str = consignmentTypes[i]
-                if(noRepeatConsignmentTypes.indexOf(str.substring(5)) < 0) {
-
-                    noRepeatConsignmentTypes.push(str.substring(5))
-
-                }
-
+            if(consignmentTypes[i] != null && consignmentTypes[i].indexOf('ozon') >= 0 && noRepeatConsignmentTypes.indexOf(consignmentTypes[i]) < 0) {
+                noRepeatConsignmentTypes.push(consignmentTypes[i])
             }
-
         }
-        
-        for(let i = 0; i < noRepeatConsignmentNumbers.length; i++) {
 
-            let elem = {
-                number: noRepeatConsignmentNumbers[i],
-                products: [],
-                ozonNumber: ''
-            }
+        for(let i = 0; i < consignmentDate.length; i++) {
+            let _tempArray = consignmentDate[i].split('.')
+            let str = `${_tempArray[2]}-${_tempArray[1]}-${_tempArray[0]}`
+            consignmentDate[i] = str
+        }
 
-            for(let i = 0; i < consignmentProducts.length; i++) {
-                if(consignmentNumbers[i] === elem.number) {
-                    elem.products.push(consignmentProducts[i])
-                }
-            }
-
-            let index = consignmentNumbers.indexOf(noRepeatConsignmentNumbers[i])
-            let str = consignmentTypes[index]
-            elem.ozonNumber = str.substring(5)
-
-            consignments.push(elem)
-
+        for(let i = 0; i < noRepeatConsignmentTypes.length; i++) {
+            consignments.push({
+                orderNumber: noRepeatConsignmentTypes[i].substring(5),
+                consignmentNumber: consignmentNumbers[consignmentTypes.indexOf(noRepeatConsignmentTypes[i])],
+                consignmentDate: consignmentDate[consignmentTypes.indexOf(noRepeatConsignmentTypes[i])]
+            })
         }
 
         return consignments
 
     }
 
-    const consNumbers = await getConsignments()
+    consignments = await getConsignments()
 
-    console.log(consNumbers)
+    async function getOrders() {
 
-    //аналогичный предыдущему метод
-    //для формирования массива объектов
-    //заказов Ozon
+        let orders = []
 
-    async function getOzonOrders() {
-
-        const filePath = './public/distance/postings.xlsx'
-
-        await wb.xlsx.readFile(filePath)
-
-        const ws = wb.getWorksheet('Worksheet')
-
-        const orderNumbers = []
-        const orderProducts = []
-        const orderQuantitys = []
-        const orderCosts = []
-        const orders = []
-
-        const [c2, c9, c12, c14] = [ws.getColumn(2), ws.getColumn(9), ws.getColumn(12), ws.getColumn(14)]
-
-        c2.eachCell(c => {
-            orderNumbers.push(c.value)
+        let response = await fetch('https://api-seller.ozon.ru/v3/posting/fbs/list', {
+            method: 'POST',
+            headers: {
+                'Host': 'api-seller.ozon.ru',
+                'Client-Id': '144225',
+                'Api-Key': '5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'dir': 'asc',
+                'filter':{
+                    'since':'2023-05-31T08:00:00Z',
+                    'to':'2023-07-14T08:00:00Z',
+                    'status':'delivered'
+                },
+                'limit':1000,
+                'offset':0
+            })
         })
+        
+        let result = await response.json()
+        
+        result.result.postings.forEach(e => {
+            let orderNumber = e.posting_number
+            let products = []
+            e.products.forEach(el => {
+                let marks = []
+                el.mandatory_mark.forEach(elem => {
+                    marks.push(elem)
+                })
+                products.push({
+                    name: el.name,
+                    marksList: marks,
+                    price: el.price
+                })
+            })
 
-        c9.eachCell(c => {
-            orderProducts.push(c.value)
-        })
-
-        c14.eachCell(c => {
-            orderQuantitys.push(c.value)
-        })
-
-        c12.eachCell(c => {
-            orderCosts.push(c.value)
-        })
-
-        const noRepeatOrderNumbers = []
-
-        for(let i = 0; i < orderNumbers.length; i++) {
-
-            if(noRepeatOrderNumbers.indexOf(orderNumbers[i]) < 0 && catalogNames.indexOf(orderProducts[i]) >= 0) {
-                noRepeatOrderNumbers.push(orderNumbers[i])
+            let obj = {
+                orderNumber: orderNumber,
+                productsList: products
             }
 
-        }
-
-        // console.log(noRepeatOrderNumbers)
-        // console.log(noRepeatOrderNumbers.length)
-
-        for(let j = 0; j < noRepeatOrderNumbers.length; j++) {
-            // console.log('+')
-            let elem = {
-                number: noRepeatOrderNumbers[j],
-                products: [],
-                quantitys: [],
-                costs: []
-            }
-
-            for(let j = 0; j < orderProducts.length; j++) {
-
-                if(orderNumbers[j] == elem.number) {
-                    elem.products.push(orderProducts[j])
-                    elem.quantitys.push(orderQuantitys[j])
-                    elem.costs.push(orderCosts[j])
-                }
-
-            }           
-
-            orders.push(elem)
-
-        }
+            orders.push(obj)
+            
+        })
 
         return orders
 
     }
 
-    const orderNumbers = await getOzonOrders()
+    orders = await getOrders()
 
-    console.log(orderNumbers)
+    // orders.forEach(e => {
+    //     console.log(e.orderNumber)
+    // })
 
-    async function getMarks() {
+    let equals = []
 
-        const filePath = './public/distance/marks.xlsx'
-
-        await wb.xlsx.readFile(filePath)
-
-        const ws = wb.getWorksheet('Worksheet')
-
-        const allMarks = []
-        const allGtins = []
-        const marks = []
-
-        const c1 = ws.getColumn(1)
-
-        const c2 = ws.getColumn(2)
-
-        c1.eachCell(c => {
-            allMarks.push(c.value)
-        })
-
-        c2.eachCell(c => {
-            if(c.value !== null) {
-            let str = c.value
-            allGtins.push(str.substring(1))
-            } else {
-                allGtins.push(c.value)
-            }
-        })
-
-        const noRepeatGtins = []
-
-        for(let i = 0; i < allGtins.length; i++) {
-            if(noRepeatGtins.indexOf(allGtins[i]) < 0) {
-                noRepeatGtins.push(allGtins[i])
+    for(let i = 0; i < orders.length; i++) {
+        for(let j = 0; j < consignments.length; j++) {
+            if(orders[i].orderNumber == consignments[j].orderNumber) {
+                equals.push(orders[i])
             }
         }
-
-        for(let i = 0; i < noRepeatGtins.length; i++) {
-
-            let elem = {
-                gtin: noRepeatGtins[i],
-                product:'',
-                marks: [],
-                quantity: 0
-            }
-
-            for(let i = 0; i < allMarks.length; i++) {
-                if(allGtins[i] == elem.gtin) {
-                    elem.marks.push(allMarks[i])
-                    elem.product = catalogNames[catalogGtins.indexOf(elem.gtin)]
-                    elem.quantity++
-                }
-            }
-
-            marks.push(elem)
-
-        }
-
-        return marks
-
     }
 
-    const introducedMarks = await getMarks()
-
-    console.log(introducedMarks)
-
-    //Создаем цикл для формирования списка товаров
-    //Подлежащих выводу из оборота
-
-    async function createSaleDocument() {
-
-        for(let j = 0; j < consNumbers.length; j++) {
-            if(consNumbers[j].ozonNumber !== undefined && consNumbers[j].ozonNumber !== null) {
-                for(let i = 0; i < orderNumbers.length; i++) {
-                    
-                    if(orderNumbers[i].number == consNumbers[j].ozonNumber) {
-                        for(let k = 0; k < orderNumbers[i].products.length; k++) {
-    
-                            if(catalogNames.indexOf(orderNumbers[i].products[k]) >= 0) {
-                                
-                                let index = introducedMarks.findIndex(el => el.gtin === catalogGtins[catalogNames.indexOf(orderNumbers[i].products[k])])
-                                if(index >= 0) {
-                                    if(introducedMarks[index].quantity == orderNumbers[i].quantitys[k]) {
-                                        introducedMarks[index].marks.forEach(el => {
-                                            // console.log(el)
-                                            content += `<product>
-                                                            <cis><![CDATA[${el}]]></cis>
-                                                            <cost>${orderNumbers[i].costs[k]}00</cost>
-                                                            <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
-                                                            <primary_document_number>${consNumbers[j].number}</primary_document_number>
-                                                            <primary_document_date>2023-05-22</primary_document_date>
-                                                        </product>`
-                                        })
-                                    } else {    
-                                        content += `<product>
-                                                        <cis><![CDATA[${introducedMarks[index].marks[0]}]]></cis>
-                                                        <cost>${orderNumbers[i].costs[k]}00</cost>
-                                                        <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
-                                                        <primary_document_number>${consNumbers[j].number}</primary_document_number>
-                                                        <primary_document_date>2023-05-22</primary_document_date>
-                                                    </product>`    
-                                    }
-                                }
-    
-                            }
-    
-                        }
-                        
+    equals.forEach(e => {
+        console.log(e.orderNumber)
+        e.productsList.forEach(el => {
+            if(el.marksList.length > 0) {
+                if(el.marksList.indexOf('') < 0) {
+                    for(let i = 0; i < el.marksList.length; i++) {
+                        content += `<product>
+                                        <cis><![CDATA[${el.marksList[i]}]]></cis>
+                                        <cost>${(el.price).replace(el.price.substring(el.price.indexOf('.')), '')}00</cost>
+                                        <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
+                                        <primary_document_number>${(consignments.find(c => c.orderNumber == e.orderNumber)).consignmentNumber}</primary_document_number>
+                                        <primary_document_date>${(consignments.find(c => c.orderNumber == e.orderNumber)).consignmentDate}</primary_document_date>
+                                    </product>`
                     }
-                    
                 }
             }
-        }    
+        })
+    })
 
-        content += `</products_list>
-                </withdrawal>`
+    content += `</products_list>
+            </withdrawal>`
+
+    const fileName = `./public/distance/ozon_distance_${date_string}.xml`
     
-        const filePath = `./public/distance/ozon_distance_${date_string}.xml`
-    
-        fs.writeFileSync(filePath, content)
+    fs.writeFileSync(fileName, content)
 
-    }
+    html += `<div class=result>Файл ${fileName.substring(fileName.lastIndexOf('/') + 1)} успешно сформирован</div>
+            <section class="table">
+                <div class="marks-table">
+                    <div class="marks-table-header">
+                        <div class="header-cell">КИЗ</div>
+                        <div class="header-cell">Цена</div>
+                        <div class="header-cell">Тип документа</div>
+                        <div class="header-cell">Номер документа</div>
+                        <div class="header-cell">Дата документа</div>
+                    </div>
+                    <div class="header-wrapper"></div>`
 
-    await createSaleDocument()
+    equals.forEach(e => {
+        e.productsList.forEach(el => {
+            if(el.marksList.length > 0) {
+                if(el.marksList.indexOf('') < 0) {
+                    for(let i = 0; i < el.marksList.length; i++) {
+                        // console.log(el.marksList[i])
+                        html += `<div class="table-row">
+                                    <span type="text" id="mark">${el.marksList[i].replace(/</g, '&lt;')}</span>
+                                    <span id="gtin">${(el.price).replace(el.price.substring(el.price.indexOf('.')), '')}00</span>
+                                    <span id="name">CONSIGNMENT_NOTE</span>
+                                    <span id="status">${(consignments.find(c => c.orderNumber == e.orderNumber)).consignmentNumber}</span>
+                                    <span id="date">${(consignments.find(c => c.orderNumber == e.orderNumber)).consignmentDate}</span>
+                                 </div>`
+                    }
+                }
+            }
+        })
+    })
 
-    res.send(`It's working...`)
+    html += `       </div>
+                </section>
+            ${footerComponent}`
+
+    res.send(html)
 
 })
 
 app.get('/sale_wb', async function(req, res){
+
+    let html = `${headerComponent}
+                    <title>Перемаркировка</title>
+                </head>
+                <body>
+                    ${navComponent}
+                        <section class="sub-nav import-main">
+                            <div class="import-control">`
+                        
+    let buttons = ['ozon', 'wb']
+    
+    // let url = window.location.href
+    // let str = url.split('/').reverse()[1]
+
+    // document.title = str
+
+    async function renderImportButtons(array) {
+
+        let address = ''
+
+        for(let i = 0; i < array.length; i++) {
+            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+            html += `<button class="button-import">
+                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                     </button>`
+        }
+
+        html += `   </div>`
+
+    }
+
+    async function renderMarkingButtons() {
+        html += `<div class="marking-control">
+                    <button class="marking-button remarking-button"><a href="http://localhost:3030/input_remarking" target="_blank">Ввод в оборот (Перемаркировка)</a></button>
+                    <button class="marking-button distance-button"><a href="http://localhost:3030/sale_ozon" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                    <button class="marking-button distance-button"><a href="http://localhost:3030/sale_wb" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                 </div>`
+    }
+
+    await renderImportButtons(buttons)
+    await renderMarkingButtons()
+
+    html += `</section>`
+
+    const wbordersPath = './public/distance/wb_orders.xlsx'
+    const consignmentsPath = './public/distance/релизации.xlsx'
 
     const date_ob = new Date()
 
@@ -2744,267 +3539,201 @@ app.get('/sale_wb', async function(req, res){
                         <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
                         <products_list>`
     
+    // let response = await fetch('https://suppliers-api.wildberries.ru/api/v3/orders?limit=10&next=0&dateFrom=1687755600&dateTo=1688187600',{
+    //     method: 'GET',
+    //     headers: {
+    //         'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NJRCI6IjBhYmMxZWNmLTlmOWEtNDQzNi04YmNiLTM3Mjg1ZDJkYzJlZCJ9.-OGN5Jvwsf9XQHYy7LPPJjATV98xOSBXQMISSkjVNCg'
+    //     }
+    // })
+
+    // let result = await response.json()
+
+    // console.log(result.orders.forEach(e => {
+    //     e.offices.forEach(el => {
+    //         console.log(el)
+    //     })
+    // }))
+
     const wb = new exl.Workbook()
 
-    async function getNationalCatalog() {
+    let orders = []
+    let consignments = []
 
-        const filePath = './public/Краткий отчет.xlsx'
+    async function getOrders() {
 
-        await wb.xlsx.readFile(filePath)
+        await wb.xlsx.readFile(wbordersPath)
 
-        const ws = wb.getWorksheet('Краткий отчет')
+        const ws = wb.getWorksheet('КИЗ')
 
-        const c2 = ws.getColumn(2)
+        const orders = []
 
-        const gtins = []
-        const names = []
+        const [orderNumbers, orderCises, orderPrices] = [[], [], []]
 
-        const c1 = ws.getColumn(1)
-
+        const [c1, c3, c5] = [ws.getColumn(1), ws.getColumn(3), ws.getColumn(5)]
+    
         c1.eachCell(c => {
-            gtins.push(c.value)
+            orderNumbers.push(c.value)
+        })
+    
+        c3.eachCell(c => {
+            orderCises.push(c.value)
+        })
+    
+        c5.eachCell(c => {
+            orderPrices.push(c.value)
         })
 
-        c2.eachCell(c => {
-            // console.log(c.value)
-            names.push(c.value)
-        })
+        for(let i = 0; i < orderNumbers.length; i++) {
+            let obj = {
+                orderNumber: orderNumbers[i],
+                orderCis: orderCises[i],
+                orderPrice: orderPrices[i]
+            }
 
-        return [names, gtins]
+            orders.push(obj)
+        }
+
+        return orders
 
     }
 
-    //получаем содержимое файла нац. каталога
-    //а именно - наименование уже созданные ранее
-    //помещаем их в отдельный массив
-
-    const [catalogNames, catalogGtins] = await getNationalCatalog()
-
     async function getConsignments() {
 
-        const consignmentNumbers = []
-
-        const consignmentProducts = []
-
-        const noRepeatConsignmentNumbers = []
-
-        const consignmentTypes = []
-
-        const noRepeatConsignmentTypes = []
-
-        const consignments = []
-
-        const filePath = './public/distance/релизации.xlsx'
-
-        await wb.xlsx.readFile(filePath)
+        await wb.xlsx.readFile(consignmentsPath)
 
         const ws = wb.getWorksheet('TDSheet')
 
-        const [c2, c4, c6] = [ws.getColumn(2), ws.getColumn(4), ws.getColumn(6)]
+        const [c2, c3, c8] = [ws.getColumn(2), ws.getColumn(3), ws.getColumn(8)]
+
+        const [consDates, consNumbers, orderNumbers, wbNumbers] = [[], [], [], [], []]
+
+        const numbers = []
+
+        const consignments = []
 
         c2.eachCell(c => {
-            let str = c.value
-            consignmentNumbers.push(str.substring(str.length - 4))        
+            let str = c.value.replace(c.value.substring(10), '')
+            let date = str.split('.')
+            consDates.push(`${date[2]}-${date[1]}-${date[0]}`)
         })
 
-        c4.eachCell(c => {
-            consignmentProducts.push(c.value)
+        c3.eachCell(c => {
+            consNumbers.push(c.value.substring(c.value.length - 4))
         })
 
-        c6.eachCell(c => {
-            consignmentTypes.push(c.value)
+        c8.eachCell(c => {
+            numbers.push(c.value)
+            if(c.value != null) {
+                wbNumbers.push(c.value)
+                orderNumbers.push(c.value.substring(3))
+            }
         })
+
         
 
-        for(let i = 0; i < consignmentNumbers.length; i++) {
+        for(let i = 0; i < orderNumbers.length; i++) {
 
-            if(consignmentTypes[i] !== null && consignmentTypes[i].indexOf('WB') >= 0 && noRepeatConsignmentNumbers.indexOf(consignmentNumbers[i]) < 0 && catalogNames.indexOf(consignmentProducts[i]) >= 0) {
-
-                noRepeatConsignmentNumbers.push(consignmentNumbers[i])
-
+            let obj = {
+                consDate: consDates[i],
+                consNumber: consNumbers[numbers.indexOf(wbNumbers[i])],
+                orderNumber: orderNumbers[i]
             }
+
+            consignments.push(obj)
 
         }
 
-        // console.log(consignmentTypes)
-
-        for(let i = 0; i < consignmentTypes.length; i++) {
-
-            if(consignmentTypes[i] !== null && consignmentTypes[i].indexOf('WB') >= 0 && catalogNames.indexOf(consignmentProducts[i]) >= 0) {
-
-                let str = consignmentTypes[i]
-                if(noRepeatConsignmentTypes.indexOf(str.substring(5)) < 0) {
-
-                    noRepeatConsignmentTypes.push(str.substring(5))
-
-                }
-
-            }
-
-        }
-        
-        for(let i = 0; i < noRepeatConsignmentNumbers.length; i++) {
-
-            let elem = {
-                number: noRepeatConsignmentNumbers[i],
-                products: [],
-                wbNumber: ''
-            }
-
-            for(let i = 0; i < consignmentProducts.length; i++) {
-                if(consignmentNumbers[i] === elem.number) {
-                    elem.products.push(consignmentProducts[i])
-                }
-            }
-
-            let index = consignmentNumbers.indexOf(noRepeatConsignmentNumbers[i])
-            let str = consignmentTypes[index]
-            elem.wbNumber = str.substring(3)
-
-            consignments.push(elem)
-
-        }
-
+        // console.log(consignments)
         return consignments
 
     }
 
-    const consNumbers = await getConsignments()
+    orders = await getOrders()
+    consignments = await getConsignments()
 
-    // console.log(consNumbers)
+    // console.log(orders)
+    // console.log(consignments)
 
-    async function getWBOrders() {
+    let equals = []
 
-        const filePath = './public/distance/wb_orders.xlsx'
-
-        await wb.xlsx.readFile(filePath)
-
-        const ws = wb.getWorksheet('КИЗ,УИН')
-
-        const [c3, c5] = [ws.getColumn(3), ws.getColumn(5)]
-
-        const [orderCis, orderCost] = [[], []]
-
-        c3.eachCell(c => {
-            orderCis.push(c.value)
-        })
-
-        c5.eachCell(c => {
-            orderCost.push(c.value)
-        })
-
-        return [orderCis, orderCost]
-
+    for(let i = 0; i < orders.length; i++) {
+        let index = consignments.indexOf(consignments.find(c => c.orderNumber == orders[i].orderNumber))
+        if(index >= 0) {
+            equals.push({
+                consignmentNumber: consignments[index].consNumber,
+                consignmentDate: consignments[index].consDate,
+                consignmentPrice: orders[i].orderPrice,
+                consignmentCis: orders[i].orderCis
+            })
+        }
     }
 
-    const [ordersCis, ordersCost] = await getWBOrders()
+    for(let i = 0; i < equals.length; i++) {
+        let price = ''
 
-    async function getMarks() {
-
-        const filePath = './public/distance/marks.xlsx'
-
-        await wb.xlsx.readFile(filePath)
-
-        const ws = wb.getWorksheet('Worksheet')
-
-        const allMarks = []
-        const allGtins = []
-        const marks = []
-
-        const c1 = ws.getColumn(1)
-
-        const c2 = ws.getColumn(2)
-
-        c1.eachCell(c => {
-            allMarks.push(c.value)
-        })
-
-        c2.eachCell(c => {
-            if(c.value !== null) {
-            let str = c.value
-            allGtins.push(str.substring(1))
-            } else {
-                allGtins.push(c.value)
-            }
-        })
-
-        const noRepeatGtins = []
-
-        for(let i = 0; i < allGtins.length; i++) {
-            if(noRepeatGtins.indexOf(allGtins[i]) < 0) {
-                noRepeatGtins.push(allGtins[i])
-            }
+        if((equals[i].consignmentPrice.toString()).indexOf('.') >= 0) {
+            let arr = (equals[i].consignmentPrice.toString()).split('.')
+            price = arr[0]+arr[1]
+        } else {
+            price = equals[i].consignmentPrice + '00'
         }
 
-        for(let i = 0; i < noRepeatGtins.length; i++) {
-
-            let elem = {
-                gtin: noRepeatGtins[i],
-                product:'',
-                marks: [],
-                quantity: 0
-            }
-
-            for(let i = 0; i < allMarks.length; i++) {
-                if(allGtins[i] == elem.gtin) {
-                    elem.marks.push(allMarks[i])
-                    elem.product = catalogNames[catalogGtins.indexOf(elem.gtin)]
-                    elem.quantity++
-                }
-            }
-
-            marks.push(elem)
-
-        }
-
-        return marks
-
+        content += `<product>
+                        <cis><![CDATA[${equals[i].consignmentCis}]]></cis>
+                        <cost>${price}</cost>
+                        <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
+                        <primary_document_number>${equals[i].consignmentNumber}</primary_document_number>
+                        <primary_document_date>${equals[i].consignmentDate}</primary_document_date>
+                    </product>`
+        
     }
-
-    const introducedMarks = await getMarks()
-
-    //Создаем цикл для формирования списка товаров
-    //Подлежащих выводу из оборота
-
-    async function createSaleDocument() {
-
-        for(let i = 0; i < ordersCis.length; i++) {
-            let number = ''
-            let index = introducedMarks.findIndex(el => el.marks == ordersCis[i])
-            let idx = null
-            if(index >= 0) {
-                idx = consNumbers.findIndex(el => el.products == introducedMarks[index].product)
-
-                if(idx >= 0) {
-                    content += `<product>
-                            <cis><![CDATA[${ordersCis[i]}]]></cis>
-                            <cost>${ordersCost[i]}00</cost>
-                            <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
-                            <primary_document_number>${consNumbers[idx].number}</primary_document_number>
-                            <primary_document_date>2023-05-22</primary_document_date>
-                        </product>`
-                }
-
-                
-
-            }
-
-            
-
-        }
                             
-        content += `</products_list>
-                </withdrawal>`
+    content += `</products_list>
+            </withdrawal>`
     
-        const filePath = `./public/distance/wb_distance_${date_string}.xml`
+    const fileName = `./public/distance/wb_distance_${date_string}.xml`
     
-        fs.writeFileSync(filePath, content)
+    fs.writeFileSync(fileName, content)
+
+    html += `<div class=result>Файл ${fileName.substring(fileName.lastIndexOf('/') + 1)} успешно сформирован</div>
+            <section class="table">
+                <div class="marks-table">
+                    <div class="marks-table-header">
+                        <div class="header-cell">КИЗ</div>
+                        <div class="header-cell">Цена</div>
+                        <div class="header-cell">Тип документа</div>
+                        <div class="header-cell">Номер документа</div>
+                        <div class="header-cell">Дата документа</div>
+                    </div>
+                    <div class="header-wrapper"></div>`
+
+    for(let i = 0; i < equals.length; i++) {
+
+        let price = ''
+
+        if((equals[i].consignmentPrice.toString()).indexOf('.') >= 0) {
+            let arr = (equals[i].consignmentPrice.toString()).split('.')
+            price = arr[0]+arr[1]
+        } else {
+            price = equals[i].consignmentPrice + '00'
+        }
+
+        html += `<div class="table-row">
+                    <span type="text" id="mark">${equals[i].consignmentCis.replace(/</g, '&lt;')}</span>
+                    <span id="gtin">${price}</span>
+                    <span id="name">CONSIGNMENT_NOTE</span>
+                    <span id="status">${equals[i].consignmentNumber}</span>
+                    <span id="date">${equals[i].consignmentDate}</span>
+                </div>`
 
     }
 
-    await createSaleDocument()
+    html += `           </div>
+                    </section>
+                <div class="body-wrapper"></div>
+            ${footerComponent}`
 
-    res.send(`It's working...`)
+    res.send(html)
 
 })
 

@@ -1,4 +1,3 @@
-
 const home_button = document.querySelector('#home')
 const import_button = document.querySelector('#import')
 const cis_actions_button = document.querySelector('#cis_actions')
@@ -75,3 +74,161 @@ statusRows.forEach(el => {
         el.style.color = 'rgb(122, 129, 155)'
     }
 })
+
+//pagination logic begin {
+if(window.location.href.indexOf('filter') < 0) {
+    
+    const beginButton = document.querySelector('#begin')
+    const prevButton = document.querySelector('#prev')
+    const nextButton = document.querySelector('#next')
+    const lastButton = document.querySelector('#last')
+
+    const orderInput = document.querySelectorAll('#order')
+    const submitButton = document.querySelectorAll('.order-number')
+    const marksSpan = document.querySelectorAll('#mark')
+
+    const [prevIcon, nextIcon] = [document.querySelector('#prev-icon'), document.querySelector('#next-icon')]
+
+    let href = lastButton.getAttribute('href')
+    let lastPage = parseInt(href.split('=').pop())
+
+    if(parseInt(window.location.href.split('=').pop()) == 1 || window.location.href.charAt(window.location.href.length - 1) == 'e' || window.location.href.charAt(window.location.href.length - 1) == 'D') {
+        
+        beginButton.removeAttribute('href')
+        prevButton.removeAttribute('href')
+        beginButton.classList.add('disabled')
+        prevButton.classList.add('disabled')
+        prevIcon.style.fill = '#c4c6c9'
+        prevIcon.style.cursor = 'text'
+        if(window.location.href.indexOf('APPLIED') >= 0) {
+            nextButton.setAttribute('href', `http://localhost:3030/home/APPLIED?page=2`)
+        }
+        if(window.location.href.indexOf('RETIRED') >= 0) {
+            nextButton.setAttribute('href', `http://localhost:3030/home/RETIRED?page=2`)
+        }
+        if(window.location.href.indexOf('INTRODUCED') >= 0) {
+            nextButton.setAttribute('href', `http://localhost:3030/home/INTRODUCED?page=2`)
+        } 
+        if(window.location.href.indexOf('APPLIED') < 0 && window.location.href.indexOf('RETIRED') < 0 && window.location.href.indexOf('INTRODUCED') < 0){
+            nextButton.setAttribute('href', `http://localhost:3030/home?page=2`)
+        }
+
+            
+    } else {
+
+        let pageNumber = parseInt(window.location.href.split('=').pop())
+
+        prevButton.classList.remove('disabled')
+        prevIcon.style.fill = '#63666a'
+        prevIcon.style.cursor = 'pointer'
+
+        if(window.location.href.indexOf('APPLIED') >= 0) {
+            prevButton.setAttribute('href', `http://localhost:3030/home/APPLIED?page=${pageNumber - 1}`)
+            nextButton.setAttribute('href', `http://localhost:3030/home/APPLIED?page=${pageNumber + 1}`)
+        }
+        if(window.location.href.indexOf('INTRODUCED') >= 0) {
+            prevButton.setAttribute('href', `http://localhost:3030/home/INTRODUCED?page=${pageNumber - 1}`)
+            nextButton.setAttribute('href', `http://localhost:3030/home/INTRODUCED?page=${pageNumber + 1}`)
+        }
+        if(window.location.href.indexOf('RETIRED') >= 0) {
+            prevButton.setAttribute('href', `http://localhost:3030/home/RETIRED?page=${pageNumber - 1}`)
+            nextButton.setAttribute('href', `http://localhost:3030/home/RETIRED?page=${pageNumber + 1}`)
+        }
+        if(window.location.href.indexOf('APPLIED') < 0 && window.location.href.indexOf('RETIRED') < 0 && window.location.href.indexOf('INTRODUCED') < 0){
+            prevButton.setAttribute('href', `http://localhost:3030/home?page=${pageNumber - 1}`)
+            nextButton.setAttribute('href', `http://localhost:3030/home?page=${pageNumber + 1}`)
+        }
+
+    }
+
+    if(lastPage == parseInt(window.location.href.split('=').pop())) {
+
+        lastButton.removeAttribute('href')
+        lastButton.classList.add('disabled')
+        nextButton.removeAttribute('href')
+        nextButton.classList.add('disabled')
+        nextIcon.style.fill = '#c4c6c9'
+        nextIcon.style.cursor = 'text'
+        if(window.location.href.indexOf('APPLIED') >= 0) {
+            prevButton.setAttribute('href', `http://localhost:3030/home/APPLIED?page=${lastPage - 1}`)
+        }
+        if(window.location.href.indexOf('INTRODUCED') >= 0) {
+            prevButton.setAttribute('href', `http://localhost:3030/home/INTRODUCED?page=${lastPage - 1}`)
+        }
+        if(window.location.href.indexOf('RETIRED') >= 0) {
+            prevButton.setAttribute('href', `http://localhost:3030/home/RETIRED?page=${lastPage - 1}`)
+        }
+        if(window.location.href.indexOf('APPLIED') < 0 && window.location.href.indexOf('RETIRED') < 0 && window.location.href.indexOf('INTRODUCED') < 0){
+            prevButton.setAttribute('href', `http://localhost:3030/home?page=${lastPage - 1}`)
+        }
+
+    }
+
+}
+// } pagination logic end 
+
+//status-filter logic begin {
+const multipleStatus = document.querySelector('.multiple-status')
+const multipleItems = document.querySelectorAll('.list-item')
+const showButton = document.querySelector('.show-button')
+const showAnchor = document.querySelector('#show-anchor')
+
+multipleItems.forEach(el => {
+
+    el.addEventListener('click', () => {
+
+        multipleStatus.innerHTML = el.innerHTML
+        multipleStatus.style.color = '#181F3E;'
+        showButton.style.display = 'inline-block'
+        if(multipleStatus.innerHTML == 'Нанесен') {
+
+            showAnchor.setAttribute('href', `http://localhost:3030/home/APPLIED`)
+
+        }
+
+        if(multipleStatus.innerHTML == 'В обороте') {
+
+            showAnchor.setAttribute('href', `http://localhost:3030/home/INTRODUCED`)
+
+        }
+
+        if(multipleStatus.innerHTML == 'Выбыл') {
+
+            showAnchor.setAttribute('href', `http://localhost:3030/home/RETIRED`)
+
+        }
+        
+
+    })
+
+})
+// } filter logic end
+
+//kiz-and-gtin-filter logic begin {
+
+const searchButton = document.querySelector('#search')
+const searchField = document.querySelector('.search-input')
+
+searchButton.addEventListener('click', () => {
+
+    showButton.style.display = 'inline-block'
+
+    let str = searchField.value
+
+    if(str.indexOf('<') >= 0) {
+        str = str.replace(/</g, '&lt;')
+    } else if(str.indexOf('&') >= 0) {
+        str = str.replace(/&/g, '&amp;')
+    }
+    
+    if(searchField.value.length == 31) {   
+        showAnchor.setAttribute('href', `http://localhost:3030/filter?cis=${str}`)
+    }
+
+    if(searchField.value.length == 14) {
+        showAnchor.setAttribute('href', `http://localhost:3030/filter?gtin=${searchField.value}`)
+    }
+
+})
+
+// } kiz-and-gtin-filter logic end

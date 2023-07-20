@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+                        <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <lp>
+                                <productGroup>lp</productGroup>
+                                <contactPerson>333</contactPerson>
+                                <releaseMethodType>REMARK</releaseMethodType>
+                                <createMethodType>SELF_MADE</createMethodType>
+                                <productionOrderId>WB</productionOrderId>
+                                <products><product>
+                                    <gtin>02900082733866</gtin>
+                                    <quantity>1</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product><product>
+                                    <gtin>02900240388754</gtin>
+                                    <quantity>1</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product><product>
+                                    <gtin>02900077197437</gtin>
+                                    <quantity>1</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product><product>
+                                    <gtin>02900079991279</gtin>
+                                    <quantity>1</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product><product>
+                                    <gtin>02900076040574</gtin>
+                                    <quantity>1</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product><product>
+                                    <gtin>02900248756128</gtin>
+                                    <quantity>1</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product>    </products>
+                        </lp>
+                    </order>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+                    <withdrawal version="8">
+                        <trade_participant_inn>372900043349</trade_participant_inn>
+                        <withdrawal_type>DISTANCE</withdrawal_type>
+                        <withdrawal_date>2023-07-03</withdrawal_date>
+                        <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
+                        <products_list></products_list>
+                </withdrawal>
