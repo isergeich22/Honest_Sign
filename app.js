@@ -1279,9 +1279,9 @@ app.get('/ozon', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter': {
-                    'since':'2023-07-01T00:00:00.000Z',
+                    'since':'2023-07-31T00:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-07-31T23:59:59.000Z'
+                    'to':'2023-08-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1294,7 +1294,7 @@ app.get('/ozon', async function(req, res){
         result.result.postings.forEach(e => {
             e.products.forEach(el => {
                 if(new_orders.indexOf(el.name) < 0) {
-                    if(el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
+                    if(el.name.indexOf('Набор махровых полотенец') >= 0 || el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
                         new_orders.push(el.name)
                         vendorCodes.push(el.offer_id)
                     }
@@ -1503,9 +1503,9 @@ app.get('/ozon_marks_order', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter': {
-                    'since':'2023-07-01T00:00:00.000Z',
+                    'since':'2023-07-31T00:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-07-31T23:59:59.000Z'
+                    'to':'2023-08-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1517,7 +1517,7 @@ app.get('/ozon_marks_order', async function(req, res){
 
         result.result.postings.forEach(e => {
             e.products.forEach(el => {
-                    if(el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
+                    if(el.name.indexOf('Набор махровых полотенец') >= 0 || el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
                         if(new_orders.indexOf(el.name) < 0) {
                             new_orders.push(el.name)
                             quantity.push(el.quantity)
@@ -1818,9 +1818,9 @@ app.get('/ozon_new_marks_order', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter': {
-                    'since':'2023-07-01T00:00:00.000Z',
+                    'since':'2023-07-31T00:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-07-31T23:59:59.000Z'
+                    'to':'2023-08-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1832,7 +1832,7 @@ app.get('/ozon_new_marks_order', async function(req, res){
 
         result.result.postings.forEach(e => {
             e.products.forEach(el => {
-                    if(el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
+                    if(el.name.indexOf('Набор махровых полотенец') >= 0 || el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
                         if(new_orders.indexOf(el.name) < 0) {
                             new_orders.push(el.name)
                             quantity.push(el.quantity)
@@ -2128,9 +2128,9 @@ app.get('/wildberries', async function(req, res){
 
     const _ws = wb.getWorksheet('Сборочные задания')
 
-    const c12 = _ws.getColumn(12)
+    const c13 = _ws.getColumn(13)
 
-    c12.eachCell(c => {
+    c13.eachCell(c => {
         wb_orders.push(c.value)
     })
 
@@ -2511,7 +2511,11 @@ app.get('/wildberries', async function(req, res){
 
     }
 
-    createImport(new_items)
+    if(new_items.length > 0) {
+
+        createImport(new_items)
+
+    }
 
     res.send(html)
 
@@ -2597,9 +2601,9 @@ app.get('/wildberries_marks_order', async function(req, res) {
 
     const _ws = wb.getWorksheet('Сборочные задания')
 
-    const c12 = _ws.getColumn(12)
+    const c13 = _ws.getColumn(13)
 
-    c12.eachCell(c => {
+    c13.eachCell(c => {
         wb_orders.push(c.value)
     })
 
@@ -2901,9 +2905,9 @@ app.get('/wildberries_new_marks_order', async function(req, res){
 
     const _ws = wb.getWorksheet('Сборочные задания')
 
-    const c12 = _ws.getColumn(12)
+    const c13 = _ws.getColumn(13)
 
-    c12.eachCell(c => {
+    c13.eachCell(c => {
         wb_orders.push(c.value)
     })
 
@@ -3207,6 +3211,8 @@ app.get('/input_remarking', async function(req, res){
 
 app.get('/sale_ozon', async function(req, res){
 
+    const actualMarksFile = './public/actual_marks.xlsx'
+
     let html = `${headerComponent}
                     <title>Перемаркировка</title>
                 </head>
@@ -3273,6 +3279,39 @@ app.get('/sale_ozon', async function(req, res){
                         <products_list>`
     
     const wb = new exl.Workbook()
+
+    async function getActualList() {
+
+        const [marks, status] = [[], []]
+
+        await wb.xlsx.readFile(actualMarksFile)
+
+        const ws = wb.getWorksheet('Worksheet')
+
+        const [c1, c16] = [ws.getColumn(1), ws.getColumn(16)]
+
+        c1.eachCell(c => {
+            marks.push(c.value)
+        })
+
+        c16.eachCell(c => {
+            status.push(c.value)
+        })
+
+        const introduced_marks = []
+        
+        marks.forEach(e => {
+            if(status[marks.indexOf(e)] == 'INTRODUCED') {
+                introduced_marks.push(e)
+            }
+        })
+
+        console.log(introduced_marks)
+        console.log(introduced_marks.length)
+
+    }
+
+    await getActualList()
 
     //получаем данные из xlsx файла с реализациями и
     //формируем массив объектов реализаций
@@ -3354,7 +3393,7 @@ app.get('/sale_ozon', async function(req, res){
                 'filter':{
                     'since':'2023-05-31T08:00:00Z',
                     'to':'2023-07-14T08:00:00Z',
-                    'status':'delivered'
+                    'status':'cancelled'
                 },
                 'limit':1000,
                 'offset':0

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+                    <withdrawal version="8">
+                        <trade_participant_inn>372900043349</trade_participant_inn>
+                        <withdrawal_type>DISTANCE</withdrawal_type>
+                        <withdrawal_date>2023-07-22</withdrawal_date>
+                        <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
+                        <products_list><product>
+                                        <cis><![CDATA[0102900098420118215mapfOo"YCtXF]]></cis>
+                                        <cost>100400</cost>
+                                        <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
+                                        <primary_document_number>6678</primary_document_number>
+                                        <primary_document_date>2023-07-03</primary_document_date>
+                                    </product><product>
+                                        <cis><![CDATA[0102900246841901215HSEH1xOQnUhh]]></cis>
+                                        <cost>87600</cost>
+                                        <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
+                                        <primary_document_number>6681</primary_document_number>
+                                        <primary_document_date>2023-07-03</primary_document_date>
+                                    </product><product>
+                                        <cis><![CDATA[0102900082084272215q_seaho*eRIO]]></cis>
+                                        <cost>341400</cost>
+                                        <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
+                                        <primary_document_number>6740</primary_document_number>
+                                        <primary_document_date>2023-07-04</primary_document_date>
+                                    </product><product>
+                                        <cis><![CDATA[01029002544093602150Enom;/g!,VJ]]></cis>
+                                        <cost>1009700</cost>
+                                        <primary_document_type>CONSIGNMENT_NOTE</primary_document_type>
+                                        <primary_document_number>6988</primary_document_number>
+                                        <primary_document_date>2023-07-12</primary_document_date>
+                                    </product></products_list>
+            </withdrawal>

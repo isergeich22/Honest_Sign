@@ -7,7 +7,19 @@
                                 <createMethodType>SELF_MADE</createMethodType>
                                 <productionOrderId>OZON</productionOrderId>
                                 <products><product>
-                                    <gtin>02900075848218</gtin>
+                                    <gtin>02900219022252</gtin>
+                                    <quantity>1</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product><product>
+                                    <gtin>02900080272268</gtin>
+                                    <quantity>1</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product><product>
+                                    <gtin>02900085439659</gtin>
                                     <quantity>1</quantity>
                                     <serialNumberType>OPERATOR</serialNumberType>
                                     <cisType>UNIT</cisType>

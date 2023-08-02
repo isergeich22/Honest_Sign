@@ -5,9 +5,21 @@
                                 <contactPerson>333</contactPerson>
                                 <releaseMethodType>REMARK</releaseMethodType>
                                 <createMethodType>SELF_MADE</createMethodType>
-                                <productionOrderId>OZON</productionOrderId>
+                                <productionOrderId>WB</productionOrderId>
                                 <products><product>
-                                    <gtin>02900075848218</gtin>
+                                    <gtin>02900076983475</gtin>
+                                    <quantity>1</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product><product>
+                                    <gtin>02900076995171</gtin>
+                                    <quantity>2</quantity>
+                                    <serialNumberType>OPERATOR</serialNumberType>
+                                    <cisType>UNIT</cisType>
+                                    <templateId>10</templateId>
+                                </product><product>
+                                    <gtin>02900079991224</gtin>
                                     <quantity>1</quantity>
                                     <serialNumberType>OPERATOR</serialNumberType>
                                     <cisType>UNIT</cisType>
