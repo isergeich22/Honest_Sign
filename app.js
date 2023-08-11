@@ -1693,30 +1693,34 @@ app.get('/ozon_marks_order', async function(req, res){
         let content = ``
 
         for(let i = 0; i < List.length; i++) {
-             content += `<?xml version="1.0" encoding="utf-8"?>
-                        <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                            <lp>
-                                <productGroup>lp</productGroup>
-                                <contactPerson>333</contactPerson>
-                                <releaseMethodType>REMARK</releaseMethodType>
-                                <createMethodType>SELF_MADE</createMethodType>
-                                <productionOrderId>OZON</productionOrderId>
-                                <products>`
-            for(let j = 0; j < List[i].length; j++) {                
-                if(nat_cat.indexOf(List[i][j]) >= 0) {
-                    content += `<product>
-                                    <gtin>0${gtins[nat_cat.indexOf(List[i][j])]}</gtin>
-                                    <quantity>${Quantity[i][j]}</quantity>
-                                    <serialNumberType>OPERATOR</serialNumberType>
-                                    <cisType>UNIT</cisType>
-                                    <templateId>10</templateId>
-                                </product>`
-                }
-            }
+            if(List[i].length > 0) {
+                content += `<?xml version="1.0" encoding="utf-8"?>
+                            <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                <lp>
+                                    <productGroup>lp</productGroup>
+                                    <contactPerson>333</contactPerson>
+                                    <releaseMethodType>REMARK</releaseMethodType>
+                                    <createMethodType>SELF_MADE</createMethodType>
+                                    <productionOrderId>OZON</productionOrderId>
+                                    <products>`
+                
+                    for(let j = 0; j < List[i].length; j++) {                
+                        if(nat_cat.indexOf(List[i][j]) >= 0) {
+                            content += `<product>
+                                            <gtin>0${gtins[nat_cat.indexOf(List[i][j])]}</gtin>
+                                            <quantity>${Quantity[i][j]}</quantity>
+                                            <serialNumberType>OPERATOR</serialNumberType>
+                                            <cisType>UNIT</cisType>
+                                            <templateId>10</templateId>
+                                        </product>`
+                        }
+                    }
 
-            content += `    </products>
-                        </lp>
-                    </order>`
+                content += `    </products>
+                            </lp>
+                        </order>`
+
+            }
 
             const date_ob = new Date()
 
@@ -1726,7 +1730,9 @@ app.get('/ozon_marks_order', async function(req, res){
 
             month < 10 ? filePath = `./public/orders/lp_ozon_${i}_${date_ob.getDate()}_0${month}.xml` : filePath = `./public/orders/lp_ozon_${i}_${date_ob.getDate()}_${month}.xml`
 
-            fs.writeFileSync(filePath, content)
+            if(content !== ``) {
+                fs.writeFileSync(filePath, content)
+            }
 
             content = ``
 
@@ -2004,41 +2010,48 @@ app.get('/ozon_new_marks_order', async function(req, res){
                 let content = ``
                 
                 for(let i = 0; i < List.length; i++) {
-                    content += `<?xml version="1.0" encoding="utf-8"?>
-                                    <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                                        <lp>
-                                            <productGroup>lp</productGroup>
-                                            <contactPerson>333</contactPerson>
-                                            <releaseMethodType>REMARK</releaseMethodType>
-                                            <createMethodType>SELF_MADE</createMethodType>
-                                            <productionOrderId>OZON</productionOrderId>
-                                            <products>`
-                for(let j = 0; j < List[i].length; j++) {
-                    // console.log(moderation_gtins[moderation_products.indexOf(List[i][j])])
-                    content += `<product>
-                                    <gtin>${moderation_gtins[moderation_products.indexOf(List[i][j].trim())]}</gtin>
-                                    <quantity>${Quantity[i][j]}</quantity>
-                                    <serialNumberType>OPERATOR</serialNumberType>
-                                    <cisType>UNIT</cisType>
-                                    <templateId>10</templateId>
-                                </product>`
+                    if(List[i].length > 0) {
+                        content += `<?xml version="1.0" encoding="utf-8"?>
+                                        <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                            <lp>
+                                                <productGroup>lp</productGroup>
+                                                <contactPerson>333</contactPerson>
+                                                <releaseMethodType>REMARK</releaseMethodType>
+                                                <createMethodType>SELF_MADE</createMethodType>
+                                                <productionOrderId>OZON</productionOrderId>
+                                                <products>`
+                        
+                            for(let j = 0; j < List[i].length; j++) {
+                                // console.log(moderation_gtins[moderation_products.indexOf(List[i][j])])
+                                content += `<product>
+                                                <gtin>${moderation_gtins[moderation_products.indexOf(List[i][j].trim())]}</gtin>
+                                                <quantity>${Quantity[i][j]}</quantity>
+                                                <serialNumberType>OPERATOR</serialNumberType>
+                                                <cisType>UNIT</cisType>
+                                                <templateId>10</templateId>
+                                            </product>`
+                            }
+                        
+                    content += `    </products>
+                                </lp>
+                            </order>`
+
+                
                 }
+                    
+                const date_ob = new Date()
+                    
+                let month = date_ob.getMonth() + 1
+                    
+                let filePath = ''
+                    
+                month < 10 ? filePath = `./public/orders/lp_ozon_new_${i}_${date_ob.getDate()}_0${month}.xml` : filePath = `./public/orders/lp_ozon_new_${i}_${date_ob.getDate()}_${month}.xml`
                 
-            content += `    </products>
-                        </lp>
-                    </order>`
-                
-            const date_ob = new Date()
-                
-            let month = date_ob.getMonth() + 1
-                
-            let filePath = ''
-                
-            month < 10 ? filePath = `./public/orders/lp_ozon_new_${i}_${date_ob.getDate()}_0${month}.xml` : filePath = `./public/orders/lp_ozon_new_${i}_${date_ob.getDate()}_${month}.xml`
-                
-            fs.writeFileSync(filePath, content)
-                
-            content = ``
+                if(content !== '') {
+                    fs.writeFileSync(filePath, content)
+                }
+                    
+                content = ``
                 
         }   
                 
@@ -2712,30 +2725,34 @@ app.get('/wildberries_marks_order', async function(req, res) {
         let content = ``
 
         for(let i = 0; i < List.length; i++) {
-             content += `<?xml version="1.0" encoding="utf-8"?>
-                        <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                            <lp>
-                                <productGroup>lp</productGroup>
-                                <contactPerson>333</contactPerson>
-                                <releaseMethodType>REMARK</releaseMethodType>
-                                <createMethodType>SELF_MADE</createMethodType>
-                                <productionOrderId>WB</productionOrderId>
-                                <products>`
-            for(let j = 0; j < List[i].length; j++) {                
-                if(nat_cat.indexOf(List[i][j]) >= 0) {
-                    content += `<product>
-                                    <gtin>0${gtins[nat_cat.indexOf(List[i][j])]}</gtin>
-                                    <quantity>${Quantity[i][j]}</quantity>
-                                    <serialNumberType>OPERATOR</serialNumberType>
-                                    <cisType>UNIT</cisType>
-                                    <templateId>10</templateId>
-                                </product>`
-                }
-            }
+            if(List[i].length > 0) {
+                content += `<?xml version="1.0" encoding="utf-8"?>
+                            <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                <lp>
+                                    <productGroup>lp</productGroup>
+                                    <contactPerson>333</contactPerson>
+                                    <releaseMethodType>REMARK</releaseMethodType>
+                                    <createMethodType>SELF_MADE</createMethodType>
+                                    <productionOrderId>WB</productionOrderId>
+                                    <products>`
+                
+                    for(let j = 0; j < List[i].length; j++) {                
+                        if(nat_cat.indexOf(List[i][j]) >= 0) {
+                            content += `<product>
+                                            <gtin>0${gtins[nat_cat.indexOf(List[i][j])]}</gtin>
+                                            <quantity>${Quantity[i][j]}</quantity>
+                                            <serialNumberType>OPERATOR</serialNumberType>
+                                            <cisType>UNIT</cisType>
+                                            <templateId>10</templateId>
+                                        </product>`
+                        }
+                    }
+                
+                content += `    </products>
+                            </lp>
+                        </order>`
 
-            content += `    </products>
-                        </lp>
-                    </order>`
+            }
 
             const date_ob = new Date()
 
@@ -2745,7 +2762,9 @@ app.get('/wildberries_marks_order', async function(req, res) {
 
             month < 10 ? filePath = `./public/orders/lp_wb_${i}_${date_ob.getDate()}_0${month}.xml` : filePath = `./public/orders/lp_wb_${i}_${date_ob.getDate()}_${month}.xml`
 
-            fs.writeFileSync(filePath, content)
+            if(content !== ``) {
+                fs.writeFileSync(filePath, content)
+            }
 
             content = ``
 
@@ -3028,6 +3047,7 @@ app.get('/wildberries_new_marks_order', async function(req, res){
                 <div class="header-wrapper"></div>`
 
         for(let i = 0; i < List.length; i++) {
+            if(List[i].length > 0) {
             content += `<?xml version="1.0" encoding="utf-8"?>
                         <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                             <lp>
@@ -3037,26 +3057,29 @@ app.get('/wildberries_new_marks_order', async function(req, res){
                                 <createMethodType>SELF_MADE</createMethodType>
                                 <productionOrderId>WB</productionOrderId>
                                 <products>`
-            for(let j = 0; j < List[i].length; j++) {
-                if(nat_cat.indexOf(List[i][j]) < 0) {
-                    html += `<div class="table-row">
-                                <span id="name">${List[i][j]}</span>
-                                <span id="status-new">Новый товар</span>
-                                <span id="quantity">${Quantity[i][j]}</span>
-                             </div>`
-                    content += `<product>
-                                    <gtin>${moderation_gtins[moderation_products.indexOf(List[i][j])]}</gtin>
-                                    <quantity>${Quantity[i][j]}</quantity>
-                                    <serialNumberType>OPERATOR</serialNumberType>
-                                    <cisType>UNIT</cisType>
-                                    <templateId>10</templateId>
-                                </product>`
+            
+                for(let j = 0; j < List[i].length; j++) {
+                    if(nat_cat.indexOf(List[i][j]) < 0) {
+                        html += `<div class="table-row">
+                                    <span id="name">${List[i][j]}</span>
+                                    <span id="status-new">Новый товар</span>
+                                    <span id="quantity">${Quantity[i][j]}</span>
+                                </div>`
+                        content += `<product>
+                                        <gtin>${moderation_gtins[moderation_products.indexOf(List[i][j])]}</gtin>
+                                        <quantity>${Quantity[i][j]}</quantity>
+                                        <serialNumberType>OPERATOR</serialNumberType>
+                                        <cisType>UNIT</cisType>
+                                        <templateId>10</templateId>
+                                    </product>`
+                    }
                 }
-            }
 
             content += `    </products>
                         </lp>
                     </order>`
+
+            }
 
             const date_ob = new Date()
 
@@ -3066,7 +3089,9 @@ app.get('/wildberries_new_marks_order', async function(req, res){
 
             month < 10 ? filePath = `./public/orders/lp_wb_new_${i}_${date_ob.getDate()}_0${month}.xml` : filePath = `./public/orders/lp_wb_new_${i}_${date_ob.getDate()}_${month}.xml`
 
-            fs.writeFileSync(filePath, content)
+            if(content !== ``) {
+                fs.writeFileSync(filePath, content)
+            }
 
             content = ``
 
@@ -3306,9 +3331,6 @@ app.get('/sale_ozon', async function(req, res){
             }
         })
 
-        console.log(introduced_marks)
-        console.log(introduced_marks.length)
-
     }
 
     await getActualList()
@@ -3391,8 +3413,8 @@ app.get('/sale_ozon', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter':{
-                    'since':'2023-05-31T08:00:00Z',
-                    'to':'2023-07-14T08:00:00Z',
+                    'since':'2023-07-14T08:00:00Z',
+                    'to':'2023-08-04T08:00:00Z',
                     'status':'cancelled'
                 },
                 'limit':1000,
@@ -3447,7 +3469,6 @@ app.get('/sale_ozon', async function(req, res){
     }
 
     equals.forEach(e => {
-        console.log(e.orderNumber)
         e.productsList.forEach(el => {
             if(el.marksList.length > 0) {
                 if(el.marksList.indexOf('') < 0) {
@@ -3673,7 +3694,7 @@ app.get('/sale_wb', async function(req, res){
         for(let i = 0; i < orderNumbers.length; i++) {
 
             let obj = {
-                consDate: consDates[i],
+                consDate: consDates[numbers.indexOf(wbNumbers[i])],
                 consNumber: consNumbers[numbers.indexOf(wbNumbers[i])],
                 orderNumber: orderNumbers[i]
             }
