@@ -2067,6 +2067,7 @@ app.get('/wildberries', async function(req, res){
     
     const new_items = []
     const current_items = []
+    const moderation_items = []
     const wb_orders = []
     const nat_cat = []
     const vendors = []
@@ -2125,7 +2126,7 @@ app.get('/wildberries', async function(req, res){
     const ozonFile = './public/products.xlsx'
     const wbFile = './public/wildberries/new.xlsx'
 
-    
+    const filePath = './public/moderation_marks/moderation_marks.html'
 
     await wb.xlsx.readFile(hsFile)
         
@@ -2136,6 +2137,29 @@ app.get('/wildberries', async function(req, res){
     c2.eachCell(c => {
         nat_cat.push(c.value)
     })
+
+    const products = []
+    const moderation_products = []
+
+    const fileContent = fs.readFileSync(filePath, 'utf-8')
+
+    const content = cio.load(fileContent)
+
+    const spans = content('span')
+
+    const divs = content('.dDfDKJ')
+
+    spans.each((i, elem) => {
+        if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
+            products.push(content(elem).text())
+        }
+    })
+
+    for(let i = 0; i < products.length; i++) {
+        if(i%2 !== 0) {
+            moderation_products.push(products[i])
+        }
+    }
 
     await wb.xlsx.readFile(wbFile)
 
@@ -2197,12 +2221,16 @@ app.get('/wildberries', async function(req, res){
     // console.log(test_Array)    
 
     testArray.forEach(elem => {
-        if(nat_cat.indexOf(elem) < 0 && new_items.indexOf(elem) < 0) {
+        if(moderation_products.indexOf(elem) < 0 && nat_cat.indexOf(elem) < 0 && new_items.indexOf(elem) < 0) {
             new_items.push(elem)            
         }
 
         if(nat_cat.indexOf(elem) >= 0 && current_items.indexOf(elem) < 0) {
             current_items.push(elem)
+        }
+
+        if(moderation_items.indexOf(elem) >= 0 && current_items.indexOf(elem) < 0) {
+            moderation_items.push(elem)
         }
     })
 
