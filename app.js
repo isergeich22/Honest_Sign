@@ -2252,12 +2252,7 @@ app.get('/wildberries', async function(req, res){
             html += `<div class="table-row">
                         <span id="name">${elem}</span>
                         <span id="status-moderation">На модерации</span>
-                     </div>`
-        } else if(moderation_items.indexOf(elem) >= 0){
-            html += `<div class="table-row">
-                        <span id="name">${elem}</span>
-                        <span id="status-moderation">Модерируемый товар</span>
-                     </div>`
+                     </div>`        
         } else {
             html += `<div class="table-row">
                         <span id="name">${elem}</span>
