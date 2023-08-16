@@ -2229,7 +2229,7 @@ app.get('/wildberries', async function(req, res){
             current_items.push(elem)
         }
 
-        if(moderation_items.indexOf(elem) >= 0 && current_items.indexOf(elem) < 0) {
+        if(moderation_products.indexOf(elem) >= 0 && moderation_items.indexOf(elem) < 0) {
             moderation_items.push(elem)
         }
     })
@@ -2247,6 +2247,11 @@ app.get('/wildberries', async function(req, res){
             html += `<div class="table-row">
                         <span id="name">${elem}</span>
                         <span id="status-new">Новый товар</span>
+                     </div>`
+        } else if(moderation_items.indexOf(elem) >= 0){
+            html += `<div class="table-row">
+                        <span id="name">${elem}</span>
+                        <span id="status-moderation">На модерации</span>
                      </div>`
         } else {
             html += `<div class="table-row">
@@ -3442,7 +3447,7 @@ app.get('/sale_ozon', async function(req, res){
                 'dir': 'asc',
                 'filter':{
                     'since':'2023-07-14T08:00:00Z',
-                    'to':'2023-08-04T08:00:00Z',
+                    'to':'2023-08-11T08:00:00Z',
                     'status':'cancelled'
                 },
                 'limit':1000,
