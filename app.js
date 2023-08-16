@@ -2218,7 +2218,7 @@ app.get('/wildberries', async function(req, res){
     }
 
     // console.log(test_Array.length)
-    // console.log(test_Array)    
+    console.log(moderation_items)
 
     testArray.forEach(elem => {
         if(moderation_products.indexOf(elem) < 0 && nat_cat.indexOf(elem) < 0 && new_items.indexOf(elem) < 0) {
@@ -2252,6 +2252,11 @@ app.get('/wildberries', async function(req, res){
             html += `<div class="table-row">
                         <span id="name">${elem}</span>
                         <span id="status-moderation">На модерации</span>
+                     </div>`
+        } else if(moderation_items.indexOf(elem) >= 0){
+            html += `<div class="table-row">
+                        <span id="name">${elem}</span>
+                        <span id="status-moderation">Модерируемый товар</span>
                      </div>`
         } else {
             html += `<div class="table-row">
