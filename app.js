@@ -1348,7 +1348,7 @@ app.get('/ozon', async function(req, res){
 
         const spans = content('span')
 
-        const divs = content('.dDfDKJ')
+        const divs = content('.gcJZKv')
 
         spans.each((i, elem) => {
             if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
@@ -1507,7 +1507,7 @@ app.get('/ozon_marks_order', async function(req, res){
                 'filter': {
                     'since':'2023-08-30T00:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-09-03T23:59:59.000Z'
+                    'to':'2023-09-30T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -2149,7 +2149,7 @@ app.get('/wildberries', async function(req, res){
 
     const spans = content('span')
 
-    const divs = content('.dDfDKJ')
+    const divs = content('.gcJZKv')
 
     spans.each((i, elem) => {
         if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
