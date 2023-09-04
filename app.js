@@ -1505,9 +1505,9 @@ app.get('/ozon_marks_order', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter': {
-                    'since':'2023-08-31T00:00:00.000Z',
+                    'since':'2023-08-30T00:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-09-30T23:59:59.000Z'
+                    'to':'2023-09-03T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -4407,8 +4407,8 @@ app.get('/sale_ozon', async function(req, res){
                 'dir': 'asc',
                 'filter':{
                     'since':'2023-07-14T08:00:00Z',
-                    'to':'2023-08-18T08:00:00Z',
-                    'status':'cancelled'
+                    'to':'2023-08-26T08:00:00Z',
+                    'status':'delivering'
                 },
                 'limit':1000,
                 'offset':0
