@@ -1,550 +1,1513 @@
 <?xml version="1.0" encoding="UTF-8"?>
                     <remark version="7">
                         <trade_participant_inn>372900043349</trade_participant_inn>
-                        <remark_date>2023-08-16</remark_date>
+<<<<<<< HEAD
+                        <remark_date>2023-08-24</remark_date>
                         <remark_cause>KM_SPOILED</remark_cause>
                             <products_list><product>
-                            <new_ki><![CDATA[0102900259442713215b(PDpUMXA"!J]]></new_ki>
+                            <new_ki><![CDATA[0102900261005890215dYYc6=JRQyXJ]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259442713215lndsaOWNGTRV]]></new_ki>
+                            <new_ki><![CDATA[0102900259965816215y,L+0H1o0IVT]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259442683215Qfq0zD'YmH00]]></new_ki>
+                            <new_ki><![CDATA[0102900261006026215aXs,VmAKAZN+]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259442690215BGNyd3ApP5rK]]></new_ki>
+                            <new_ki><![CDATA[0102900261005975215/IV5+*Mq"_dg]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259442690215dGGunl<FGwmS]]></new_ki>
+                            <new_ki><![CDATA[0102900257334645215-CKmP&8x?IXC]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[01029002487930792157-GjupTwJjC"]]></new_ki>
+                            <new_ki><![CDATA[0102900257334645215qbRT?WVZJiD:]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900248793079215G2FjQKaEZOJS]]></new_ki>
+                            <new_ki><![CDATA[0102900076966775215PnZ=mmo30vki]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900248793079215iXXE_J/es=oW]]></new_ki>
+                            <new_ki><![CDATA[0102900245376145215)SnBHPCW"!aB]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900248793079215r"rH!2nV+Po:]]></new_ki>
+                            <new_ki><![CDATA[0102900261006002215%U6YKGJapG-b]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900076416416215vP-IIFsDdd8:]]></new_ki>
+                            <new_ki><![CDATA[0102900261005951215kiurRFpK1JY+]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[01029000762343002155'BJi8BgUJGF]]></new_ki>
+                            <new_ki><![CDATA[0102900261005913215AOnHdn8Zm2wT]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900249470078215THoQOa0&imwf]]></new_ki>
+                            <new_ki><![CDATA[0102900261005937215'FHdvs%kIQrF]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900077197437215YEyguQRsM:sB]]></new_ki>
+                            <new_ki><![CDATA[0102900261005920215bo>bdKQuR1gP]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900236620790215j/dcNJzP!VhE]]></new_ki>
+                            <new_ki><![CDATA[0102900261005906215Tbz7ZjScXJl8]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900076983505215fQep>bkf,jkL]]></new_ki>
+                            <new_ki><![CDATA[0102900261005883215im7x/edXiNeS]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900077307041215*mBfR"LQR9X8]]></new_ki>
+                            <new_ki><![CDATA[0102900085439659215Lh<zDHrIPRpu]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900077307041215Bo<U>lreJT%z]]></new_ki>
+                            <new_ki><![CDATA[0102900080836637215ZlV,RVam;Kp,]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900077307041215eE8-p1V=nsPm]]></new_ki>
+                            <new_ki><![CDATA[01029000780426062157(djlbFbYjuZ]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259391424215LsGBkkNKsUa!]]></new_ki>
+                            <new_ki><![CDATA[0102900078042606215dKoX;aiPdfkg]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259391417215jiQPHYqs,PjN]]></new_ki>
+                            <new_ki><![CDATA[0102900078042606215kJQyBbZ/V;1b]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259391400215,sZwdRjXNt=l]]></new_ki>
+                            <new_ki><![CDATA[0102900125740011215FuSs-IU0UFO9]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259391400215eGKWW6t*PJhW]]></new_ki>
+                            <new_ki><![CDATA[0102900261006101215UE+8DeTb8iBw]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259391394215Z0EXH3G/kPMn]]></new_ki>
+                            <new_ki><![CDATA[0102900076931247215%6VejBG"PaZ0]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259391387215Oia5==rLfBMG]]></new_ki>
+                            <new_ki><![CDATA[0102900076931247215&k!E<VFio"L.]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900237820694215nb-p8FEiJpr+]]></new_ki>
+                            <new_ki><![CDATA[0102900114848230215WCpQd:AFM36N]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900237884887215CrWHDq(xkl,k]]></new_ki>
+                            <new_ki><![CDATA[01029000780953292158tij,HPCyIf+]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900256939483215ZJliYUVae)m0]]></new_ki>
+                            <new_ki><![CDATA[0102900261006057215B,gJAsFKDovh]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900077751646215ZalVGG-LOpuU]]></new_ki>
+                            <new_ki><![CDATA[0102900078415165215Dz2U_'fHYWJ-]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[01029001271276122153muezPkVgjeW]]></new_ki>
+                            <new_ki><![CDATA[0102900078095336215r:HODFSt%,Fl]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900079419261215tTKvnbGyi7qb]]></new_ki>
+                            <new_ki><![CDATA[0102900245821133215(Yr8iQcaFYxX]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900079419261215vD2,bSDYnh32]]></new_ki>
+                            <new_ki><![CDATA[0102900261004848215Fo-b:V1L;VOE]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900074694922215<Ak?Q+T/n(UF]]></new_ki>
+                            <new_ki><![CDATA[0102900244722325215,JWUNUGV&aoQ]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900074694922215E:oc-0lmNaRm]]></new_ki>
+                            <new_ki><![CDATA[0102900079800175215hd+3vsF/0D>t]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259389162215&VmntTi'TXnn]]></new_ki>
+                            <new_ki><![CDATA[01029002610048622157l%A"s-t"PEJ]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900076437374215SOeFFEBIHnl1]]></new_ki>
+                            <new_ki><![CDATA[0102900076040574215ukLf!FIHGKQq]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900080393192215_oueuidojBS<]]></new_ki>
+                            <new_ki><![CDATA[0102900261004855215:Z5E,(0Dgqk']]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259132652215aT8aHbaf)DP;]]></new_ki>
+                            <new_ki><![CDATA[0102900257793282215TbaekREm%Ci*]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[01029002591326382154:oQQMpEsQBJ]]></new_ki>
+                            <new_ki><![CDATA[0102900260935594215mi>QclV3plMC]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259132591215urbpUFLzQ?A4]]></new_ki>
+                            <new_ki><![CDATA[0102900077221866215;hqbG8l0mz3j]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259132614215ZvDRhZLw5EXO]]></new_ki>
+                            <new_ki><![CDATA[01029002526024592152qKtRGpFPRfh]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259132577215aVKrRueEVFi,]]></new_ki>
+                            <new_ki><![CDATA[0102900260932722215Gt.THrFp4paD]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259132546215)YNXh;dLqCPP]]></new_ki>
+                            <new_ki><![CDATA[0102900260932715215RJIW)bn'tKuK]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900084701238215CZ)U+!d<uAS1]]></new_ki>
+                            <new_ki><![CDATA[0102900260932708215lXnZ+'7"1Iow]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900246758612215EUqQpol6mBD8]]></new_ki>
+                            <new_ki><![CDATA[0102900244791185215mmim=b%iCTx,]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900255122923215tD-3S";JZb_I]]></new_ki>
+                            <new_ki><![CDATA[0102900260932692215S;Z4DxPlwVpB]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900177442512215%LdB'8BAf6uv]]></new_ki>
+                            <new_ki><![CDATA[01029002529244762152Vi5V*R3CJef]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900177442512215W61kkbxo:iuD]]></new_ki>
+                            <new_ki><![CDATA[01029002609326852150BWPVDOvefQN]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900256089508215qe5HRvkQFYLm]]></new_ki>
+                            <new_ki><![CDATA[0102900260932678215j&qSJsAkxC!s]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900077516030215IOeOq>e?pQQL]]></new_ki>
+                            <new_ki><![CDATA[01029002414101332158C!TF!uOi6wh]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900240356708215o;m>&xH/Rrxl]]></new_ki>
+                            <new_ki><![CDATA[0102900254444460215B>=HqYaukJrC]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900112009237215n.T2KTE1-jF%]]></new_ki>
+                            <new_ki><![CDATA[0102900240970317215&=N)IkIHjskT]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[01029002591210522152:jTTEH>;NEt]]></new_ki>
+                            <new_ki><![CDATA[0102900260902152215mnMPeP(TOQYt]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900079758803215wNFROE!sJt2i]]></new_ki>
+                            <new_ki><![CDATA[0102900136838479215eR;vRIbUn/Bk]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259121069215YkVB<sH:Sgd:]]></new_ki>
+                            <new_ki><![CDATA[0102900245912152215r3OxmxCm_3oG]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900081979203215LLtf6Thr'5-X]]></new_ki>
+                            <new_ki><![CDATA[0102900074852674215SmB_BZT_c;PE]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900081979203215No&sJgKpET,D]]></new_ki>
+                            <new_ki><![CDATA[0102900240119051215FNDrZ&eTXlL+]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259121076215pFXFBX!6-N6,]]></new_ki>
+                            <new_ki><![CDATA[0102900260901995215qYHNHACGONO(]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083626215Vda3>eiCllDc]]></new_ki>
+                            <new_ki><![CDATA[0102900260901988215)Alge4xFFYoi]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083411215O)eW-ftbWjY+]]></new_ki>
+                            <new_ki><![CDATA[01029000773070412154a0H>dRrmprm]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083602215_GeQKt8QGrDP]]></new_ki>
+                            <new_ki><![CDATA[0102900077307041215i4(IITOlh_Jd]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083398215vjuI/a6q'C4g]]></new_ki>
+                            <new_ki><![CDATA[0102900076995171215>aUFhsP<Yosy]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083589215haVMmb>oEom-]]></new_ki>
+                            <new_ki><![CDATA[0102900076995171215EVFDNqfmc(Tu]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[01029002590835652159=LR7wUm59b;]]></new_ki>
+                            <new_ki><![CDATA[0102900260901971215NW<oMWplHpTQ]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083374215iCR+ObRGEN(U]]></new_ki>
+                            <new_ki><![CDATA[0102900120741099215Sc"Kb:pO?9Ym]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[01029002590833362154C0jNKHgN?hd]]></new_ki>
+                            <new_ki><![CDATA[0102900120741099215tF=Bcj'T-h:<]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083350215P6lVucjn!Zsf]]></new_ki>
+                            <new_ki><![CDATA[0102900259909865215)ZrSvdP8J!fJ]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083541215NrOU8IZq=JpH]]></new_ki>
+                            <new_ki><![CDATA[0102900260901964215O)''WDxG;FEb]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083527215U8njeZ2cpoNW]]></new_ki>
+                            <new_ki><![CDATA[0102900074694632215EOz9BPutACQ_]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083503215dmkllJ6/jKhf]]></new_ki>
+                            <new_ki><![CDATA[0102900260901957215QNQ-nO9;OWFF]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083312215TaepLW)MEQSZ]]></new_ki>
+                            <new_ki><![CDATA[0102900174621088215FFDj5F*j0oV<]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083299215RGnfB0&yE'Eo]]></new_ki>
+                            <new_ki><![CDATA[0102900174621088215YRmdP.PqV<_p]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[01029002590834802158>isVb.cE:go]]></new_ki>
+                            <new_ki><![CDATA[01029002609019402151aS+csl_1hU0]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083275215Qg2HPVlmPpTh]]></new_ki>
+                            <new_ki><![CDATA[0102900247910026215+bvAGc7vE(O3]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083251215+ila5Mf=6fB?]]></new_ki>
+                            <new_ki><![CDATA[0102900077307034215K7E3LQhuWJfH]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083237215g=IJ9<Mgt_Dq]]></new_ki>
+                            <new_ki><![CDATA[0102900260766358215pzWVuEX;_EK,]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083831215JxWlOfofPlEK]]></new_ki>
+                            <new_ki><![CDATA[0102900260766372215qjodyYuTshp.]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083817215SZnr.LXXOCNS]]></new_ki>
+                            <new_ki><![CDATA[0102900237820694215:wtshb=D4jPc]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083794215_3TnLtI2=*PK]]></new_ki>
+                            <new_ki><![CDATA[0102900237820694215TEYxG2t,AWoT]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083725215_-HkcIk"Ek(b]]></new_ki>
+                            <new_ki><![CDATA[0102900077591426215PKTmk>WUUYN.]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083770215gdFxclVMZA3W]]></new_ki>
+                            <new_ki><![CDATA[0102900125739817215BonceN/ZeGBF]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083756215RnfFVkYju+dx]]></new_ki>
+                            <new_ki><![CDATA[0102900260766341215mLJUdawJVgO']]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083701215oqjD<dLa"oiS]]></new_ki>
+                            <new_ki><![CDATA[0102900260766365215t'nn<I6Z&QDE]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083466215UQYr<FsvN*.!]]></new_ki>
+                            <new_ki><![CDATA[0102900079606371215Eqi:yqRkXS>:]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083688215cgqEBU9y4=Mp]]></new_ki>
+                            <new_ki><![CDATA[0102900079606371215hXFhPi?7?rVk]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083640215)m1WPbugp=e9]]></new_ki>
+                            <new_ki><![CDATA[0102900237884887215+"UJ=!jtoQMz]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083664215JozQBgVDLpmq]]></new_ki>
+                            <new_ki><![CDATA[0102900076844066215Nbj_oFoUDG'l]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083442215TVWM1E99ppH8]]></new_ki>
+                            <new_ki><![CDATA[0102900076844066215jJJ5RrKzywn!]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900259083855215qecT5Q:SSiix]]></new_ki>
+                            <new_ki><![CDATA[0102900079606272215a,LStWkau/2M]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900098221227215VTc,et2l7L*l]]></new_ki>
+                            <new_ki><![CDATA[0102900260773677215i2PQ-QdloIxO]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900257996522215eOCYP,K&KNGU]]></new_ki>
+                            <new_ki><![CDATA[0102900260773660215GFRQL,m_RcBc]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900174333721215okNw=BNjLGt*]]></new_ki>
+                            <new_ki><![CDATA[0102900260773653215AdMtd/P<n/Ck]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900219022122215RjEGOB)DO4iK]]></new_ki>
+                            <new_ki><![CDATA[01029002607736392153orYK-LZGnMR]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900255580105215m=o&cazBfK0o]]></new_ki>
+                            <new_ki><![CDATA[0102900260773646215drfV)pNs2r=t]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900076450588215lk8wE2se5_cy]]></new_ki>
+                            <new_ki><![CDATA[0102900074852674215"K6'IDN_>T7Z]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900245821249215+-mLGbaNqT?S]]></new_ki>
+                            <new_ki><![CDATA[01029002559784832153&YaWMhHl;Y0]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900241409991215t5UH'.BHUYyC]]></new_ki>
+                            <new_ki><![CDATA[0102900244291036215aOAPtp?'O3PA]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900076259396215ianv;NlF,8ZQ]]></new_ki>
+                            <new_ki><![CDATA[0102900260763210215v>VIq-0dESlp]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900254444460215cOyPIH!?nzlU]]></new_ki>
+                            <new_ki><![CDATA[0102900102855608215xnfE+CAAhXgO]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900236620417215dZtR8dczcHke]]></new_ki>
+                            <new_ki><![CDATA[0102900260763203215ZmUUTClH>qU"]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900236620417215eFx_J!C6*u2D]]></new_ki>
+                            <new_ki><![CDATA[0102900127127629215qd?oJ%CyIGTB]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900234017912215AfnX!3.VvDO8]]></new_ki>
+                            <new_ki><![CDATA[0102900260763197215fTPqPCYa,4C6]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900112754120215htIQ<Q//iW:j]]></new_ki>
+                            <new_ki><![CDATA[0102900260763180215V2nJqR!WzPO5]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900245393197215iaHfhCe1Mg_L]]></new_ki>
+                            <new_ki><![CDATA[0102900259391394215Ik>zBZmoOWfZ]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[01029002589789782152Qg*_H1G!rM;]]></new_ki>
+                            <new_ki><![CDATA[0102900079427990215J-q2It!TlfJS]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900258978978215dAbblK9QJ"VZ]]></new_ki>
+                            <new_ki><![CDATA[0102900079427990215XCpoeTCC0rX>]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900080272220215-mJnebVlU.gG]]></new_ki>
+                            <new_ki><![CDATA[0102900219021750215Kh;_/1sTLh*L]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900080272220215FoU,j(jVeoHH]]></new_ki>
+                            <new_ki><![CDATA[0102900260763173215eI!FnT.S,SYe]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900258978961215lJhBNeZpLQOd]]></new_ki>
+                            <new_ki><![CDATA[0102900078174697215GPV9hqgJbtfm]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900258955122215;OQb<nb.jDOB]]></new_ki>
+                            <new_ki><![CDATA[0102900078174697215VdB+nyH'skCH]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900258955108215WFNlc+waOoCT]]></new_ki>
+                            <new_ki><![CDATA[0102900260763166215ATRm9IvT:Q6H]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900258955115215=1RDiTJijMTu]]></new_ki>
+                            <new_ki><![CDATA[0102900252201492215q"W_jpyJld.f]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900253954335215XBeQT<DFpQ*W]]></new_ki>
+                            <new_ki><![CDATA[0102900260763159215gchWCYIcZPYM]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900076983482215eDi)r&mTTfkY]]></new_ki>
+                            <new_ki><![CDATA[0102900260763142215UncVaktUWrGn]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900252776143215jY+Xrfj<OFU(]]></new_ki>
+                            <new_ki><![CDATA[0102900260048683215.SqED)o'Q;8O]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900076409623215gCQaE!-!/Wt3]]></new_ki>
+                            <new_ki><![CDATA[0102900260048683215fX-r!khoR)MJ]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900247910019215Y?sIqN6aNi/D]]></new_ki>
+                            <new_ki><![CDATA[01029002408421332152'Yz9Al'qGRe]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900247910019215cutA:YT='OoO]]></new_ki>
+                            <new_ki><![CDATA[0102900219021750215QPitMbC37FIN]]></new_ki>
+=======
+                        <remark_date>2023-09-03</remark_date>
+                        <remark_cause>KM_SPOILED</remark_cause>
+                            <products_list><product>
+                            <new_ki><![CDATA[0102900262961478215s:P=diZEJeeJ]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900078095350215BBzA&7ZblpvC]]></new_ki>
+                            <new_ki><![CDATA[0102900262960969215H1<Fqk4;PW=Y]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900078095350215KR5InhTkpDkt]]></new_ki>
+                            <new_ki><![CDATA[0102900262960549215odYkB;KOrY-k]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900247622257215gRAI*E*S9<FT]]></new_ki>
+                            <new_ki><![CDATA[0102900262960532215x2IgYOeaJ<A7]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900243937898215BT2(lmjB8jl8]]></new_ki>
+                            <new_ki><![CDATA[0102900262960525215Xun8/DLZL=mR]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900081979302215FlFl7iNYcfea]]></new_ki>
+                            <new_ki><![CDATA[0102900262960518215ZeqjNTsqtRns]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900082733767215Toyp9ClKE"5_]]></new_ki>
+                            <new_ki><![CDATA[0102900262960501215Isvvf%l!>8d2]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900082733767215z?hna'F.K8sk]]></new_ki>
+                            <new_ki><![CDATA[0102900262960495215x)(F5W1i=qva]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900258491583215V3:JIfFYG"SQ]]></new_ki>
+                            <new_ki><![CDATA[01029000799912242158SB%uf-(e+Kc]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900258491576215&qYz.lIOSa)0]]></new_ki>
+                            <new_ki><![CDATA[0102900262312522215tbeXd+Vm!7eB]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900258491569215AVuU4p,UkRl9]]></new_ki>
+                            <new_ki><![CDATA[0102900259391394215JCd!k8n+;U5l]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900258491552215<2TETEzqfvGC]]></new_ki>
+                            <new_ki><![CDATA[01029000773070412157_oeUroG=(zl]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900258491545215K%-HLcZaeWsi]]></new_ki>
+                            <new_ki><![CDATA[0102900253837959215FrUqgSbB9Cw8]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900241778882215RW-nCq'BiRsz]]></new_ki>
+                            <new_ki><![CDATA[0102900240575710215BHAkL+wz(BWL]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900255613445215KnDAOdk/TdC/]]></new_ki>
+                            <new_ki><![CDATA[0102900259643349215Xz*GQtR0YOmU]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900240842133215gUmaS?OnvIrM]]></new_ki>
+                            <new_ki><![CDATA[0102900261006101215%0gMVZH17PNA]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900234018018215M-sVi3MbBLg4]]></new_ki>
+                            <new_ki><![CDATA[0102900223948562215=bWJ>poWCILc]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[01029002559777072154fWxEh1gZZIk]]></new_ki>
+                            <new_ki><![CDATA[0102900237820694215TtKJR8"SMrge]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900112754120215kBm+SkyEjQJQ]]></new_ki>
+                            <new_ki><![CDATA[0102900237820694215sIyWnDmCOzkp]]></new_ki>
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product><product>
-                            <new_ki><![CDATA[0102900258491538215cYLUlMc8YQmH]]></new_ki>
+                            <new_ki><![CDATA[0102900262960143215hxN5E:fsUC0Y]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262960136215Ad"YE<Ys8Y"r]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262960129215CX;e*4gciCjj]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900077749704215mnW=h"&eyzZw]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900084701221215=A:uiB(H%1rH]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900077113437215FUqQPN(MU3Br]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900077113437215s.EC&nZKU,>e]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262960112215FXsFkQ2%d6iu]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029002628642982152o_CbEPQHc"G]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262864243215pFW-R(nS*XE/]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262857429215k_pIcML.Ftjh]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029002628574122153ooah=L('-%G]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900076409661215_jK4aCQpJkkQ]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900076409661215a7TI5T6tTnAh]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900235984176215tt)vyaEK7MCL]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262648652215?>Sp?qo0kCmG]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262648621215Ezdn-HYoMfja]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262648645215rjmv.LV%Dnka]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900104976790215l:0YZe9sPimi]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262648638215esQGuAS%L-ic]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900080272220215d2wLCLS(JJLp]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900219021750215TYPAy:=jovoC]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029002453931972151b4(Ow2JZ4MF]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900076995171215=RGf<rihIR;F]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900076995171215h5-PqtJ.Ihqe]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900257467329215buYb%rtloD,r]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900077146145215(0WtSPp3sg?G]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900250095468215<Y*:BDKTsfs<]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900078022394215d2U(HEOpKS:8]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900243788544215P3UUdGhVaMCg]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900078042606215l%CiPRvEE7Ms]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900150698806215m1TSBokTOfrm]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029000778591442153z-PG/_nM,VJ]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262648737215(oP5Wkblk=lb]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262648737215bdl'YDN6k8M*]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262648720215qZt7m)qtXjYu]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262648713215nK)kc_o=obkX]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900254582230215X9xl=fgeGpmN]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262617924215J+Q01gCLsl9L]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262617917215)GU"fs9AdYU:]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262617917215O+aPMe0mVjZ/]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262617900215s2NTLNhGq5!O]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262617894215M,''X(Z-qYmp]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900248895476215c!SniPBcFP;E]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900247622257215SdQ!rPyi(fhw]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900236620738215dLCtbtEZ';+i]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900236620738215mNci>9,c4JCk]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900241410256215?aHIRSn2oL>T]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900087179904215/jfbZkUD?9QG]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900087179904215YTHedxHThK"z]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900075838516215N9LjsnQmh-TX]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900075838516215a)lSsRnZ+eJp]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029001207410372153ltn)c.'5nUT]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900120741037215:L:Q0Gt7(4DP]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900076445089215kTqpY4KU1UV(]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900237166693215%k*CB_dFVnJ&]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029002512025682158uvk<6)lmHfa]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900077688591215dZZY:cIGpC>/]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262617979215t*l>1rXWgHiW]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900079653863215UT0MLzHirAUI]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262617962215EgIUCkeq/;(a]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029002626179552154WociIac>q,i]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900253954366215y6/B&la5-e8c]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900074852674215=MK?J**"YHD']]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262617948215yNl)=IfSyQaW]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900219021972215QquxV5G6Pm;h]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262617931215M)p-(6OskjUS]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900074695004215Z0yql?KwrKXN]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262617689215QqKSD((OsWUZ]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900219022122215V=Uzn/th;!LL]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900219022122215qF,aLsHSuQYU]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262617665215)*V(RGFVs1Rv]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900078312273215hMmpF3;yg*JX]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900089669922215zcpcBkWfOxwf]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900078056405215pGn8cKIEiT1n]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900219022207215CVQi*O,aGR-c]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900237246890215>hhNBI9l"UYS]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900240119075215'f6fs&)"PTp&]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029002623126072154*QdaDelNRaw]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262312607215?dZhGH7MfEaD]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900078095336215IrEcP*sElQ<Z]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900076844066215EISoETmcgtna]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900076844066215J'N7Tt.oPCkt]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900076844066215_+N,*AfXXNs:]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262312591215uTtAmKOxk)O5]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262312584215jKntkHfVTrW:]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900077065279215bCRF*eX=iC+F]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900259442713215-ukzmAEOCIxR]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262312560215h+)3%XSqWx9o]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900245821126215aF8hVSazIfFn]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262312577215"w/l*,Mmxjrs]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261236850215iPammLAZs>PK]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262312546215beI8lFTbq"mM]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900076495855215d:TBjVZHn1Ol]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262312553215OM(>9g!l3ht(]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900254038546215YPr0RzuhxawC]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900080676967215-ABPT6x;z-?x]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900211138036215gW_GiZni(kWw]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900211138036215mbanRrp/->?s]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262312522215T?2oqz?seE=U]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029002623104742153kDn_tfAa<!U]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262310474215=%B!lnq5A*C0]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262310474215a7OcbLe9YSiL]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262310474215l8X4N,fM,f4e]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262310450215Dd&CB<s/DgE!]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029002623104292156YBBTRkMNufW]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900262310399215_hQR>kdDW>s>]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900075848287215D6"jmXZ.G%9f]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900258325055215Z9OJVZGh(=FK]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900219021972215YDrpuYj/s4AB]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900252602428215FRMPAme'GqQS]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900079585539215KZC/nmW5shCS]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900082733736215UHeTiSdNqch9]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900074694526215SB!id07UfsqD]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261939669215gN6EciKNS;W']]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261939652215Oki"6hP&issf]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261939652215P<gnVCglrr)T]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261939652215RhlVCXbEcKus]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261939652215jMaus(5PV+h']]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261939645215r,0H:egeFobn]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900256323350215GPoZPT13&MLu]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900255037463215G*LaoRb+jnXF]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900255037463215PwfwYpTQ(ETO]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558341215:(SPlh/tHUed]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558327215Py:EidtRo2e6]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558501215zD3oojSk!zTS]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558488215MMnxt0b0yFEE]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558488215SaZR6IlMoN+K]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900241410133215DWu!Dr=kZhLH]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558204215)+ts7,!T"B9L]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558228215O.3u>s?!fQaL]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558174215BnNik_F/*ZHK]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029002568783862155YsIlZfubKQb]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900075783977215VcDo3EbFc1E(]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900260763142215UmItMqjAlYxi]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900245821232215eKX3;plssREn]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558402215*UnoG)jJFpUn]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558402215okW0bdN7Yk?:]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900243785703215f0ibDE&d"g-;]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558389215(5dsstZ*m4lW]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558365215jUFiEC*%Qts0]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558440215*eo6?I+ArWke]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900076825430215BCCBBqXL&ljk]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558303215l&SPeqF>PccG]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558280215fkXsDKi/gPha]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261558266215jcVHh2QZQJk&]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900079991224215JpHgG1Sh2nMX]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900241410010215mCJgSYp&8fff]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900080677070215G+t4MiKRp1VK]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900098420132215fGyqhI5qpIV2]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900098420132215o%_VlMEIix0d]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900120740832215Z<eU*y6iSkLb]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261754019215YGuJp)Fqb1TL]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261754026215qqlcmc&Wqigj]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900077840708215tk->-?JpaBpI]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900077816123215OG-ap)VtLQrn]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900100188593215*6>(yTlikX;r]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900083966737215Ipqb0iJ*hcg']]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900109192188215nmvoK0fL/p!']]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900248756166215&ON(ZOXzljd2]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900079758810215(+;mUEp?W5'D]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261753968215/hCEnkI*KsBq]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261753937215Ebt_EP2><tGN]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029002617539512159TSOnjV6N(9Z]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261753944215BtGJX1:5z;xb]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900117311045215-FEkBg&z.mE<]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[010290011731104521526=ljzy"MHV)]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261753920215vDQ9dBc7JL,4]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900249165691215.;eLjIo0fph8]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261753906215;TZ'dcTXJ69E]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900120800154215gVgKJHKq&QJs]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261753883215i+Q"=fZnoYpw]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900131845496215dVkYZ.w=1ehJ]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261753876215"R&uWpEm,O<5]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900260335165215wBV4(+n0euBA]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261753869215gu*TUWB%,1lu]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261686914215sKc0O?4oHfgY]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261686907215HllG.9<XM,/A]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261686891215Yv;hqg2AQKLl]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261686884215HX(*_MRRfk;H]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261686877215cwchGGtTr%OQ]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900241734772215rPUamCHSoEs"]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518499215&=NZqUInJZwa]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518482215RtglZ4RqB?<7]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518475215/a:cM.mP*oIa]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518468215(wmMFEZY-YXD]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518451215)oEi>=!KkJHY]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518444215U)s%Aynad%Da]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518437215uKa9NhrRYb%=]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518420215RaN=MbbnakeD]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518420215nakWCduIfSeW]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518413215b7A5&Cm(ca3h]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518390215vWH:d9beUJFT]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518406215Y=>L5P:sk.+l]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518376215!2W&lTJ)UkwK]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518383215"e0RW>Ke?CSK]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518369215>7nOj9Jj87OC]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518369215TqsFBf+XLVd&]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518352215o3pRP4.0TKGs]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518345215'DVi;-DFsmo3]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029002615183382152>CCfk0:?Gb']]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900257793350215qgje"%PWh1rh]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900076234324215>Ok+a)%5ZBi)]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900259083398215"GtojREwYmKg]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900078342379215kfo/bQ)Z0+tT]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900075722556215D?_*0Lmmol45]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900079758810215l_o>nOSNpg%c]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900082733781215(;kilIl.?hCe]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900082733781215JQlTNSAxH53-]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029000764958552154yALscg(Kson]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900242793921215vrOq1VV!Y5e=]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900077201981215IygEuAkU&UUq]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900241410133215dx<jdK>bBC3L]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029000769667752156IrUGuRwOjKZ]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900131845496215kMi>KCTDACmE]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900256939445215J2_tO"dgwMJt]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900243788551215dRHf08O7YCP(]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900259083664215TXRN(knQUQOd]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900250940058215(M/U)s?wPxc<]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[01029002509400582150H701wN7Hlfs]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900187859737215W3bOWzNiueuC]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900257793329215SOKUYrWu;0Qe]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900255977875215aePitIbJXYBq]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900251427749215QSbm.<aRS1=J]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900159225249215W7hGhHf)Ka+T]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900159225249215c,Oo<ycTvQzh]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900241410195215Djc=mK!s7%sr]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900079419261215Z0UJX"+AUD*g]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900079419261215bhUU:j;RLO9o]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900171389257215Mqs(rcLb(KXT]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900171389257215SETPHoeVKIFv]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900146387349215B1bUVk.tmaxm]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518772215um_rGXixAbGC]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518765215xGFW10C-lhBC]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518758215JmOQ&PAr_U=(]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900261518758215nlkA%r1Mnkx:]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900234094661215RbRzW4?G(l"d]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900255580129215KmbKYncMWIjE]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900077688621215U9qMuQ3?klgV]]></new_ki>
+                            <tnved_code_10>6302100001</tnved_code_10>
+                            <production_country>РОССИЯ</production_country>
+                        </product><product>
+                            <new_ki><![CDATA[0102900079086517215+Rc!4,JZck7m]]></new_ki>
+>>>>>>> main
                             <tnved_code_10>6302100001</tnved_code_10>
                             <production_country>РОССИЯ</production_country>
                         </product>    </products_list>
