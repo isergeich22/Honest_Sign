@@ -374,6 +374,13 @@
                     width: 19.2%;
                 }
 
+                .table-row #name-sber {
+                    width: 80.8%;
+                    color: #5E6476;
+                    font-weight: 300;
+                    font-size: .8rem;
+                }
+
                 .table-row div {
                     display: flex;
                     justify-content: center;
