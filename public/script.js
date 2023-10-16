@@ -53,17 +53,19 @@ window.addEventListener('scroll', () => {
 
 })
 
-multipleList.addEventListener('click', () => {
+if(window.location.href.indexOf('home') >= 0) {
+    multipleList.addEventListener('click', () => {
 
-    const css = window.getComputedStyle(statusList)
-    if(statusList.style.display == 'none' ||  css.display == 'none') {
-        statusList.style.display = 'block'
-    } else {
-        statusList.style.display = 'none'
-    }
-    
+        const css = window.getComputedStyle(statusList)
+        if(statusList.style.display == 'none' ||  css.display == 'none') {
+            statusList.style.display = 'block'
+        } else {
+            statusList.style.display = 'none'
+        }
+        
 
-})
+    })
+}
 
 statusRows.forEach(el => {
     if(el.innerHTML == 'В обороте') {
@@ -76,7 +78,7 @@ statusRows.forEach(el => {
 })
 
 //pagination logic begin {
-if(window.location.href.indexOf('filter') < 0) {
+if(window.location.href.indexOf('filter') < 0 && window.location.href.indexOf('yandex') < 0) {
     
     const beginButton = document.querySelector('#begin')
     const prevButton = document.querySelector('#prev')
@@ -173,62 +175,87 @@ const multipleItems = document.querySelectorAll('.list-item')
 const showButton = document.querySelector('.show-button')
 const showAnchor = document.querySelector('#show-anchor')
 
-multipleItems.forEach(el => {
+if(window.location.href.indexOf('home') >= 0) {
+    multipleItems.forEach(el => {
 
-    el.addEventListener('click', () => {
+        el.addEventListener('click', () => {
 
-        multipleStatus.innerHTML = el.innerHTML
-        multipleStatus.style.color = '#181F3E;'
-        showButton.style.display = 'inline-block'
-        if(multipleStatus.innerHTML == 'Нанесен') {
+            multipleStatus.innerHTML = el.innerHTML
+            multipleStatus.style.color = '#181F3E;'
+            showButton.style.display = 'inline-block'
+            if(multipleStatus.innerHTML == 'Нанесен') {
 
-            showAnchor.setAttribute('href', `http://localhost:3030/home/APPLIED`)
+                showAnchor.setAttribute('href', `http://localhost:3030/home/APPLIED`)
 
-        }
+            }
 
-        if(multipleStatus.innerHTML == 'В обороте') {
+            if(multipleStatus.innerHTML == 'В обороте') {
 
-            showAnchor.setAttribute('href', `http://localhost:3030/home/INTRODUCED`)
+                showAnchor.setAttribute('href', `http://localhost:3030/home/INTRODUCED`)
 
-        }
+            }
 
-        if(multipleStatus.innerHTML == 'Выбыл') {
+            if(multipleStatus.innerHTML == 'Выбыл') {
 
-            showAnchor.setAttribute('href', `http://localhost:3030/home/RETIRED`)
+                showAnchor.setAttribute('href', `http://localhost:3030/home/RETIRED`)
 
-        }
-        
+            }
+            
+
+        })
 
     })
-
-})
+}
 // } filter logic end
 
 //kiz-and-gtin-filter logic begin {
 
-const searchButton = document.querySelector('#search')
-const searchField = document.querySelector('.search-input')
-
-searchButton.addEventListener('click', () => {
-
-    showButton.style.display = 'inline-block'
-
-    let str = searchField.value
-
-    if(str.indexOf('<') >= 0) {
-        str = str.replace(/</g, '&lt;')
-    } else if(str.indexOf('&') >= 0) {
-        str = str.replace(/&/g, '&amp;')
-    }
+if(window.location.href.indexOf('yandex') < 0) {
     
-    if(searchField.value.length == 31) {   
-        showAnchor.setAttribute('href', `http://localhost:3030/filter?cis=${str}`)
-    }
+    const searchButton = document.querySelector('#search')
+    const searchField = document.querySelector('.search-input')
 
-    if(searchField.value.length == 14) {
-        showAnchor.setAttribute('href', `http://localhost:3030/filter?gtin=${searchField.value}`)
-    }
+    searchButton.addEventListener('click', () => {
 
-})
+        showButton.style.display = 'inline-block'
+
+        let str = searchField.value
+
+        if(str.indexOf('<') >= 0) {
+            str = str.replace(/</g, '&lt;')
+        } else if(str.indexOf('&') >= 0) {
+            str = str.replace(/&/g, '&amp;')
+        }
+        
+        if(searchField.value.length == 31) {   
+            showAnchor.setAttribute('href', `http://localhost:3030/filter?cis=${str}`)
+        }
+
+        if(searchField.value.length == 14) {
+            showAnchor.setAttribute('href', `http://localhost:3030/filter?gtin=${searchField.value}`)
+        }
+
+    })
+
+}
 
 // } kiz-and-gtin-filter logic end
+
+// yandex-logic begin {
+
+    if(window.location.href.indexOf('yandex') >= 0) {
+        const ref = document.querySelector('.input-form__ref')
+        console.log(ref)
+        const input = document.querySelector('.input-form__input')
+        console.log(input)
+
+        input.addEventListener('input', () => {
+
+            let href = `/yandex?cis=${input.value}`
+
+            ref.setAttribute('href', href)
+
+        })
+    }
+
+// } yandex-logic end
