@@ -1279,9 +1279,9 @@ app.get('/ozon', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter': {
-                    'since':'2023-08-31T00:00:00.000Z',
+                    'since':'2023-10-01T01:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-09-30T23:59:59.000Z'
+                    'to':'2023-10-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1505,9 +1505,9 @@ app.get('/ozon_marks_order', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter': {
-                    'since':'2023-08-30T00:00:00.000Z',
+                    'since':'2023-10-01T01:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-09-30T23:59:59.000Z'
+                    'to':'2023-10-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1826,9 +1826,9 @@ app.get('/ozon_new_marks_order', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter': {
-                    'since':'2023-08-31T00:00:00.000Z',
+                    'since':'2023-10-01T01:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-09-30T23:59:59.000Z'
+                    'to':'2023-10-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -3161,8 +3161,8 @@ app.get('/sber', async function(req, res){
                 "meta": {},
                 "data": {
                     "token": "A6B4E0AC-DD7F-4CF4-84D5-A772C59F38C4",
-                    "dateFrom" : "2023-09-01T23:59:59Z",
-                    "dateTo" : "2023-09-29T23:59:59Z",
+                    "dateFrom" : "2023-09-04T23:59:59Z",
+                    "dateTo" : "2023-10-31T23:59:59Z",
                     "count": 100,
                     "statuses" : [
                         "CONFIRMED"
