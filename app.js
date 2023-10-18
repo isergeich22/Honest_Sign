@@ -4050,13 +4050,15 @@ app.get('/yandex', async function(req, res){
 
         html += `</section>`
 
+        console.log(req.query.cis)
+
         let convertedString = req.query.cis.replace(req.query.cis.substring(0, 4), '')
 
         convertedString = convertedString.replace(/</g, '&lt;')
 
         convertedString = convertedString.replace(/&lt;GS>/g, '&bsol;u001d')
 
-        // console.log(convertedString)
+        convertedString = convertedString.replace(/ /g, '&plus;')
 
         html += `<div class="convert-form">
                     <h3 class="convert-form__header">Работа с КИЗ для Я.Маркета</h3>
