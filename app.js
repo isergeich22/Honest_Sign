@@ -35,6 +35,8 @@ const footerComponent = `   <button id="top" class="button-top">
                             </body>
                         </html>`
 
+let buttons = ['ozon', 'wb', 'sber', 'yandex']
+
 app.use(express.static(__dirname + '/public'))
 
 app.get('/home', async function(req, res){
@@ -46,8 +48,6 @@ app.get('/home', async function(req, res){
                     ${navComponent}
                         <section class="sub-nav import-main">
                             <div class="import-control">`
-                        
-    let buttons = ['ozon', 'wb', 'sber']
     
     // let url = window.location.href
     // let str = url.split('/').reverse()[1]
@@ -58,11 +58,21 @@ app.get('/home', async function(req, res){
 
         let address = ''
 
-        for(let i = 0; i < array.length; i++) {
-            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
-            html += `<button class="button-import">
-                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
-                     </button>`
+        for(let i = 0; i < array.length; i++) {                
+            if(array[i] === 'yandex') {
+                address = 'yandex'
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                        </button>`
+            }
+
+            if(array[i] !== 'yandex') {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+            
         }
 
         html += `   </div>`
@@ -319,8 +329,6 @@ app.get('/home/:status/', async function(req, res){
                     ${navComponent}
                         <section class="sub-nav import-main">
                             <div class="import-control">`
-                        
-    let buttons = ['ozon', 'wb']
     
     // let url = window.location.href
     // let str = url.split('/').reverse()[1]
@@ -331,11 +339,21 @@ app.get('/home/:status/', async function(req, res){
 
         let address = ''
 
-        for(let i = 0; i < array.length; i++) {
-            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
-            html += `<button class="button-import">
-                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
-                     </button>`
+        for(let i = 0; i < array.length; i++) {                
+            if(array[i] === 'yandex') {
+                address = 'yandex'
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                        </button>`
+            }
+
+            if(array[i] !== 'yandex') {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+            
         }
 
         html += `   </div>`
@@ -655,8 +673,6 @@ app.get('/filter', async function(req, res) {
                     ${navComponent}
                         <section class="sub-nav import-main">
                             <div class="import-control">`
-                        
-    let buttons = ['ozon', 'wb']
     
     // let url = window.location.href
     // let str = url.split('/').reverse()[1]
@@ -667,11 +683,21 @@ app.get('/filter', async function(req, res) {
 
         let address = ''
 
-        for(let i = 0; i < array.length; i++) {
-            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
-            html += `<button class="button-import">
-                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
-                     </button>`
+        for(let i = 0; i < array.length; i++) {                
+            if(array[i] === 'yandex') {
+                address = 'yandex'
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                        </button>`
+            }
+
+            if(array[i] !== 'yandex') {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+            
         }
 
         html += `   </div>`
@@ -910,8 +936,6 @@ app.get('/ozon', async function(req, res){
                         ${navComponent}
                         <section class="sub-nav import-main">
                             <div class="import-control">`
-                        
-    let buttons = ['ozon', 'wb']
     
     // let url = window.location.href
     // let str = url.split('/').reverse()[1]
@@ -922,11 +946,21 @@ app.get('/ozon', async function(req, res){
 
         let address = ''
 
-        for(let i = 0; i < array.length; i++) {
-            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
-            html += `<button class="button-import">
-                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
-                     </button>`
+        for(let i = 0; i < array.length; i++) {                
+            if(array[i] === 'yandex') {
+                address = 'yandex'
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                        </button>`
+            }
+
+            if(array[i] !== 'yandex') {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+            
         }
 
         html += `   </div>`
@@ -1449,8 +1483,6 @@ app.get('/ozon_marks_order', async function(req, res){
                     ${navComponent}
                         <section class="sub-nav import-main">
                             <div class="import-control">`
-                        
-    let buttons = ['ozon', 'wb']
     
     // let url = window.location.href
     // let str = url.split('/').reverse()[1]
@@ -1461,11 +1493,21 @@ app.get('/ozon_marks_order', async function(req, res){
 
         let address = ''
 
-        for(let i = 0; i < array.length; i++) {
-            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
-            html += `<button class="button-import">
-                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
-                     </button>`
+        for(let i = 0; i < array.length; i++) {                
+            if(array[i] === 'yandex') {
+                address = 'yandex'
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                        </button>`
+            }
+
+            if(array[i] !== 'yandex') {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+            
         }
 
         html += `   </div>`
@@ -1768,8 +1810,6 @@ app.get('/ozon_new_marks_order', async function(req, res){
                     ${navComponent}
                         <section class="sub-nav import-main">
                             <div class="import-control">`
-                        
-    let buttons = ['ozon', 'wb']
     
     // let url = window.location.href
     // let str = url.split('/').reverse()[1]
@@ -1780,11 +1820,21 @@ app.get('/ozon_new_marks_order', async function(req, res){
 
         let address = ''
 
-        for(let i = 0; i < array.length; i++) {
-            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
-            html += `<button class="button-import">
-                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
-                     </button>`
+        for(let i = 0; i < array.length; i++) {                
+            if(array[i] === 'yandex') {
+                address = 'yandex'
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                        </button>`
+            }
+
+            if(array[i] !== 'yandex') {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+            
         }
 
         html += `   </div>`
@@ -2083,18 +2133,26 @@ app.get('/wildberries', async function(req, res){
                     ${navComponent}
                         <section class="sub-nav import-main">
                             <div class="import-control">`
-                        
-    let buttons = ['ozon', 'wb']
 
     async function renderImportButtons(array) {
 
         let address = ''
 
-        for(let i = 0; i < array.length; i++) {
-            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
-            html += `<button class="button-import">
-                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
-                     </button>`
+        for(let i = 0; i < array.length; i++) {                
+            if(array[i] === 'yandex') {
+                address = 'yandex'
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                        </button>`
+            }
+
+            if(array[i] !== 'yandex') {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+            
         }
 
         html += `   </div>`
@@ -2592,8 +2650,6 @@ app.get('/wildberries_marks_order', async function(req, res) {
                     ${navComponent}
                         <section class="sub-nav import-main">
                             <div class="import-control">`
-                        
-    let buttons = ['ozon', 'wb']
     
     // let url = window.location.href
     // let str = url.split('/').reverse()[1]
@@ -2604,11 +2660,21 @@ app.get('/wildberries_marks_order', async function(req, res) {
 
         let address = ''
 
-        for(let i = 0; i < array.length; i++) {
-            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
-            html += `<button class="button-import">
-                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
-                     </button>`
+        for(let i = 0; i < array.length; i++) {                
+            if(array[i] === 'yandex') {
+                address = 'yandex'
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                        </button>`
+            }
+
+            if(array[i] !== 'yandex') {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+            
         }
 
         html += `   </div>`
@@ -2870,8 +2936,6 @@ app.get('/wildberries_new_marks_order', async function(req, res){
                     ${navComponent}
                         <section class="sub-nav import-main">
                             <div class="import-control">`
-                        
-    let buttons = ['ozon', 'wb']
     
     // let url = window.location.href
     // let str = url.split('/').reverse()[1]
@@ -2882,11 +2946,21 @@ app.get('/wildberries_new_marks_order', async function(req, res){
 
         let address = ''
 
-        for(let i = 0; i < array.length; i++) {
-            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
-            html += `<button class="button-import">
-                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
-                     </button>`
+        for(let i = 0; i < array.length; i++) {                
+            if(array[i] === 'yandex') {
+                address = 'yandex'
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                        </button>`
+            }
+
+            if(array[i] !== 'yandex') {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+            
         }
 
         html += `   </div>`
@@ -4110,8 +4184,6 @@ app.get('/input_remarking', async function(req, res){
                     ${navComponent}
                         <section class="sub-nav import-main">
                             <div class="import-control">`
-                        
-    let buttons = ['ozon', 'wb']
     
     // let url = window.location.href
     // let str = url.split('/').reverse()[1]
@@ -4122,11 +4194,21 @@ app.get('/input_remarking', async function(req, res){
 
         let address = ''
 
-        for(let i = 0; i < array.length; i++) {
-            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
-            html += `<button class="button-import">
-                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
-                     </button>`
+        for(let i = 0; i < array.length; i++) {                
+            if(array[i] === 'yandex') {
+                address = 'yandex'
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                        </button>`
+            }
+
+            if(array[i] !== 'yandex') {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+            
         }
 
         html += `   </div>`
@@ -4238,8 +4320,6 @@ app.get('/sale_ozon', async function(req, res){
                     ${navComponent}
                         <section class="sub-nav import-main">
                             <div class="import-control">`
-                        
-    let buttons = ['ozon', 'wb']
     
     // let url = window.location.href
     // let str = url.split('/').reverse()[1]
@@ -4250,11 +4330,21 @@ app.get('/sale_ozon', async function(req, res){
 
         let address = ''
 
-        for(let i = 0; i < array.length; i++) {
-            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
-            html += `<button class="button-import">
-                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
-                     </button>`
+        for(let i = 0; i < array.length; i++) {                
+            if(array[i] === 'yandex') {
+                address = 'yandex'
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                        </button>`
+            }
+
+            if(array[i] !== 'yandex') {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+            
         }
 
         html += `   </div>`
@@ -4534,8 +4624,6 @@ app.get('/sale_wb', async function(req, res){
                     ${navComponent}
                         <section class="sub-nav import-main">
                             <div class="import-control">`
-                        
-    let buttons = ['ozon', 'wb']
     
     // let url = window.location.href
     // let str = url.split('/').reverse()[1]
@@ -4546,11 +4634,21 @@ app.get('/sale_wb', async function(req, res){
 
         let address = ''
 
-        for(let i = 0; i < array.length; i++) {
-            array[i] === 'wb' ? address = 'wildberries' : address = array[i]
-            html += `<button class="button-import">
-                        <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
-                     </button>`
+        for(let i = 0; i < array.length; i++) {                
+            if(array[i] === 'yandex') {
+                address = 'yandex'
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                        </button>`
+            }
+
+            if(array[i] !== 'yandex') {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+            
         }
 
         html += `   </div>`
@@ -4787,6 +4885,160 @@ app.get('/sale_wb', async function(req, res){
             ${footerComponent}`
 
     res.send(html)
+
+})
+
+app.get('/yandex', async function(req, res){
+
+    if(req.query.cis === undefined) {
+
+        let html = `${headerComponent}
+                        <title>Я.Маркет</title>
+                    </head>
+                    <body>
+                        ${navComponent}
+                            <section class="sub-nav import-main">
+                                <div class="import-control">`
+        
+        // let url = window.location.href
+        // let str = url.split('/').reverse()[1]
+
+        // document.title = str
+
+        async function renderImportButtons(array) {
+
+            let address = ''
+    
+            for(let i = 0; i < array.length; i++) {                
+                if(array[i] === 'yandex') {
+                    address = 'yandex'
+                    html += `<button class="button-import">
+                                <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                            </button>`
+                }
+    
+                if(array[i] !== 'yandex') {
+                    array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                    html += `<button class="button-import">
+                                <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                            </button>`
+                }
+                
+            }
+    
+            html += `   </div>`
+    
+        }
+
+        async function renderMarkingButtons() {
+            html += `<div class="marking-control">
+                        <button class="marking-button remarking-button"><a href="http://localhost:3030/input_remarking" target="_blank">Ввод в оборот (Перемаркировка)</a></button>
+                        <button class="marking-button distance-button"><a href="http://localhost:3030/sale_ozon" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                        <button class="marking-button distance-button"><a href="http://localhost:3030/sale_wb" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                    </div>`
+        }
+
+        await renderImportButtons(buttons)
+        await renderMarkingButtons()
+
+        html += `</section>`
+
+        html += `<div class="convert-form">
+                    <h3 class="convert-form__header">Работа с КИЗ для Я.Маркета</h3>
+                    <div class="body-wrapper"></div>
+                    <div class="input-form">
+                        <input class="input-form__input" type="text" placeholder="Введите КИЗ"/>
+                        <a class="input-form__ref">Конвертировать</a>
+                    </div>
+                </div>`
+
+        html += `${footerComponent}`
+
+        res.send(html)
+
+    }
+
+    if(req.query.cis !== undefined) {
+
+        let html = `${headerComponent}
+                        <title>Перемаркировка</title>
+                    </head>
+                    <body>
+                        ${navComponent}
+                            <section class="sub-nav import-main">
+                                <div class="import-control">`
+        
+        // let url = window.location.href
+        // let str = url.split('/').reverse()[1]
+
+        // document.title = str
+
+        async function renderImportButtons(array) {
+
+            let address = ''
+
+            for(let i = 0; i < array.length; i++) {                
+                if(array[i] === 'yandex') {
+                    html += `<button class="button-import">
+                                <a href="http://localhost:3030/${address}" target="_blank">Работа с ${array[i]}</a>
+                            </button>`
+                }
+
+                if(array[i] !== 'yandex') {
+                    array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                    html += `<button class="button-import">
+                                <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                            </button>`
+                }
+                
+            }
+
+            html += `   </div>`
+
+        }
+
+        async function renderMarkingButtons() {
+            html += `<div class="marking-control">
+                        <button class="marking-button remarking-button"><a href="http://localhost:3030/input_remarking" target="_blank">Ввод в оборот (Перемаркировка)</a></button>
+                        <button class="marking-button distance-button"><a href="http://localhost:3030/sale_ozon" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                        <button class="marking-button distance-button"><a href="http://localhost:3030/sale_wb" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                    </div>`
+        }
+
+        await renderImportButtons(buttons)
+        await renderMarkingButtons()
+
+        html += `</section>`
+
+        console.log(req.query.cis)
+
+        let convertedString = req.query.cis.replace(req.query.cis.substring(0, 4), '')
+
+        convertedString = convertedString.replace(/</g, '&lt;')
+
+        convertedString = convertedString.replace(/&lt;GS>/g, '&bsol;u001d')
+
+        convertedString = convertedString.replace(/ /g, '&plus;')
+
+        html += `<div class="convert-form">
+                    <h3 class="convert-form__header">Работа с КИЗ для Я.Маркета</h3>
+                    <div class="body-wrapper"></div>
+                    <div class="input-form">
+                        <input class="input-form__input" type="text" placeholder="Введите КИЗ"/>
+                        <a class="input-form__ref">Конвертировать</a>
+                    </div>
+                    <div class="body-wrapper"></div>
+                    <div class="result-form">
+                        <label class="result-form__label" for="result">Результат:</label>
+                        <input name="result" class="result-form__input" type="text" value='${convertedString}'/>
+                    </div>
+                </div>`
+
+        html += `<div class="body-wrapper"></div>${footerComponent}`
+
+        res.send(html)
+
+    }
 
 })
 
