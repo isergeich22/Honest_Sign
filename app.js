@@ -82,8 +82,8 @@ app.get('/home', async function(req, res){
     async function renderMarkingButtons() {
         html += `<div class="marking-control">
                     <button class="marking-button remarking-button"><a href="http://localhost:3030/input_remarking" target="_blank">Ввод в оборот (Перемаркировка)</a></button>
-                    <button class="marking-button distance-button"><a href="http://localhost:3030/sale_ozon" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
-                    <button class="marking-button distance-button"><a href="http://localhost:3030/sale_wb" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                    <button class="marking-button distance-button"><a href="http://localhost:3030/sale_ozon" target="_blank">Вывод из оборота OZON (Дистанционная продажа)</a></button>
+                    <button class="marking-button distance-button"><a href="http://localhost:3030/sale_wb" target="_blank">Вывод из оборота WILDBERRIES (Дистанционная продажа)</a></button>
                  </div>`
     }
 
@@ -1313,9 +1313,9 @@ app.get('/ozon', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter': {
-                    'since':'2023-07-31T00:00:00.000Z',
+                    'since':'2023-10-01T01:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-08-31T23:59:59.000Z'
+                    'to':'2023-10-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1382,7 +1382,7 @@ app.get('/ozon', async function(req, res){
 
         const spans = content('span')
 
-        const divs = content('.dDfDKJ')
+        const divs = content('.gcJZKv')
 
         spans.each((i, elem) => {
             if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
@@ -1397,25 +1397,27 @@ app.get('/ozon', async function(req, res){
         }
 
         for(i = 0; i < new_orders.length; i++) {
-            if(moderation_products.indexOf(new_orders[i]) < 0 && nat_cat.indexOf(new_orders[i]) < 0 && new_items.indexOf(new_orders[i]) < 0){
+            if(moderation_products.indexOf(new_orders[i].trim()) < 0 && nat_cat.indexOf(new_orders[i].trim()) < 0 && new_items.indexOf(new_orders[i].trim()) < 0){
 
-                new_items.push(new_orders[i])
-
-            }
-
-            if(nat_cat.indexOf(new_orders[i]) >=0 && current_items.indexOf(new_orders[i]) < 0) {
-
-                current_items.push(new_orders[i])
+                new_items.push(new_orders[i].trim())
 
             }
 
-            if(moderation_products.indexOf(new_orders[i]) >=0 && current_items.indexOf(new_orders[i]) < 0) {
+            if(nat_cat.indexOf(new_orders[i].trim()) >=0 && current_items.indexOf(new_orders[i].trim()) < 0) {
 
-                moderation_items.push(new_orders[i])
+                current_items.push(new_orders[i].trim())
+
+            }
+
+            if(moderation_products.indexOf(new_orders[i].trim()) >=0 && current_items.indexOf(new_orders[i].trim()) < 0) {
+
+                moderation_items.push(new_orders[i].trim())
 
             }
 
         }
+
+        // console.log(moderation_products)
 
         html += `<section class="table">
                     <div class="marks-table">
@@ -1545,9 +1547,9 @@ app.get('/ozon_marks_order', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter': {
-                    'since':'2023-07-31T00:00:00.000Z',
+                    'since':'2023-10-01T01:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-08-31T23:59:59.000Z'
+                    'to':'2023-10-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1874,9 +1876,9 @@ app.get('/ozon_new_marks_order', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter': {
-                    'since':'2023-07-31T00:00:00.000Z',
+                    'since':'2023-10-01T01:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-08-31T23:59:59.000Z'
+                    'to':'2023-10-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1949,7 +1951,7 @@ app.get('/ozon_new_marks_order', async function(req, res){
 
     const spans = content('span')
 
-    const divs = content('.dDfDKJ')
+    const divs = content('.gcJZKv')
 
     spans.each((i, elem) => {
         if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
@@ -2205,7 +2207,7 @@ app.get('/wildberries', async function(req, res){
 
     const spans = content('span')
 
-    const divs = content('.dDfDKJ')
+    const divs = content('.gcJZKv')
 
     spans.each((i, elem) => {
         if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
@@ -2279,16 +2281,16 @@ app.get('/wildberries', async function(req, res){
     console.log(moderation_items)
 
     testArray.forEach(elem => {
-        if(moderation_products.indexOf(elem) < 0 && nat_cat.indexOf(elem) < 0 && new_items.indexOf(elem) < 0) {
-            new_items.push(elem)            
+        if(moderation_products.indexOf(elem.trim()) < 0 && nat_cat.indexOf(elem.trim()) < 0 && new_items.indexOf(elem.trim()) < 0) {
+            new_items.push(elem.trim())            
         }
 
-        if(nat_cat.indexOf(elem) >= 0 && current_items.indexOf(elem) < 0) {
-            current_items.push(elem)
+        if(nat_cat.indexOf(elem.trim()) >= 0 && current_items.indexOf(elem.trim()) < 0) {
+            current_items.push(elem.trim())
         }
 
-        if(moderation_items.indexOf(elem) >= 0 && current_items.indexOf(elem) < 0) {
-            moderation_items.push(elem)
+        if(moderation_products.indexOf(elem.trim()) >= 0 && moderation_items.indexOf(elem.trim()) < 0) {
+            moderation_items.push(elem.trim())
         }
     })
 
@@ -2309,8 +2311,8 @@ app.get('/wildberries', async function(req, res){
         } else if(moderation_items.indexOf(elem) >= 0){
             html += `<div class="table-row">
                         <span id="name">${elem}</span>
-                        <span id="status-moderation">Модерируемый товар</span>
-                     </div>`
+                        <span id="status-moderation">На модерации</span>
+                     </div>`        
         } else {
             html += `<div class="table-row">
                         <span id="name">${elem}</span>
@@ -2990,7 +2992,7 @@ app.get('/wildberries_new_marks_order', async function(req, res){
 
     const spans = content('span')
 
-    const divs = content('.dDfDKJ')
+    const divs = content('.gcJZKv')
 
     spans.each((i, elem) => {
         if(((content(elem).text()).indexOf('Гобелен') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
@@ -3210,6 +3212,964 @@ app.get('/wildberries_new_marks_order', async function(req, res){
     }
 
     createOrder()
+
+    res.send(html)
+
+})
+
+app.get('/sber', async function(req, res){    
+
+    let objOrders = []
+    // let names = []
+
+    async function getShipments() {
+
+        let orders = []
+
+        let response = await fetch('https://api.megamarket.tech/api/market/v1/orderService/order/search', {
+            method: 'POST',
+            headers: {            
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "meta": {},
+                "data": {
+                    "token": "A6B4E0AC-DD7F-4CF4-84D5-A772C59F38C4",
+                    "dateFrom" : "2023-09-04T23:59:59Z",
+                    "dateTo" : "2023-10-31T23:59:59Z",
+                    "count": 100,
+                    "statuses" : [
+                        "CONFIRMED"
+                    ]
+                }            
+            })
+        })
+
+        let result = await response.json()
+
+        result.data.shipments.forEach(e => {
+            orders.push(e)
+        })
+
+        return orders
+
+    }    
+
+    let orders = await getShipments()
+    
+    // console.log(result.data.shipments[0].items)
+
+    // console.log(orders)
+
+    async function getVendorCodes() {
+
+        let vendorCodes = []
+        let codesQuantity = []
+
+        for(let i = 0; i < orders.length; i++) {
+            
+            let obj = {}
+            let name = ''
+            
+            // console.log(typeof orders[i])
+
+            let response = await fetch('https://api.megamarket.tech/api/market/v1/orderService/order/get', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'                    
+                },
+                body: JSON.stringify({
+                    "data": {
+                        "token": "A6B4E0AC-DD7F-4CF4-84D5-A772C59F38C4",
+                        "shipments": [
+                            `${orders[i].toString()}`
+                        ]
+                    },
+                    "meta":{}
+                })
+
+            })
+
+            let result = await response.json()
+
+            // console.log(result)
+
+            let products = []
+            let productsQuantity = []
+
+            result.data.shipments[0].items.forEach(e => {
+
+                if(vendorCodes.indexOf(e.offerId) < 0) {
+
+                    products.push(e.offerId)
+                    vendorCodes.push(e.offerId)
+                    codesQuantity.push(1)
+                    productsQuantity.push(1)
+
+                } else {
+
+                    codesQuantity[vendorCodes.indexOf(e.offerId)] += 1
+                    productsQuantity[products.indexOf(e.offerId)] += 1
+
+                }
+
+                obj = {
+
+                    orderNumber: orders[i],
+                    products: products,
+                    productsQuantity: productsQuantity
+
+                }
+
+            })
+
+            objOrders.push(obj)
+
+        }
+
+        // console.log(objOrders)
+        return [vendorCodes, codesQuantity]
+
+    }
+
+    let [vendorCodes, codesQuantity] = await getVendorCodes()
+    let markableVendorCodes = []
+
+    async function getProductNames(array) {
+
+        let productNames = []
+
+        for(let i = 0; i < array.length; i++) {
+
+            let response = await fetch('https://api-seller.ozon.ru/v2/product/info', {
+                method: 'POST',
+                headers: {
+                    'Host': 'api-seller.ozon.ru',
+                    'Client-Id': '144225',
+                    'Api-Key': '5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "offer_id": `${array[i]}`,
+                    "product_id": 0,
+                    "sku": 0
+                })
+            })
+
+            let result = await response.json()
+
+            if(result.result.name.indexOf('Подушка') < 0 && result.result.name.indexOf('Одеяло') < 0 && result.result.name.indexOf('Матрас') < 0) {
+                if(productNames.indexOf(result.result.name) < 0) {
+                    productNames.push(result.result.name)
+                    markableVendorCodes.push(array[i])
+                }
+            }
+
+        }
+
+        return productNames
+
+    }
+
+    let products = await getProductNames(vendorCodes)
+
+    // console.log(products)
+
+    let html = ``
+
+    async function beginRender() {
+
+        html = `${headerComponent}
+                        <title>Импорт - SBER</title>
+                    </head>
+                    <body>
+                            ${navComponent}
+                            <section class="sub-nav import-main">
+                                <div class="import-control">`
+
+        let buttons = ['ozon', 'wb']
+        
+        // let url = window.location.href
+        // let str = url.split('/').reverse()[1]
+
+        // document.title = str
+
+        async function renderImportButtons(array) {
+
+            let address = ''
+
+            for(let i = 0; i < array.length; i++) {
+                array[i] === 'wb' ? address = 'wildberries' : address = array[i]
+                html += `<button class="button-import">
+                            <a href="http://localhost:3030/${address}" target="_blank">Создать импорт для ${array[i]}</a>
+                        </button>`
+            }
+
+            html += `   </div>`
+
+        }
+
+        async function renderMarkingButtons() {
+            html += `<div class="marking-control">
+                        <button class="marking-button remarking-button"><a href="http://localhost:3030/input_remarking" target="_blank">Ввод в оборот (Перемаркировка)</a></button>
+                        <button class="marking-button distance-button"><a href="http://localhost:3030/sale_ozon" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                        <button class="marking-button distance-button"><a href="http://localhost:3030/sale_wb" target="_blank">Вывод из оборота (Дистанционная продажа)</a></button>
+                    </div>`
+        }
+
+        await renderImportButtons(buttons)
+        await renderMarkingButtons()
+
+        html += `</section>`
+
+    }
+
+    await beginRender()
+
+    const natCatFile = './public/Краткий отчет.xlsx'
+
+    let nat_cat = []
+    let gtins = []
+
+    const wb = new exl.Workbook()
+
+    await wb.xlsx.readFile(natCatFile)
+        
+    const ws = wb.getWorksheet('Краткий отчет')
+
+    const c_1 = ws.getColumn(1)
+
+    c_1.eachCell(c => {
+        gtins.push(c.value)        
+    })
+
+    const c2 = ws.getColumn(2)
+
+    c2.eachCell(c => {
+        nat_cat.push(c.value)
+    })
+
+    let newProducts = []
+    let moderProducts = []
+    let currentProducts = []
+
+    const filePath = './public/moderation_marks/moderation_marks.html'
+
+    const _products = []
+    const moderation_products = []
+    const moderation_gtins = []
+
+    const fileContent = fs.readFileSync(filePath, 'utf-8')
+
+    const content = cio.load(fileContent)
+
+    const spans = content('span')
+
+    const divs = content('.gcJZKv')
+
+    spans.each((i, elem) => {
+        if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
+            _products.push(content(elem).text())
+        }
+    })
+
+    for(let i = 0; i < _products.length; i++) {
+        if(i%2 !== 0) {
+            _products[i].replace('ё', 'е')
+            moderation_products.push(_products[i])
+        }
+    }
+
+    divs.each((i, elem) => {
+        if((content(elem).text()).indexOf('029') >= 0) {
+            moderation_gtins.push(content(elem).text())
+        }
+    })
+
+    html += `<section class="table">
+                    <div class="marks-table">
+                        <div class="marks-table-header">
+                            <div class="header-cell">Номер заказа</div>
+                            <div class="header-cell">Товары</div>                            
+                        </div>
+                    <div class="header-wrapper"></div>`
+
+    // console.log(nat_cat.indexOf('Пододеяльник из сатина 220 х 240 - М - 140 - Серый Люкс'))
+
+    // console.log(2556 < 0)
+
+    for(let i = 0; i < products.length; i++) {
+
+        if(nat_cat.indexOf(products[i].trim()) < 0 && moderation_products.indexOf(products[i].trim()) < 0 && newProducts.indexOf(products[i].trim()) < 0) {
+            newProducts.push(products[i])
+        }
+        
+        if(nat_cat.indexOf(products[i].trim()) >= 0 && currentProducts.indexOf(products[i].trim()) < 0) {
+            currentProducts.push(products[i])   
+        }
+        
+        if(moderation_products.indexOf(products[i].trim()) >= 0 && moderProducts.indexOf(products[i].trim()) < 0 && currentProducts.indexOf(products[i].trim()) < 0) {
+            moderProducts.push(products[i])
+        }
+
+    }
+
+    // newProducts.forEach(e => {
+
+    //     html += `<div class="table-row">
+    //                 <span id="name">${e} - <span>${markableVendorCodes[products.indexOf(e)]}</span></span>
+    //                 <span id="status-new">Новый товар</span>
+    //             </div>`
+
+    // })
+
+    // currentProducts.forEach(e => {
+
+    //     html += `<div class="table-row">
+    //                 <span id="name">${e} - <span>${markableVendorCodes[products.indexOf(e)]}</span></span>
+    //                 <span id="status-current">Актуальный товар</span>
+    //              </div>`
+
+    // })
+
+    // moderProducts.forEach(e => {
+
+    //     html += `<div class="table-row">
+    //                 <span id="name">${e} - <span>${markableVendorCodes[products.indexOf(e)]}</span></span>
+    //                 <span id="status-moderation">Модерируемый товар</span>
+    //              </div>`
+
+    // })
+
+    const colors = ['БЕЖЕВЫЙ', 'БЕЛЫЙ', 'БИРЮЗОВЫЙ', 'БОРДОВЫЙ', 'БРОНЗОВЫЙ', 'ВАНИЛЬ', 'ВИШНЯ', 'ГОЛУБОЙ', 'ЖЁЛТЫЙ', 'ЗЕЛЁНЫЙ', 'ЗОЛОТОЙ', 'ИЗУМРУДНЫЙ',
+    'КАПУЧИНО', 'КИРПИЧНЫЙ', 'КОРАЛЛОВЫЙ', 'КОРИЧНЕВЫЙ', 'КРАСНЫЙ', 'ЛАЙМ', 'ЛЕОПАРД', 'МАЛИНОВЫЙ', 'МЕДНЫЙ', 'МОЛОЧНЫЙ', 'МЯТНЫЙ', 'ОЛИВКОВЫЙ', 'ОРАНЖЕВЫЙ',
+    'ПЕСОЧНЫЙ', 'ПЕРСИКОВЫЙ', 'ПУРПУРНЫЙ', 'РАЗНОЦВЕТНЫЙ', 'РОЗОВО-БЕЖЕВЫЙ', 'РОЗОВЫЙ', 'СВЕТЛО-БЕЖЕВЫЙ', 'СВЕТЛО-ЗЕЛЕНЫЙ', 'СВЕТЛО-КОРИЧНЕВЫЙ', 'СВЕТЛО-РОЗОВЫЙ',
+    'СВЕТЛО-СЕРЫЙ', 'СВЕТЛО-СИНИЙ', 'СВЕТЛО-ФИОЛЕТОВЫЙ', 'СЕРЕБРЯНЫЙ', 'СЕРО-ЖЕЛТЫЙ', 'СЕРО-ГОЛУБОЙ', 'СЕРЫЙ', 'СИНИЙ', 'СИРЕНЕВЫЙ', 'ЛИЛОВЫЙ', 'СЛИВОВЫЙ',
+    'ТЕМНО-БЕЖЕВЫЙ', 'ТЕМНО-ЗЕЛЕНЫЙ', 'ТЕМНО-КОРИЧНЕВЫЙ', 'ТЕМНО-РОЗОВЫЙ', 'ТЕМНО-СЕРЫЙ', 'ТЕМНО-СИНИЙ', 'ТЕМНО-ФИОЛЕТОВЫЙ', 'ТЕРРАКОТОВЫЙ', 'ФИОЛЕТОВЫЙ',
+    'ФУКСИЯ', 'ХАКИ', 'ЧЕРНЫЙ', 'ШОКОЛАДНЫЙ'
+    ]
+
+    async function createImport(new_products) {
+
+            const fileName = './public/IMPORT_TNVED_6302 (3).xlsx'
+        
+            const wb = new exl.Workbook()
+
+            await wb.xlsx.readFile(fileName)
+
+            const ws = wb.getWorksheet('IMPORT_TNVED_6302')
+
+            let cellNumber = 5
+
+            for(i = 0; i < new_products.length; i++) {
+                let size = ''            
+                    ws.getCell(`A${cellNumber}`).value = '6302'
+                    ws.getCell(`B${cellNumber}`).value = new_products[i]
+                    ws.getCell(`C${cellNumber}`).value = 'Ивановский текстиль'
+                    ws.getCell(`D${cellNumber}`).value = 'Артикул'
+                    ws.getCell(`E${cellNumber}`).value = markableVendorCodes[products.indexOf(new_products[i])]
+                    for(let c = 0; c < colors.length; c++) {
+                        str = colors[c].toLowerCase()
+                        elem = new_products[i].toLowerCase()
+                        if(elem.indexOf(str) >= 0) {
+                            ws.getCell(`G${cellNumber}`).value = colors[c].toUpperCase()
+                        }
+                    }
+                    ws.getCell(`H${cellNumber}`).value = 'ВЗРОСЛЫЙ'
+
+                    if(new_products[i].indexOf('Постельное') >= 0 || new_products[i].indexOf('Детское') >= 0) {
+                        ws.getCell(`F${cellNumber}`).value = 'КОМПЛЕКТ'
+                    }
+
+                    if(new_products[i].indexOf('Полотенце') >= 0) {
+                        ws.getCell(`F${cellNumber}`).value = 'ИЗДЕЛИЯ ДЛЯ САУНЫ'
+                    }
+                    
+                    if(new_products[i].indexOf('Простыня') >= 0) {
+                        if(new_products[i].indexOf('на резинке') >= 0) {
+                            ws.getCell(`F${cellNumber}`).value = 'ПРОСТЫНЯ НА РЕЗИНКЕ'
+                        } else {
+                            ws.getCell(`F${cellNumber}`).value = 'ПРОСТЫНЯ'
+                        }
+                    }
+                    if(new_products[i].indexOf('Пододеяльник') >= 0) {
+                        ws.getCell(`F${cellNumber}`).value = 'ПОДОДЕЯЛЬНИК С КЛАПАНОМ'
+                    }
+                    if(new_products[i].indexOf('Наволочка') >= 0) {
+                        if(new_products[i].indexOf('50х70') >=0 || new_products[i].indexOf('40х60') >= 0 || new_products[i].indexOf('50 х 70') >=0 || new_products[i].indexOf('40 х 60') >= 0) {
+                            ws.getCell(`F${cellNumber}`).value = 'НАВОЛОЧКА ПРЯМОУГОЛЬНАЯ'
+                        } else {
+                            ws.getCell(`F${cellNumber}`).value = 'НАВОЛОЧКА КВАДРАТНАЯ'
+                        }
+                    }
+                    if(new_products[i].indexOf('Наматрасник') >= 0) {
+                        ws.getCell(`F${cellNumber}`).value = 'НАМАТРАСНИК'
+                    }
+                    if(new_products[i].indexOf('страйп-сатин') >= 0 || new_products[i].indexOf('страйп сатин') >= 0) {
+                        ws.getCell(`I${cellNumber}`).value = 'СТРАЙП-САТИН'
+                    }
+                    if(new_products[i].indexOf('твил-сатин') >= 0 || new_products[i].indexOf('твил сатин') >= 0) {
+                        ws.getCell(`I${cellNumber}`).value = 'ТВИЛ-САТИН'
+                    }
+                    if(new_products[i].indexOf('тенсел') >= 0) {
+                        ws.getCell(`I${cellNumber}`).value = 'ТЕНСЕЛЬ'
+                    }
+                    if(new_products[i].indexOf('бяз') >= 0) {
+                        ws.getCell(`I${cellNumber}`).value = 'БЯЗЬ'
+                    }
+                    if(new_products[i].indexOf('поплин') >= 0) {
+                        ws.getCell(`I${cellNumber}`).value = 'ПОПЛИН'
+                    }
+                    if(new_products[i].indexOf('сатин') >= 0 && new_products[i].indexOf('-сатин') < 0 && new_products[i].indexOf('п сатин') < 0 && new_products[i].indexOf('л сатин') < 0 && new_products[i].indexOf('сатин-') < 0 && new_products[i].indexOf('сатин ж') < 0) {
+                        ws.getCell(`I${cellNumber}`).value = 'САТИН'
+                    }
+                    if(new_products[i].indexOf('вареный') >= 0 || new_products[i].indexOf('варёный') >= 0 || new_products[i].indexOf('вареного') >= 0 || new_products[i].indexOf('варёного') >= 0) {
+                        ws.getCell(`I${cellNumber}`).value = 'ХЛОПКОВАЯ ТКАНЬ'
+                    }
+                    if(new_products[i].indexOf('сатин-жаккард') >= 0 || new_products[i].indexOf('сатин жаккард') >= 0) {
+                        ws.getCell(`I${cellNumber}`).value = 'САТИН-ЖАККАРД'
+                    }
+                    if(new_products[i].indexOf('страйп-микрофибр') >= 0 || new_products[i].indexOf('страйп микрофибр') >= 0) {
+                        ws.getCell(`I${cellNumber}`).value = 'МИКРОФИБРА'
+                    }
+                    if(new_products[i].indexOf('шерст') >= 0) {
+                        ws.getCell(`I${cellNumber}`).value = 'ПОЛИЭФИР'
+                    }
+                    if(new_products[i].indexOf('перкал') >= 0) {
+                        ws.getCell(`I${cellNumber}`).value = 'ПЕРКАЛЬ'
+                    }
+                    if(new_products[i].indexOf('махра') >= 0 || new_products[i].indexOf('махровое') >= 0) {
+                        ws.getCell(`I${cellNumber}`).value = 'МАХРОВАЯ ТКАНЬ'
+                    }
+
+                    if(new_products[i].indexOf('тенсел') >= 0) {ws.getCell(`J${cellNumber}`).value = '100% Эвкалипт'}
+                    else if(new_products[i].indexOf('шерст') >= 0) {ws.getCell(`J${cellNumber}`).value = '100% Полиэстер'}
+                    else {ws.getCell(`J${cellNumber}`).value = '100% Хлопок'}
+
+                    //Вставка размера начало
+                    
+                    if(new_products[i].indexOf('Постельное') >= 0) {
+                        if(new_products[i].indexOf('1,5 спальное') >= 0 || new_products[i].indexOf('1,5 спальный') >= 0) {
+                            size = '1,5 спальное'
+                            if(new_products[i].indexOf('на резинке') >= 0) {
+                                size += ' на резинке'
+                                for(let k = 40; k < 305; k+=5) {
+                                    for(let l = 40; l < 305; l+=5) {
+                                        if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()}`) >= 0) {
+                                            for(let j = 10; j < 50; j+=10) {
+                                                if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}х${j.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()} х ${j.toString()}`) >= 0) {
+                                                    size += ` ${k.toString()}х${l.toString()}х${j.toString()}`
+                                                    ws.getCell(`K${cellNumber}`).value = size
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if(new_products[i].indexOf('с наволочками 50х70') >= 0) {
+                                size += ' с наволочками 50х70'
+                                ws.getCell(`K${cellNumber}`).value = size
+                            } else {
+                                ws.getCell(`K${cellNumber}`).value = size
+                            }
+                        }
+                        if(new_products[i].indexOf('2 спальное') >= 0 || new_products[i].indexOf('2 спальный') >= 0) {
+                            size = '2 спальное'
+                            if(new_products[i].indexOf('с Евро') >= 0) {
+                                size += ' с Евро простыней'
+                            }
+                            if(new_products[i].indexOf('на резинке') >= 0) {
+                                size += ' на резинке'
+                                for(let k = 40; k < 305; k+=5) {
+                                    for(let l = 40; l < 305; l+=5) {
+                                        if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()}`) >= 0) {
+                                            for(let j = 10; j < 50; j+=10) {
+                                                if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}х${j.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()} х ${j.toString()}`) >= 0) {
+                                                    size += ` ${k.toString()}х${l.toString()}х${j.toString()}`
+                                                    ws.getCell(`K${cellNumber}`).value = size
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if(new_products[i].indexOf('с наволочками 50х70') >= 0) {
+                                size += ' с наволочками 50х70'
+                                ws.getCell(`K${cellNumber}`).value = size
+                            } else {
+                                ws.getCell(`K${cellNumber}`).value = size
+                            }
+                        }
+                        if(new_products[i].indexOf('Евро -') >= 0 || new_products[i].indexOf('евро -') >= 0 || new_products[i].indexOf('Евро на') >= 0 || new_products[i].indexOf('евро на') >= 0) {
+                            size = 'Евро'
+                            if(new_products[i].indexOf('на резинке') >= 0) {
+                                size += ' на резинке'
+                                for(let k = 40; k < 305; k+=5) {
+                                    for(let l = 40; l < 305; l+=5) {
+                                        if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()}`) >= 0) {
+                                            for(let j = 10; j < 50; j+=10) {
+                                                if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}х${j.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()} х ${j.toString()}`) >= 0) {
+                                                    size += ` ${k.toString()}х${l.toString()}х${j.toString()}`
+                                                    ws.getCell(`K${cellNumber}`).value = size
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if(new_products[i].indexOf('с наволочками 50х70') >= 0) {
+                                size += ' с наволочками 50х70'
+                                ws.getCell(`K${cellNumber}`).value = size
+                            } else {
+                                ws.getCell(`K${cellNumber}`).value = size
+                            }
+                        }
+                        if(new_products[i].indexOf('Евро Макси') >= 0 || new_products[i].indexOf('евро макси') >= 0 || new_products[i].indexOf('Евро макси') >= 0) {
+                            size = 'Евро Макси'
+                            if(new_products[i].indexOf('на резинке') >= 0) {
+                                size += ' на резинке'
+                                for(let k = 40; k < 305; k+=5) {
+                                    for(let l = 40; l < 305; l+=5) {
+                                        if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()}`) >= 0) {
+                                            for(let j = 10; j < 50; j+=10) {
+                                                if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}х${j.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()} х ${j.toString()}`) >= 0) {
+                                                    size += ` ${k.toString()}х${l.toString()}х${j.toString()}`
+                                                    ws.getCell(`K${cellNumber}`).value = size
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if(new_products[i].indexOf('с наволочками 50х70') >= 0) {
+                                size += ' с наволочками 50х70'
+                                ws.getCell(`K${cellNumber}`).value = size
+                            } else {
+                                ws.getCell(`K${cellNumber}`).value = size
+                            }
+                        }
+                        if(new_products[i].indexOf('семейное') >= 0 || new_products[i].indexOf('семейный') >= 0) {
+                            size = 'семейное'
+                            if(new_products[i].indexOf('на резинке') >= 0) {
+                                size += ' на резинке'
+                                for(let k = 40; k < 305; k+=5) {
+                                    for(let l = 40; l < 305; l+=5) {
+                                        if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()}`) >= 0) {
+                                            for(let j = 10; j < 50; j+=10) {
+                                                if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}х${j.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()} х ${j.toString()}`) >= 0) {
+                                                    size += ` ${k.toString()}х${l.toString()}х${j.toString()}`
+                                                    ws.getCell(`K${cellNumber}`).value = size
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if(new_products[i].indexOf('с наволочками 50х70') >= 0) {
+                                size += ' с наволочками 50х70'
+                                ws.getCell(`K${cellNumber}`).value = size
+                            } else {
+                                ws.getCell(`K${cellNumber}`).value = size
+                            }
+                        }
+                        } else {
+                            for(let k = 40; k < 305; k+=5) {
+                                for(let l = 40; l < 305; l+=5) {
+                                    if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()}`) >= 0) {
+                                        size = `${k.toString()}х${l.toString()}`
+                                        for(let j = 10; j < 50; j+=10) {
+                                            if(new_products[i].indexOf(` ${k.toString()}х${l.toString()}х${j.toString()}`) >= 0 || new_products[i].indexOf(` ${k.toString()} х ${l.toString()} х ${j.toString()}`) >= 0) {
+                                                size = `${k.toString()}х${l.toString()}х${j.toString()}`
+                                                ws.getCell(`K${cellNumber}`).value = size
+                                            } else {
+                                                ws.getCell(`K${cellNumber}`).value = size
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    
+                    //Вставка размера конец
+
+                    ws.getCell(`L${cellNumber}`).value = '6302100001'
+                    ws.getCell(`M${cellNumber}`).value = 'ТР ТС 017/2011 "О безопасности продукции легкой промышленности'
+                    ws.getCell(`N${cellNumber}`).value = 'На модерации'                
+
+                    cellNumber++
+
+            }
+
+            ws.unMergeCells('D2')
+
+            ws.getCell('E2').value = '13914'
+
+            ws.getCell('E2').fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor:{argb:'E3E3E3'}
+            }
+
+            ws.getCell('E2').font = {
+                size: 10,
+                name: 'Arial'
+            }
+
+            ws.getCell('E2').alignment = {
+                horizontal: 'center',
+                vertical: 'bottom'
+            }
+
+            // ws.mergeCells('D2:E2')
+
+            const date_ob = new Date()
+
+            let month = date_ob.getMonth() + 1
+
+            let filePath = ''
+
+            month < 10 ? filePath = `./public/sber/IMPORT_TNVED_6302_${date_ob.getDate()}_0${month}_sber` : filePath = `./public/sber/IMPORT_TNVED_6302_${date_ob.getDate()}_${month}_sber`
+
+            fs.access(`${filePath}.xlsx`, fs.constants.R_OK, async (err) => {
+                if(err) {
+                    await wb.xlsx.writeFile(`${filePath}.xlsx`)
+                } else {
+                    let count = 1
+                    fs.access(`${filePath}_(1).xlsx`, fs.constants.R_OK, async (err) => {
+                        if(err) {
+                            await wb.xlsx.writeFile(`${filePath}_(1).xlsx`)
+                        } else {
+                            await wb.xlsx.writeFile(`${filePath}_(2).xlsx`)
+                        }
+                    })
+                    
+                }
+            })
+
+    }
+
+    await createImport(newProducts)
+
+    if(req.query.createOrder === undefined) {
+
+        for(let i = 0; i < objOrders.length; i++) {
+            
+            html += `<div class="table-row">
+            <span id="name">${objOrders[i].orderNumber}</span>`
+
+            objOrders[i].products.forEach(e => {
+
+                if(markableVendorCodes.indexOf(e) >= 0) {
+
+                    html += `<span id="name-sber">${e} - ${products[markableVendorCodes.indexOf(e)]} ${objOrders[i].productsQuantity[objOrders[i].products.indexOf(e)]} шт.</span>`
+
+                }            
+
+            })
+
+            html += `</div>`
+
+        }
+
+        html += `<div class="body-wrapper"></div>`
+
+        html += `</section>
+                <section class="action-form">
+                    <button id="current-order"><a href="http://localhost:3030/sber?createOrder=current" target="_blank">Создать заказ маркировки для актуальных товаров</a></button>
+                    <button id="new-order"><a href="http://localhost:3030/sber?createOrder=new" target="_blank">Создать заказ маркировки для новых товаров</a></button>
+                </section>
+                <div class="body-wrapper"></div>
+            ${footerComponent}`
+
+    }
+
+    if(req.query.createOrder !== undefined) {
+
+        // console.log(typeof req.query.createOrder)
+
+        if(req.query.createOrder === 'new') {
+
+            for(let i = 0; i < objOrders.length; i++) {
+        
+                html += `<div class="table-row">
+                    <span id="name">${objOrders[i].orderNumber}</span>`
+
+                    objOrders[i].products.forEach(e => {
+
+                        if(markableVendorCodes.indexOf(e) >= 0) {
+
+                            html += `<span id="name-sber">${e} - ${products[markableVendorCodes.indexOf(e)]} ${objOrders[i].productsQuantity[objOrders[i].products.indexOf(e)]} шт.</span>`
+
+                        }            
+
+                    })
+
+                html += `</div>`
+
+            }
+
+            function createProductsList() {
+
+                let orderList = []
+                let _temp = []
+        
+                for (let i = 0; i < moderProducts.length; i++) {
+        
+                    _temp.push(moderProducts[i])
+                    
+                        if(_temp.length%10 === 0) {
+                            orderList.push(_temp)
+                            _temp = []
+                        }
+                }        
+        
+                orderList.push(_temp)
+                _temp = []
+        
+                return orderList
+
+            }
+
+            function createQuantityList() {
+
+                let quantityList = []
+                let temp = []
+        
+                for(let i = 0; i < moderProducts.length; i++) {
+        
+                    temp.push(codesQuantity[vendorCodes.indexOf(markableVendorCodes[products.indexOf(moderProducts[i])])])
+        
+                        if(temp.length%10 === 0) {
+                            quantityList.splice(-1, 0, ...quantityList.splice(-1, 1, temp))
+                            temp = []
+                        }
+        
+                }
+        
+                quantityList.splice(-1, 0, ...quantityList.splice(-1, 1, temp))
+        
+                return quantityList
+
+            }
+
+            let productList = createProductsList()
+            let quantityList = createQuantityList()
+
+            // console.log([productList, quantityList])
+
+            for(let i = 0; i < objOrders.length; i++) {
+            
+                html += `<div class="table-row">
+                <span id="name">${objOrders[i].orderNumber}</span>`
+    
+                objOrders[i].products.forEach(e => {
+    
+                    if(markableVendorCodes.indexOf(e) >= 0) {
+    
+                        html += `<span id="name-sber">${e} - ${products[markableVendorCodes.indexOf(e)]} ${objOrders[i].productsQuantity[objOrders[i].products.indexOf(e)]} шт.</span>`
+    
+                    }            
+    
+                })
+    
+                html += `</div>`
+    
+            }
+    
+            html += `<div class="body-wrapper"></div>`
+
+            html += `</section>
+                <div class="body-wrapper"></div>
+            ${footerComponent}`
+
+            let content = ``
+
+            for(let i = 0; i < productList.length; i++) {
+                if(productList[i].length > 0) {
+                    content += `<?xml version="1.0" encoding="utf-8"?>
+                                        <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                            <lp>
+                                                <productGroup>lp</productGroup>
+                                                <contactPerson>333</contactPerson>
+                                                <releaseMethodType>REMARK</releaseMethodType>
+                                                <createMethodType>SELF_MADE</createMethodType>
+                                                <productionOrderId>OZON</productionOrderId>
+                                                <products>`
+
+                    for(let j = 0; j < productList[i].length; j++) {
+                        content += `<product>
+                                        <gtin>${moderation_gtins[moderation_products.indexOf(productList[i][j].trim())]}</gtin>
+                                        <quantity>${quantityList[i][j]}</quantity>
+                                        <serialNumberType>OPERATOR</serialNumberType>
+                                        <cisType>UNIT</cisType>
+                                        <templateId>10</templateId>
+                                    </product>`
+                    }
+
+                    content += `    </products>
+                                </lp>
+                            </order>`
+                }
+
+                const date_ob = new Date()
+                    
+                let month = date_ob.getMonth() + 1
+                    
+                let filePath = ''
+                    
+                month < 10 ? filePath = `./public/orders/lp_sber_new_${i}_${date_ob.getDate()}_0${month}.xml` : filePath = `./public/orders/lp_sber_new_${i}_${date_ob.getDate()}_${month}.xml`
+                
+                if(content !== '') {
+                    fs.writeFileSync(filePath, content)
+                }
+                    
+                content = ``
+            }
+
+        }
+
+        if(req.query.createOrder === 'current') {
+
+            for(let i = 0; i < objOrders.length; i++) {
+        
+                html += `<div class="table-row">
+                    <span id="name">${objOrders[i].orderNumber}</span>`
+
+                    objOrders[i].products.forEach(e => {
+
+                        if(markableVendorCodes.indexOf(e) >= 0) {
+
+                            html += `<span id="name-sber">${e} - ${products[markableVendorCodes.indexOf(e)]} ${objOrders[i].productsQuantity[objOrders[i].products.indexOf(e)]} шт.</span>`
+
+                        }            
+
+                    })
+
+                html += `</div>`
+
+            }
+
+            function createProductsList() {
+
+                let orderList = []
+                let _temp = []
+        
+                for (let i = 0; i < currentProducts.length; i++) {
+        
+                    _temp.push(currentProducts[i])
+                    
+                        if(_temp.length%10 === 0) {
+                            orderList.push(_temp)
+                            _temp = []
+                        }
+                }        
+        
+                orderList.push(_temp)
+                _temp = []
+        
+                return orderList
+
+            }
+
+            function createQuantityList() {
+
+                let quantityList = []
+                let temp = []
+        
+                for(let i = 0; i < currentProducts.length; i++) {
+        
+                    temp.push(codesQuantity[vendorCodes.indexOf(markableVendorCodes[products.indexOf(currentProducts[i])])])
+        
+                        if(temp.length%10 === 0) {
+                            quantityList.splice(-1, 0, ...quantityList.splice(-1, 1, temp))
+                            temp = []
+                        }
+        
+                }
+        
+                quantityList.splice(-1, 0, ...quantityList.splice(-1, 1, temp))
+        
+                return quantityList
+
+            }
+
+            let productList = createProductsList()
+            let quantityList = createQuantityList()
+
+            // console.log([productList, quantityList])
+
+            for(let i = 0; i < objOrders.length; i++) {
+            
+                html += `<div class="table-row">
+                <span id="name">${objOrders[i].orderNumber}</span>`
+    
+                objOrders[i].products.forEach(e => {
+    
+                    if(markableVendorCodes.indexOf(e) >= 0) {
+    
+                        html += `<span id="name-sber">${e} - ${products[markableVendorCodes.indexOf(e)]} ${objOrders[i].productsQuantity[objOrders[i].products.indexOf(e)]} шт.</span>`
+    
+                    }            
+    
+                })
+    
+                html += `</div>`
+    
+            }
+    
+            html += `<div class="body-wrapper"></div>`
+
+            html += `</section>
+                <div class="body-wrapper"></div>
+            ${footerComponent}`
+
+            let content = ``
+
+            for(let i = 0; i < productList.length; i++) {
+                if(productList[i].length > 0) {
+                    content += `<?xml version="1.0" encoding="utf-8"?>
+                                        <order xmlns="urn:oms.order" xsi:schemaLocation="urn:oms.order schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                            <lp>
+                                                <productGroup>lp</productGroup>
+                                                <contactPerson>333</contactPerson>
+                                                <releaseMethodType>REMARK</releaseMethodType>
+                                                <createMethodType>SELF_MADE</createMethodType>
+                                                <productionOrderId>OZON</productionOrderId>
+                                                <products>`
+
+                    for(let j = 0; j < productList[i].length; j++) {
+                        content += `<product>
+                                        <gtin>0${gtins[nat_cat.indexOf(productList[i][j].trim())]}</gtin>
+                                        <quantity>${quantityList[i][j]}</quantity>
+                                        <serialNumberType>OPERATOR</serialNumberType>
+                                        <cisType>UNIT</cisType>
+                                        <templateId>10</templateId>
+                                    </product>`
+                    }
+
+                    content += `    </products>
+                                </lp>
+                            </order>`
+                }
+
+                const date_ob = new Date()
+                    
+                let month = date_ob.getMonth() + 1
+                    
+                let filePath = ''
+                    
+                month < 10 ? filePath = `./public/orders/lp_sber_${i}_${date_ob.getDate()}_0${month}.xml` : filePath = `./public/orders/lp_sber_${i}_${date_ob.getDate()}_${month}.xml`
+                
+                if(content !== '') {
+                    fs.writeFileSync(filePath, content)
+                }
+                    
+                content = ``
+            }
+
+        }
+
+    }
 
     res.send(html)
 
@@ -3537,8 +4497,8 @@ app.get('/sale_ozon', async function(req, res){
                 'dir': 'asc',
                 'filter':{
                     'since':'2023-07-14T08:00:00Z',
-                    'to':'2023-08-04T08:00:00Z',
-                    'status':'cancelled'
+                    'to':'2023-08-26T08:00:00Z',
+                    'status':'delivering'
                 },
                 'limit':1000,
                 'offset':0
