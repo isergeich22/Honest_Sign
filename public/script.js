@@ -251,7 +251,7 @@ if(window.location.href.indexOf('yandex') < 0) {
 
         input.addEventListener('input', () => {
 
-                let href = `/yandex?cis=${input.value}`
+                let href = `/yandex?cis=${input.value.replace(/&/g, 'AND')}`
 
                 ref.setAttribute('href', href)
 
