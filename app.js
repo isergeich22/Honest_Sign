@@ -2278,7 +2278,7 @@ app.get('/wildberries', async function(req, res){
     }
 
     // console.log(test_Array.length)
-    console.log(moderation_items)
+    // console.log(moderation_items)
 
     testArray.forEach(elem => {
         if(moderation_products.indexOf(elem.trim()) < 0 && nat_cat.indexOf(elem.trim()) < 0 && new_items.indexOf(elem.trim()) < 0) {
@@ -5010,15 +5010,25 @@ app.get('/yandex', async function(req, res){
 
         html += `</section>`
 
-        console.log(req.query.cis)
+        // console.log(req.query.cis)
 
         let convertedString = req.query.cis.replace(req.query.cis.substring(0, 4), '')
 
+        convertedString = convertedString.replace(/%27/g, '&apos;')
+
+        convertedString = convertedString.replace(/AND/g, '&AMP;')
+
+        convertedString = convertedString.replace(/'/g, '&apos;')
+
         convertedString = convertedString.replace(/</g, '&lt;')
+
+        convertedString = convertedString.replace(/%3EGS%3C/g, '&bsol;u001d')
 
         convertedString = convertedString.replace(/&lt;GS>/g, '&bsol;u001d')
 
         convertedString = convertedString.replace(/ /g, '&plus;')
+
+        console.log(convertedString)
 
         html += `<div class="convert-form">
                     <h3 class="convert-form__header">Работа с КИЗ для Я.Маркета</h3>
