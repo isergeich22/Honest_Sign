@@ -10,36 +10,6 @@ body.waiting * {
     background: #f6f42e;
 }
 
-div[required].Mui-disabled.Mui-error[valid='true'] {
-    border-left: 1px solid #ff4b4b !important;
-}
-
-div[required][alwaysbacklit='true'][valid='false'] {
-    border-left: 2px solid #ff4b4b !important;
-}
-
-.tabWithLogoRus::before {
-    content: ' ';
-    display: block;
-    width: 33px;
-    height: 22px;
-    background: url(GS1-rus.png) no-repeat;
-    background-size: contain;
-    position: absolute;
-    left: calc(50% - 120px);
-}
-
-.tabWithLogoKaz::before {
-    content: ' ';
-    display: block;
-    width: 33px;
-    height: 22px;
-    background: url(GS1-kaz.png) no-repeat;
-    background-size: contain;
-    position: absolute;
-    left: calc(50% - 120px);
-}
-
 /*
 // Скрыть первый элемент уведомления, если их больше двух.
 #__react-alert__ > div:nth-last-child(n+2):first-child {

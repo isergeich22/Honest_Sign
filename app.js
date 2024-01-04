@@ -3,7 +3,6 @@ const exl = require('exceljs')
 const fs = require('fs')
 const cio = require('cheerio')
 const fetch = require('node-fetch')
-const { connect } = require('http2')
 const app = express()
 
 const headerComponent = `<!DOCTYPE html>
@@ -1307,7 +1306,7 @@ app.get('/ozon', async function(req, res){
             headers: {
                 'Host':'api-seller.ozon.ru',
                 'Client-Id':'144225',
-                'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Api-Key':'c139ba7b-611a-4447-870c-f85d8e4ad9f8',
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({
@@ -1315,7 +1314,7 @@ app.get('/ozon', async function(req, res){
                 'filter': {
                     'since':'2023-10-01T01:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-10-31T23:59:59.000Z'
+                    'to':'2023-12-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1373,6 +1372,8 @@ app.get('/ozon', async function(req, res){
            nat_cat.push(c.value)
         })
 
+        console.log(nat_cat.length)
+
         const products = []
         const moderation_products = []
 
@@ -1382,7 +1383,7 @@ app.get('/ozon', async function(req, res){
 
         const spans = content('span')
 
-        const divs = content('.gcJZKv')
+        const divs = content('.exYASM')
 
         spans.each((i, elem) => {
             if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
@@ -1541,7 +1542,7 @@ app.get('/ozon_marks_order', async function(req, res){
             headers: {
                 'Host':'api-seller.ozon.ru',
                 'Client-Id':'144225',
-                'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Api-Key':'c139ba7b-611a-4447-870c-f85d8e4ad9f8',
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({
@@ -1549,7 +1550,7 @@ app.get('/ozon_marks_order', async function(req, res){
                 'filter': {
                     'since':'2023-10-01T01:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-10-31T23:59:59.000Z'
+                    'to':'2023-12-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1581,7 +1582,7 @@ app.get('/ozon_marks_order', async function(req, res){
             headers: {
                 'Host':'api-seller.ozon.ru',
                 'Client-Id':'144225',
-                'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Api-Key':'c139ba7b-611a-4447-870c-f85d8e4ad9f8',
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({
@@ -1651,6 +1652,8 @@ app.get('/ozon_marks_order', async function(req, res){
             current_quantity[i] += parseInt(quantity[index])
         }
     })
+
+    console.log(nat_cat.length)
 
     html += `<section class="table">
                     <div class="marks-table">
@@ -1870,7 +1873,7 @@ app.get('/ozon_new_marks_order', async function(req, res){
             headers: {
                 'Host':'api-seller.ozon.ru',
                 'Client-Id':'144225',
-                'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Api-Key':'c139ba7b-611a-4447-870c-f85d8e4ad9f8',
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({
@@ -1878,7 +1881,7 @@ app.get('/ozon_new_marks_order', async function(req, res){
                 'filter': {
                     'since':'2023-10-01T01:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-10-31T23:59:59.000Z'
+                    'to':'2023-12-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1911,7 +1914,7 @@ app.get('/ozon_new_marks_order', async function(req, res){
     //         headers: {
     //             'Host':'api-seller.ozon.ru',
     //             'Client-Id':'144225',
-    //             'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+    //             'Api-Key':'c139ba7b-611a-4447-870c-f85d8e4ad9f8',
     //             'Content-Type':'application/json'
     //         },
     //         body: JSON.stringify({
@@ -1951,7 +1954,7 @@ app.get('/ozon_new_marks_order', async function(req, res){
 
     const spans = content('span')
 
-    const divs = content('.gcJZKv')
+    const divs = content('.exYASM')
 
     spans.each((i, elem) => {
         if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
@@ -2207,7 +2210,7 @@ app.get('/wildberries', async function(req, res){
 
     const spans = content('span')
 
-    const divs = content('.gcJZKv')
+    const divs = content('.exYASM')
 
     spans.each((i, elem) => {
         if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
@@ -2992,7 +2995,7 @@ app.get('/wildberries_new_marks_order', async function(req, res){
 
     const spans = content('span')
 
-    const divs = content('.gcJZKv')
+    const divs = content('.exYASM')
 
     spans.each((i, elem) => {
         if(((content(elem).text()).indexOf('Гобелен') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
@@ -3235,8 +3238,8 @@ app.get('/sber', async function(req, res){
                 "meta": {},
                 "data": {
                     "token": "A6B4E0AC-DD7F-4CF4-84D5-A772C59F38C4",
-                    "dateFrom" : "2023-09-04T23:59:59Z",
-                    "dateTo" : "2023-10-31T23:59:59Z",
+                    "dateFrom" : "2023-10-16T23:59:59Z",
+                    "dateTo" : "2023-12-31T23:59:59Z",
                     "count": 100,
                     "statuses" : [
                         "CONFIRMED"
@@ -3346,7 +3349,7 @@ app.get('/sber', async function(req, res){
                 headers: {
                     'Host': 'api-seller.ozon.ru',
                     'Client-Id': '144225',
-                    'Api-Key': '5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                    'Api-Key': 'c139ba7b-611a-4447-870c-f85d8e4ad9f8',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -3465,7 +3468,7 @@ app.get('/sber', async function(req, res){
 
     const spans = content('span')
 
-    const divs = content('.gcJZKv')
+    const divs = content('.exYASM')
 
     spans.each((i, elem) => {
         if(((content(elem).text()).indexOf('Гобеленовая') >= 0 || (content(elem).text()).indexOf('Полотенце') >= 0 || (content(elem).text()).indexOf('Постельное') >= 0 || (content(elem).text()).indexOf('Наволочка') >= 0 || (content(elem).text()).indexOf('Простыня') >= 0 || (content(elem).text()).indexOf('Пододеяльник') >= 0 || (content(elem).text()).indexOf('Наматрасник') >= 0 || (content(elem).text()).indexOf('Одеяло') >= 0 || (content(elem).text()).indexOf('Матрас') >= 0) && moderation_products.indexOf(content(elem).text()) < 0){
@@ -3485,6 +3488,8 @@ app.get('/sber', async function(req, res){
             moderation_gtins.push(content(elem).text())
         }
     })
+
+    console.log(_products)
 
     html += `<section class="table">
                     <div class="marks-table">
@@ -3955,7 +3960,7 @@ app.get('/sber', async function(req, res){
             let productList = createProductsList()
             let quantityList = createQuantityList()
 
-            // console.log([productList, quantityList])
+            console.log([productList, quantityList])
 
             for(let i = 0; i < objOrders.length; i++) {
             
@@ -3983,6 +3988,8 @@ app.get('/sber', async function(req, res){
             ${footerComponent}`
 
             let content = ``
+
+            // console.log(productList.length)
 
             for(let i = 0; i < productList.length; i++) {
                 if(productList[i].length > 0) {
@@ -4446,7 +4453,7 @@ app.get('/sale_ozon', async function(req, res){
 
         c3.eachCell(c => {
             let str = c.value
-            consignmentNumbers.push(str.substring(str.length - 4))
+            consignmentNumbers.push(str.replace('MT00-', ''))
         })
 
         c8.eachCell(c => {
@@ -4490,15 +4497,15 @@ app.get('/sale_ozon', async function(req, res){
             headers: {
                 'Host': 'api-seller.ozon.ru',
                 'Client-Id': '144225',
-                'Api-Key': '5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Api-Key': 'c139ba7b-611a-4447-870c-f85d8e4ad9f8',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter':{
-                    'since':'2023-07-14T08:00:00Z',
-                    'to':'2023-08-26T08:00:00Z',
-                    'status':'delivering'
+                    'since':'2023-08-01T00:00:00Z',
+                    'to':'2023-10-25T00:00:00Z',
+                    'status':'cancelled'
                 },
                 'limit':1000,
                 'offset':0
@@ -4537,9 +4544,9 @@ app.get('/sale_ozon', async function(req, res){
 
     orders = await getOrders()
 
-    // orders.forEach(e => {
-    //     console.log(e.orderNumber)
-    // })
+    orders.forEach(e => {
+        console.log(e.orderNumber)
+    })
 
     let equals = []
 
@@ -5012,23 +5019,39 @@ app.get('/yandex', async function(req, res){
 
         // console.log(req.query.cis)
 
-        let convertedString = req.query.cis.replace(req.query.cis.substring(0, 4), '')
+        let convertedString = ''
 
-        convertedString = convertedString.replace(/%27/g, '&apos;')
+        if(req.query.cis.indexOf('{GS}') < 0) {
+            convertedString = req.query.cis.replace(req.query.cis.substring(0, 4), '')
+        }
+
+        if(req.query.cis.indexOf('{GS}') >= 0) {
+            convertedString = req.query.cis
+        }
+
+        convertedString = convertedString.replace(/Spercent3E/g, '')
+
+        convertedString = convertedString.replace(/percent3EGSpercent3C/g, '&bsol;u001d')
+
+        convertedString = convertedString.replace(/percent3CG/g, '&bsol;u001d')
+
+        convertedString = convertedString.replace(/percent27/g, '&apos;')
 
         convertedString = convertedString.replace(/AND/g, '&AMP;')
 
+        convertedString = convertedString.replace(/percent/g, '%')
+
         convertedString = convertedString.replace(/'/g, '&apos;')
 
-        convertedString = convertedString.replace(/</g, '&lt;')
-
-        convertedString = convertedString.replace(/%3EGS%3C/g, '&bsol;u001d')
+        convertedString = convertedString.replace(/</g, '&lt;')        
 
         convertedString = convertedString.replace(/&lt;GS>/g, '&bsol;u001d')
 
+        convertedString = convertedString.replace(/{GS}/g, '&bsol;u001d')
+
         convertedString = convertedString.replace(/ /g, '&plus;')
 
-        console.log(convertedString)
+        // console.log(convertedString)
 
         html += `<div class="convert-form">
                     <h3 class="convert-form__header">Работа с КИЗ для Я.Маркета</h3>

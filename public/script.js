@@ -253,6 +253,8 @@ if(window.location.href.indexOf('yandex') < 0) {
 
                 let href = `/yandex?cis=${input.value.replace(/&/g, 'AND')}`
 
+                href = href.replace(/%/g, 'percent')
+
                 ref.setAttribute('href', href)
 
         })
