@@ -1307,7 +1307,7 @@ app.get('/ozon', async function(req, res){
             headers: {
                 'Host':'api-seller.ozon.ru',
                 'Client-Id':'144225',
-                'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Api-Key':'',
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({
@@ -1541,7 +1541,7 @@ app.get('/ozon_marks_order', async function(req, res){
             headers: {
                 'Host':'api-seller.ozon.ru',
                 'Client-Id':'144225',
-                'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Api-Key':'',
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({
@@ -1581,7 +1581,7 @@ app.get('/ozon_marks_order', async function(req, res){
             headers: {
                 'Host':'api-seller.ozon.ru',
                 'Client-Id':'144225',
-                'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Api-Key':'',
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({
@@ -1870,7 +1870,7 @@ app.get('/ozon_new_marks_order', async function(req, res){
             headers: {
                 'Host':'api-seller.ozon.ru',
                 'Client-Id':'144225',
-                'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Api-Key':'',
                 'Content-Type':'application/json'
             },
             body: JSON.stringify({
@@ -1911,7 +1911,7 @@ app.get('/ozon_new_marks_order', async function(req, res){
     //         headers: {
     //             'Host':'api-seller.ozon.ru',
     //             'Client-Id':'144225',
-    //             'Api-Key':'5d5a7191-2143-4a65-ba3a-b184958af6e8',
+    //             'Api-Key':'',
     //             'Content-Type':'application/json'
     //         },
     //         body: JSON.stringify({
@@ -3346,7 +3346,7 @@ app.get('/sber', async function(req, res){
                 headers: {
                     'Host': 'api-seller.ozon.ru',
                     'Client-Id': '144225',
-                    'Api-Key': '5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                    'Api-Key': '',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -4490,7 +4490,7 @@ app.get('/sale_ozon', async function(req, res){
             headers: {
                 'Host': 'api-seller.ozon.ru',
                 'Client-Id': '144225',
-                'Api-Key': '5d5a7191-2143-4a65-ba3a-b184958af6e8',
+                'Api-Key': '',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
