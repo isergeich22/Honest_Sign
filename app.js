@@ -1312,9 +1312,9 @@ app.get('/ozon', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter': {
-                    'since':'2023-10-01T01:00:00.000Z',
+                    'since':'2024-01-01T01:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-12-31T23:59:59.000Z'
+                    'to':'2024-12-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1327,7 +1327,7 @@ app.get('/ozon', async function(req, res){
         result.result.postings.forEach(e => {
             e.products.forEach(el => {
                 if(new_orders.indexOf(el.name) < 0) {
-                    if(el.name.indexOf('Набор махровых полотенец') >= 0 || el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
+                    if(el.name.indexOf('Пеленка') >= 0 || el.name.indexOf('Набор махровых полотенец') >= 0 || el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
                         new_orders.push(el.name)
                         vendorCodes.push(el.offer_id)
                     }
@@ -1548,9 +1548,9 @@ app.get('/ozon_marks_order', async function(req, res){
             body: JSON.stringify({
                 'dir': 'asc',
                 'filter': {
-                    'since':'2023-10-01T01:00:00.000Z',
+                    'since':'2024-01-01T01:00:00.000Z',
                     'status':'awaiting_packaging',
-                    'to':'2023-12-31T23:59:59.000Z'
+                    'to':'2024-12-31T23:59:59.000Z'
                 },
                 'limit': 1000,
                 'offset':0
@@ -1562,7 +1562,7 @@ app.get('/ozon_marks_order', async function(req, res){
 
         result.result.postings.forEach(e => {
             e.products.forEach(el => {
-                    if(el.name.indexOf('Набор махровых полотенец') >= 0 || el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
+                    if(el.name.indexOf('Пеленка') >= 0 || el.name.indexOf('Набор махровых полотенец') >= 0 || el.name.indexOf('Гобелен') >= 0 || el.name.indexOf('Полотенце') >= 0 || el.name.indexOf('полотенце') >= 0 || el.name.indexOf('Постельное') >= 0 || el.name.indexOf('постельное') >= 0 || el.name.indexOf('Простыня') >= 0 || el.name.indexOf('Пододеяльник') >= 0 || el.name.indexOf('Наволочка') >= 0 || el.name.indexOf('Наматрасник') >= 0) {
                         if(new_orders.indexOf(el.name) < 0) {
                             new_orders.push(el.name)
                             quantity.push(el.quantity)
@@ -2228,7 +2228,7 @@ app.get('/wildberries', async function(req, res){
 
     const _ws = wb.getWorksheet('Сборочные задания')
 
-    const c13 = _ws.getColumn(13)
+    const c13 = _ws.getColumn(14)
 
     c13.eachCell(c => {
         wb_orders.push(c.value)
@@ -2249,7 +2249,7 @@ app.get('/wildberries', async function(req, res){
         names.push(c.value.trim())
     })
 
-    // console.log(wb_orders)    
+    console.log(wb_orders)    
 
     wb_orders.forEach(elem => {
         if(vendors.indexOf(elem) >= 0){
@@ -2718,7 +2718,7 @@ app.get('/wildberries_marks_order', async function(req, res) {
 
     const _ws = wb.getWorksheet('Сборочные задания')
 
-    const c13 = _ws.getColumn(13)
+    const c13 = _ws.getColumn(14)
 
     c13.eachCell(c => {
         wb_orders.push(c.value)
@@ -3238,8 +3238,8 @@ app.get('/sber', async function(req, res){
                 "meta": {},
                 "data": {
                     "token": "A6B4E0AC-DD7F-4CF4-84D5-A772C59F38C4",
-                    "dateFrom" : "2023-10-16T23:59:59Z",
-                    "dateTo" : "2023-12-31T23:59:59Z",
+                    "dateFrom" : "2024-02-01T23:59:59Z",
+                    "dateTo" : "2024-04-01T23:59:59Z",
                     "count": 100,
                     "statuses" : [
                         "CONFIRMED"
